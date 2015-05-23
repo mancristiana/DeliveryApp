@@ -7,6 +7,7 @@ import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
 public class DeliveryApp extends Application {
 
     private Stage 		primaryStage;
-    private BorderPane 	rootLayout;
+    private static BorderPane 	rootLayout;
 
     @Override
     public void start(Stage primaryStage) {
@@ -25,6 +26,7 @@ public class DeliveryApp extends Application {
 
         initRootLayout();
         showLocationOverview();
+     //   showOrderOverview();
     }
 
     /**
@@ -69,6 +71,25 @@ public class DeliveryApp extends Application {
         }
     }
 
+    public void showOrderOverview(ActionEvent event) {
+    	try {
+            // Load order overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DeliveryApp.class.getResource("view/OrderOverview.fxml"));
+            AnchorPane orderOverview = (AnchorPane) loader.load();
+
+            // Set order overview into the center of root layout.
+            rootLayout.setCenter(orderOverview);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public static void show(AnchorPane view) {
+    	rootLayout.setCenter(view);
+    }
     /**
      * Returns the main stage.
      * @return
