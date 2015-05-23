@@ -62,7 +62,7 @@ public class DeliveryApp extends Application {
             // Give the controller access to the main app.
             LocationOverviewController controller = loader.getController();
             ObservableList<Location> locationList = FXCollections.observableArrayList();
-            locationList.add(new Location());
+           // locationList.add(new Location(1,"Iasi",));
             controller.setData(locationList);
         } catch (IOException e) {
             e.printStackTrace();
