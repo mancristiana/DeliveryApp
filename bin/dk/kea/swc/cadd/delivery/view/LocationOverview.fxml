@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.LocationOverviewController">
+   <children>
+      <TableView fx:id="locationTable" layoutX="107.0" layoutY="27.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn minWidth="77.0" text="City name" />
+          <TableColumn minWidth="41.0" text="Price" />
+            <TableColumn minWidth="52.0" text="Edit" />
+            <TableColumn minWidth="52.0" text="Delete" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

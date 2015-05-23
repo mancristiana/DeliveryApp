@@ -2,7 +2,11 @@ package dk.kea.swc.cadd.delivery;
 
 import java.io.IOException;
 
+import dk.kea.swc.cadd.delivery.model.Location;
+import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -20,7 +24,7 @@ public class DeliveryApp extends Application {
         this.primaryStage.setTitle("DeliveryApp");
 
         initRootLayout();
-        showDriverOverview();
+        showLocationOverview();
     }
 
     /**
@@ -45,15 +49,21 @@ public class DeliveryApp extends Application {
     /**
      * Shows the driver overview inside the root layout.
      */
-    public void showDriverOverview() {
+    public void showLocationOverview() {
         try {
-            // Load driver overview.
+            // Load location overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DeliveryApp.class.getResource("view/DriverOverview.fxml"));
-            AnchorPane driverOverview = (AnchorPane) loader.load();
+            loader.setLocation(DeliveryApp.class.getResource("view/LocationOverview.fxml"));
+            AnchorPane locationOverview = (AnchorPane) loader.load();
 
-            // Set driver overview into the center of root layout.
-            rootLayout.setCenter(driverOverview);
+            // Set location overview into the center of root layout.
+            rootLayout.setCenter(locationOverview);
+            
+            // Give the controller access to the main app.
+            LocationOverviewController controller = loader.getController();
+            ObservableList<Location> locationList = FXCollections.observableArrayList();
+            locationList.add(new Location());
+            controller.setData(locationList);
         } catch (IOException e) {
             e.printStackTrace();
         }
