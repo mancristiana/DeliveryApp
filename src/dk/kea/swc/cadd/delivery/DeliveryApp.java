@@ -2,11 +2,9 @@ package dk.kea.swc.cadd.delivery;
 
 import java.io.IOException;
 
-import dk.kea.swc.cadd.delivery.model.Location;
+import dk.kea.swc.cadd.delivery.db.LocationDAO;
 import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -47,7 +45,7 @@ public class DeliveryApp extends Application {
     }
 
     /**
-     * Shows the driver overview inside the root layout.
+     * Shows the location overview inside the root layout.
      */
     public void showLocationOverview() {
         try {
@@ -58,12 +56,6 @@ public class DeliveryApp extends Application {
 
             // Set location overview into the center of root layout.
             rootLayout.setCenter(locationOverview);
-            
-            // Give the controller access to the main app.
-            LocationOverviewController controller = loader.getController();
-            ObservableList<Location> locationList = FXCollections.observableArrayList();
-           // locationList.add(new Location(1,"Iasi",));
-            controller.setData(locationList);
         } catch (IOException e) {
             e.printStackTrace();
         }

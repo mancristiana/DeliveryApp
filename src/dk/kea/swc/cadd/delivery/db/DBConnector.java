@@ -13,16 +13,15 @@ public class DBConnector {
     private static final String PORT = "3306";
     
     public static Connection getConnection() {
-        Connection c = null;
+        Connection con = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String urlForConn = URL + ":" + PORT + "/" + DB;
-            c = DriverManager.getConnection(urlForConn, USER, PASS);
+            con = DriverManager.getConnection(urlForConn, USER, PASS);
         } catch (ClassNotFoundException | SQLException e) {
         	e.printStackTrace();
-            System.out.println("[ERR] " + e.getMessage());
         }
-        return c;
+        return con;
     }
     
 }
