@@ -9,10 +9,10 @@
    <children>
       <TableView fx:id="locationTable" layoutX="107.0" layoutY="27.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-          <TableColumn fx:id="cityNameColumn" minWidth="77.0" text="City name" />
-          <TableColumn fx:id="priceColumn" minWidth="41.0" text="Price" />
-            <TableColumn fx:id="editColumn" minWidth="52.0" text="Edit" />
-            <TableColumn fx:id="deleteColumn" minWidth="52.0" text="Delete" />
+          <TableColumn fx:id="cityNameColumn" text="City name" />
+          <TableColumn fx:id="priceColumn" text="Price" />
+            <TableColumn fx:id="editColumn"  text="Edit" />
+            <TableColumn fx:id="deleteColumn" text="Delete" />
         </columns>
       </TableView>
    </children>

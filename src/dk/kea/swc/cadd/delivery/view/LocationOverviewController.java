@@ -1,7 +1,6 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,6 +9,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.LocationDAO;
 import dk.kea.swc.cadd.delivery.model.Location;
 
@@ -28,6 +28,8 @@ public class LocationOverviewController {
 
 	// Data access object for the database
 	private LocationDAO locationDAO;
+	
+	private MainApp mainApp;
 
 	/**
 	 * The constructor.
@@ -54,15 +56,14 @@ public class LocationOverviewController {
 		deleteColumn	.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.20));
 		
 		// Initialize the table with the four columns.
-		cityNameColumn	.setCellValueFactory(cellData -> cellData.getValue().getCityName());
-		priceColumn		.setCellValueFactory(cellData -> cellData.getValue().getPrice().asObject());
+		cityNameColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
+		priceColumn		.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
 		editColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 	        
 		// Create a cell value factory with buttons for each row in the table.
-		editColumn	.setCellFactory( personBooleanTableColumn -> new AddEditCell());
-		deleteColumn.setCellFactory( personBooleanTableColumn -> new AddDeleteCell());
-	       
+		editColumn	.setCellFactory( locationBooleanTableColumn -> new AddEditCell());
+		deleteColumn.setCellFactory( locationBooleanTableColumn -> new AddDeleteCell());    
 	}
 	
 	/** A table cell containing a button for editing a location. */
@@ -72,7 +73,7 @@ public class LocationOverviewController {
       AddEditCell() {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
-//        	  table.getSelectionModel().select(getTableRow().getIndex());
+        	  mainApp.showLocationEditDialog(locationTable.getItems().get(getTableRow().getIndex()));
           }
         });
       }
@@ -98,6 +99,7 @@ public class LocationOverviewController {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  locationTable.getItems().remove(getTableRow().getIndex());
+        	  //TODO delete from db
           }
         });
       }
@@ -114,15 +116,9 @@ public class LocationOverviewController {
       }
       
     }
-
-    /**
-     * Is called by the main application to give the data for the table
-     * 
-     * @param mainApp
-     */
-	public void setTableData(ObservableList<Location> locations) {
-        // Add observable list data to the table
-		locationTable.setItems(locations);
+	
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
 	}
 
 }

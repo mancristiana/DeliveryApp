@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.DeliveryApp">
+<BorderPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.MainApp">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -17,7 +17,7 @@
                <MenuItem mnemonicParsing="false" text="Drivers" />
             </items>
           </Menu>
-          <Menu fx:id="orderOverviewButton" mnemonicParsing="false" onAction="#showOrderOverview" text="Order Overview">
+          <Menu mnemonicParsing="false" text="Order Overview">
                <items>
                   <RadioMenuItem mnemonicParsing="false" onAction="#showOrderOverview" text="Unspecified Action" />
                </items>

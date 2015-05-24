@@ -4,16 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import dk.kea.swc.cadd.delivery.model.Location;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -34,15 +26,15 @@ public class LocationDAO {
 
             ResultSet rs = stmt.getResultSet();
             while(rs.next()) {
-            	IntegerProperty locationID 	= new SimpleIntegerProperty(rs.getInt("location_id"));
-            	StringProperty cityName 	= new SimpleStringProperty(rs.getString("cityname"));
-            	DoubleProperty price 		= new SimpleDoubleProperty(rs.getDouble("price"));
-            	StringProperty latitude 	= new SimpleStringProperty(rs.getString("latitude"));
-            	StringProperty longitude 	= new SimpleStringProperty(rs.getString("longitude"));
+            	Integer locationID 	= rs.getInt("location_id");
+            	String cityName 	= rs.getString("cityname");
+            	Double price 		= rs.getDouble("price");
+            	String latitude 	= rs.getString("latitude");
+            	String longitude 	= rs.getString("longitude");
             	list.add(new Location(locationID,cityName,price,latitude,longitude));
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ConnectToMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return list;
     }
