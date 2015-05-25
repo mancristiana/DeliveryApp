@@ -103,7 +103,7 @@ public class MainApp extends Application {
             // Load order overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/OrderOverview.fxml"));
-            AnchorPane orderOverview = (AnchorPane) loader.load();
+            BorderPane orderOverview = (BorderPane) loader.load();
 
             // Set order overview into the center of root layout.
             rootLayout.setCenter(orderOverview);
@@ -113,10 +113,7 @@ public class MainApp extends Application {
         }
     }
 
-    public static void show(AnchorPane view) {
-    	rootLayout.setCenter(view);
-    }
-    
+ 
     
     /**
      * Returns the main stage.
