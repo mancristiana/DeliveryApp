@@ -28,13 +28,7 @@ public class OrderCreateController {
     @FXML
     private void initialize() {
     	locationDAO = new LocationDAO();
-    	ObservableList<String> list = locationDAO.getLocationNames();
-    	System.out.println(list);
-    	cityNameField = new ChoiceBox<String>();  
-    //	cityNameField.getItems().addAll(list);
-    	cityNameField.setItems(list);
-    	cityNameField.getItems().add("asd");
-    	quantityField = new TextField();
+    	cityNameField.setItems(locationDAO.getLocationNames());
     }
 
     /**
