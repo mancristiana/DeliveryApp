@@ -32,7 +32,7 @@
          <children>
             <Label text="(c) teamrocket">
                <HBox.margin>
-                  <Insets top="5.0" />
+                  <Insets />
                </HBox.margin>
             </Label>
          </children>

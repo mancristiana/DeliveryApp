@@ -29,8 +29,8 @@ public class LocationDAO {
             	Integer locationID 	= rs.getInt("location_id");
             	String cityName 	= rs.getString("cityname");
             	Double price 		= rs.getDouble("price");
-            	String latitude 	= rs.getString("latitude");
-            	String longitude 	= rs.getString("longitude");
+            	Double latitude 	= rs.getDouble("latitude");
+            	Double longitude 	= rs.getDouble("longitude");
             	list.add(new Location(locationID,cityName,price,latitude,longitude));
             }
         } catch (SQLException e) {
@@ -51,8 +51,8 @@ public class LocationDAO {
             	Integer locationID 	= rs.getInt("location_id");
             	String cityName 	= rs.getString("cityname");
             	Double price 		= rs.getDouble("price");
-            	String latitude 	= rs.getString("latitude");
-            	String longitude 	= rs.getString("longitude");
+            	Double latitude 	= rs.getDouble("latitude");
+            	Double longitude 	= rs.getDouble("longitude");
             	return new Location(locationID,cityName,price,latitude,longitude);
             }
         } catch (SQLException e) {
