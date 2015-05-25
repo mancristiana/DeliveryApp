@@ -5,12 +5,12 @@ import java.io.IOException;
 import dk.kea.swc.cadd.delivery.model.Location;
 import dk.kea.swc.cadd.delivery.view.LocationEditDialogController;
 import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
+import dk.kea.swc.cadd.delivery.view.OrderOverviewController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -109,6 +109,9 @@ public class MainApp extends Application {
             // Set order overview into the center of root layout.
             rootLayout.setCenter(orderOverview);
             
+            // Give the controller access to the main app.
+            OrderOverviewController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }

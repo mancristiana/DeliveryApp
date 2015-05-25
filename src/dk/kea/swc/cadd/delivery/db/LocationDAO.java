@@ -38,5 +38,27 @@ public class LocationDAO {
         }
         return list;
     }
+	
+	public Location getLocationByID(Integer id) {
+        try {
+            String sql = "SELECT * FROM location WHERE id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeQuery();
+
+            ResultSet rs = stmt.getResultSet();
+            while(rs.next()) {
+            	Integer locationID 	= rs.getInt("location_id");
+            	String cityName 	= rs.getString("cityname");
+            	Double price 		= rs.getDouble("price");
+            	String latitude 	= rs.getString("latitude");
+            	String longitude 	= rs.getString("longitude");
+            	return new Location(locationID,cityName,price,latitude,longitude);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     
 }
