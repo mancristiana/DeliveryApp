@@ -8,6 +8,7 @@ import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -55,7 +56,7 @@ public class MainApp extends Application {
             // Load location overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/LocationOverview.fxml"));
-            AnchorPane locationOverview = (AnchorPane) loader.load();
+            Node locationOverview = loader.load();
 
             // Set location overview into the center of root layout.
             rootLayout.setCenter(locationOverview);
@@ -103,7 +104,7 @@ public class MainApp extends Application {
             // Load order overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/OrderOverview.fxml"));
-            BorderPane orderOverview = (BorderPane) loader.load();
+            Node orderOverview = loader.load();
 
             // Set order overview into the center of root layout.
             rootLayout.setCenter(orderOverview);

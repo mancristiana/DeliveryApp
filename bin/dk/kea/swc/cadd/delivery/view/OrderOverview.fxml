@@ -17,6 +17,9 @@
             <TableColumn maxWidth="295.0" minWidth="50.0" prefWidth="55.0" text="Edit" />
             <TableColumn maxWidth="321.0" minWidth="50.0" prefWidth="60.0" text="Delete" />
          </columns>
+         <BorderPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </BorderPane.margin>
       </TableView>
    </center>
    <top>
