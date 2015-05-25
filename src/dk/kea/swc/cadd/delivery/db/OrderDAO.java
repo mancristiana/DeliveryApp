@@ -28,11 +28,11 @@ public class OrderDAO {
             while(rs.next()) {
             	Integer orderID 	= rs.getInt("order_id");
             	Integer storageID 	= rs.getInt("storage_id");
-            	Integer locationID 	= rs.getInt("location_id");
+            	String cityname 	= rs.getString("cityname");
             	Integer routeID 	= rs.getInt("route_id");
             	Double quantity 	= rs.getDouble("quantity");
 
-            	list.add(new Order(orderID, storageID, locationID, routeID, quantity));
+            	list.add(new Order(orderID, storageID, cityname, routeID, quantity));
             }
         } catch (SQLException e) {
             e.printStackTrace();

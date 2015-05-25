@@ -18,12 +18,19 @@
                <MenuItem mnemonicParsing="false" text="Drivers" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Order Overview">
+          <Menu mnemonicParsing="false" text="Orders">
                <items>
-                  <RadioMenuItem mnemonicParsing="false" onAction="#showOrderOverview" text="Unspecified Action" />
+                  <MenuItem mnemonicParsing="false" onAction="#showOrderCreate" text="New..." />
+                  <MenuItem mnemonicParsing="false" onAction="#showOrderOverview" text="Pending orders" />
+                  <MenuItem mnemonicParsing="false" text="Archive" />
                </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Generate route" />
+          <Menu mnemonicParsing="false" text="Routes">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Generate new..." />
+                  <MenuItem mnemonicParsing="false" text="Current" />
+                  <MenuItem mnemonicParsing="false" text="Finished" />
+               </items></Menu>
         </menus>
       </MenuBar>
    </top>

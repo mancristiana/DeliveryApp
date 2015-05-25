@@ -16,22 +16,15 @@ import dk.kea.swc.cadd.delivery.model.Order;
 
 public class OrderOverviewController {
 	
-	@FXML
-	private TableView<Order> orderTable;
-	@FXML
-	private TableColumn<Order, Integer> orderIDColumn;
-	@FXML
-	private TableColumn<Order, Integer> locationIDColumn;
-	@FXML
-	private TableColumn<Order, Double> quantityColumn;
-	@FXML
-	private TableColumn<Order, Boolean> editColumn;
-	@FXML
-	private TableColumn<Order, Boolean> deleteColumn;
+	@FXML private TableView<Order> orderTable;
+	@FXML private TableColumn<Order, Integer> orderIDColumn;
+	@FXML private TableColumn<Order, String> cityNameColumn;
+	@FXML private TableColumn<Order, Double> quantityColumn;
+	@FXML private TableColumn<Order, Boolean> editColumn;
+	@FXML private TableColumn<Order, Boolean> deleteColumn;
 
 	// Data access object for the database
 	private OrderDAO orderDAO;
-	private LocationDAO locationDAO;
 	
 	private MainApp mainApp;
 
@@ -52,19 +45,17 @@ public class OrderOverviewController {
 		// Give the controller data to fill the table view.
 		orderDAO = new OrderDAO();
 		orderTable.setItems(orderDAO.getOrders());
-		
-		locationDAO = new LocationDAO();
 			
 		//Resize the columns (with percentages) when the window is enlarged
 		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.05));
-		locationIDColumn.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.35));
+		cityNameColumn.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.35));
 		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
 		editColumn		.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
 		deleteColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
 		
 		// Initialize the table with the four columns.
 		orderIDColumn	.setCellValueFactory(cellData -> cellData.getValue().orderIDProperty().asObject());
-		locationIDColumn.setCellValueFactory(cellData -> cellData.getValue().locationIDProperty().asObject());
+		cityNameColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
 		quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 		editColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));

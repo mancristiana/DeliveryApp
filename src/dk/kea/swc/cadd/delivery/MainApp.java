@@ -109,7 +109,7 @@ public class MainApp extends Application {
         }
     }
     
-    public void showOrderOverview(ActionEvent event) {
+    public void showOrderOverview() {
     	try {
             // Load order overview.
             FXMLLoader loader = new FXMLLoader();
@@ -127,7 +127,23 @@ public class MainApp extends Application {
         }
     }
 
- 
+    public void showOrderCreate() {
+    	try {
+            // Load order overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/OrderCreate.fxml"));
+            Node orderCreate = loader.load();
+
+            // Set order overview into the center of root layout.
+            rootLayout.setCenter(orderCreate);
+            
+            // Give the controller access to the main app.
+//            OrderCreateController controller = loader.getController();
+//            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     /**
      * Returns the main stage.

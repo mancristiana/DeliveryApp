@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Location {
-	private IntegerProperty locationID;
 	private StringProperty 	cityName;
 	private DoubleProperty 	price;
 	private DoubleProperty 	latitude;
@@ -27,19 +26,14 @@ public class Location {
      * @param latitude
      * @param longitude
      */
-	public Location(Integer locationID, String cityName, Double price,Double latitude, Double longitude) {
-		this.locationID = new SimpleIntegerProperty(locationID);
+	public Location(String cityName, Double price,Double latitude, Double longitude) {
 		this.cityName 	= new SimpleStringProperty(cityName);
 		this.price 		= new SimpleDoubleProperty(price);
 		this.latitude 	= new SimpleDoubleProperty(latitude);
 		this.longitude 	= new SimpleDoubleProperty(longitude);
 	}
     
-	//Setters
-	public void setLocationID(Integer locationID) {
-		this.locationID.set(locationID);
-	}
-	
+	//Setters	
 	public void setCityName(String cityName) {
 		this.cityName.set(cityName);
 	}
@@ -57,10 +51,6 @@ public class Location {
 	}
 
 	//Getters
-	public Integer getLocationID() {
-		return locationID.get();
-	}
-	
 	public String getCityName() {
 		return cityName.get();
 	}
@@ -78,10 +68,6 @@ public class Location {
 	}
 	
 	//Getters for Property
-	public IntegerProperty locationIDProperty() {
-		return locationID;
-	}
-	
 	public StringProperty cityNameProperty() {
 		return cityName;
 	}
