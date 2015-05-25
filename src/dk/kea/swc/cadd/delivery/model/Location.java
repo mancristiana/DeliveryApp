@@ -11,8 +11,8 @@ public class Location {
 	private IntegerProperty locationID;
 	private StringProperty 	cityName;
 	private DoubleProperty 	price;
-	private StringProperty 	latitude;
-	private StringProperty 	longitude;
+	private DoubleProperty 	latitude;
+	private DoubleProperty 	longitude;
 	
 	public Location() {
 		
@@ -27,12 +27,12 @@ public class Location {
      * @param latitude
      * @param longitude
      */
-	public Location(Integer locationID, String cityName, Double price,String latitude, String longitude) {
+	public Location(Integer locationID, String cityName, Double price,Double latitude, Double longitude) {
 		this.locationID = new SimpleIntegerProperty(locationID);
 		this.cityName 	= new SimpleStringProperty(cityName);
 		this.price 		= new SimpleDoubleProperty(price);
-		this.latitude 	= new SimpleStringProperty(latitude);
-		this.longitude 	= new SimpleStringProperty(longitude);
+		this.latitude 	= new SimpleDoubleProperty(latitude);
+		this.longitude 	= new SimpleDoubleProperty(longitude);
 	}
     
 	//Setters
@@ -48,11 +48,11 @@ public class Location {
 		this.price.set(price);
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude.set(latitude);
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude.set(longitude);
 	}
 
@@ -69,11 +69,11 @@ public class Location {
 		return price.get();
 	}
 
-	public String getLatitude() {
+	public Double getLatitude() {
 		return latitude.get();
 	}
 
-	public String getLongitude() {
+	public Double getLongitude() {
 		return longitude.get();
 	}
 	
@@ -90,11 +90,11 @@ public class Location {
 		return price;
 	}
 
-	public StringProperty latitudeProperty() {
+	public DoubleProperty latitudeProperty() {
 		return latitude;
 	}
 
-	public StringProperty longitudeProperty() {
+	public DoubleProperty longitudeProperty() {
 		return longitude;
 	}
 	

@@ -50,10 +50,10 @@ public class LocationOverviewController {
 		locationTable.setItems(locationDAO.getLocations());
 			
 		//Resize the columns (with percentages) when the window is enlarged
-		cityNameColumn	.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.39666666));
-		priceColumn		.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.20));
-		editColumn		.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.20));
-		deleteColumn	.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.20));
+		cityNameColumn	.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.396));
+		priceColumn		.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.30));
+		editColumn		.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.15));
+		deleteColumn	.prefWidthProperty().bind(locationTable.widthProperty().multiply(0.15));
 		
 		// Initialize the table with the four columns.
 		cityNameColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());

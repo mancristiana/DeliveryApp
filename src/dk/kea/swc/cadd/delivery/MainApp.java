@@ -6,6 +6,7 @@ import dk.kea.swc.cadd.delivery.model.Location;
 import dk.kea.swc.cadd.delivery.view.LocationEditDialogController;
 import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
 import javafx.application.Application;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -39,6 +40,10 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
+            // Setting the minimum width and height
+            primaryStage.setMinWidth(rootLayout.getMinWidth()+17.25);
+            primaryStage.setMinHeight(rootLayout.getMinHeight()+46.25);
+            
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -84,9 +89,14 @@ public class MainApp extends Application {
             dialogStage.setTitle("Edit Location");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
+            
+            // Setting the minimum width and height
+            dialogStage.setMinWidth(page.getMinWidth()+17.25);
+            dialogStage.setMinHeight(page.getMinHeight()+46.25);
+            
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-
+            
             // Set the location into the controller.
             LocationEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
