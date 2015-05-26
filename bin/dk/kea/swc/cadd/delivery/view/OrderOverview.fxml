@@ -14,7 +14,7 @@
          <columns>
             <TableColumn fx:id="orderIDColumn" maxWidth="200.0" minWidth="28.0" prefWidth="28.0" text="ID" />
             <TableColumn fx:id="cityNameColumn" maxWidth="200.0" minWidth="39.0" prefWidth="118.0" text="Location" />
-            <TableColumn fx:id="quantityColumn" maxWidth="361.0" minWidth="110.0" prefWidth="122.0" text="Quantity Required" />
+            <TableColumn fx:id="quantityColumn" maxWidth="361.0" minWidth="110.0" prefWidth="122.0" text="Requested quntity (tons)" />
             <TableColumn fx:id="editColumn" maxWidth="295.0" minWidth="50.0" prefWidth="55.0" text="Edit" />
             <TableColumn fx:id="deleteColumn" maxWidth="321.0" minWidth="50.0" prefWidth="60.0" text="Delete" />
          </columns>
