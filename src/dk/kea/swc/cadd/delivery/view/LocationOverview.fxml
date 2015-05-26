@@ -11,7 +11,7 @@
       <TableView fx:id="locationTable" prefHeight="250.0" prefWidth="600.0">
          <columns>
             <TableColumn fx:id="cityNameColumn" text="City name" />
-            <TableColumn fx:id="priceColumn" text="Price" />
+            <TableColumn fx:id="priceColumn" text="Price (RON/ton)" />
             <TableColumn fx:id="editColumn" text="Edit" />
             <TableColumn fx:id="deleteColumn" text="Delete" />
          </columns>

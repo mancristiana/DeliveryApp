@@ -9,18 +9,19 @@ import javafx.beans.property.StringProperty;
 
 public class Order {
 	private IntegerProperty orderID;
-	private IntegerProperty storageID;
 	private StringProperty 	cityName;
 	private IntegerProperty routeID;
 	private DoubleProperty quantity;
 	
 	public Order() {
-
+		this.orderID 	= new SimpleIntegerProperty();
+		this.cityName 	= new SimpleStringProperty();
+		this.routeID 	= new SimpleIntegerProperty();
+		this.quantity 	= new SimpleDoubleProperty();
 	}
 	
-	public Order(Integer orderID, Integer storageID, String cityName, Integer routeID, Double quantity) {
+	public Order(Integer orderID, String cityName, Integer routeID, Double quantity) {
 		this.orderID 	= new SimpleIntegerProperty(orderID);
-		this.storageID 	= new SimpleIntegerProperty(storageID);
 		this.cityName 	= new SimpleStringProperty(cityName);
 		this.routeID 	= new SimpleIntegerProperty(routeID);
 		this.quantity 	= new SimpleDoubleProperty(quantity);
@@ -30,11 +31,7 @@ public class Order {
 	public void setOrderID(Integer orderID) {
 		this.orderID.set(orderID);
 	}
-	
-	public void setStorageID(Integer storageID) {
-		this.storageID.set(storageID);
-	}
-	
+		
 	public void setCityName(String cityName) {
 		this.cityName.set(cityName);
 	}
@@ -56,10 +53,6 @@ public class Order {
 		return cityName.get();
 	}
 	
-	public Integer getStorageID() {
-		return storageID.get();
-	}
-	
 	public Integer getRouteID() {
 		return routeID.get();
 	}
@@ -72,10 +65,7 @@ public class Order {
 	public IntegerProperty orderIDProperty() {
 		return orderID;
 	}
-	public IntegerProperty storageIDProperty() {
-		return storageID;
-	}
-
+	
 	public StringProperty cityNameProperty() {
 		return cityName;
 	}
@@ -88,6 +78,9 @@ public class Order {
 		return quantity;
 	}
 
-	
+	@Override
+	public String toString() {
+		return cityName + " " + orderID + " " + quantity + " tones";
+	}
 
 }

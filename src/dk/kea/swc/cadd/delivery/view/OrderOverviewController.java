@@ -48,10 +48,10 @@ public class OrderOverviewController {
 			
 		//Resize the columns (with percentages) when the window is enlarged
 		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.05));
-		cityNameColumn.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.35));
-		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
-		editColumn		.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
-		deleteColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
+		cityNameColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.35));
+		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.40));
+		editColumn		.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.10));
+		deleteColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.10));
 		
 		// Initialize the table with the four columns.
 		orderIDColumn	.setCellValueFactory(cellData -> cellData.getValue().orderIDProperty().asObject());
@@ -72,7 +72,7 @@ public class OrderOverviewController {
       AddEditCell() {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
-        	//  mainApp.showLocationEditDialog(orderTable.getItems().get(getTableRow().getIndex()));
+        	//  mainApp.showOrderEditDialog(orderTable.getItems().get(getTableRow().getIndex()));
           }
         });
       }
@@ -97,8 +97,9 @@ public class OrderOverviewController {
       AddDeleteCell() {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
-        	  orderTable.getItems().remove(getTableRow().getIndex());
-        	  //TODO delete from db
+        	  int selectedIndex = getTableRow().getIndex();
+        	  orderDAO.removeOrder(orderTable.getItems().get(selectedIndex));
+        	  orderTable.getItems().remove(selectedIndex);
           }
         });
       }

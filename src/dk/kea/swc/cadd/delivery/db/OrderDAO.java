@@ -18,7 +18,7 @@ public class OrderDAO {
 	}
 	
 	public ObservableList<Order> getOrders() {
-		ObservableList<Order> list = FXCollections.observableArrayList();;
+		ObservableList<Order> list = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM `order` WHERE 1";
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -27,17 +27,42 @@ public class OrderDAO {
             ResultSet rs = stmt.getResultSet();
             while(rs.next()) {
             	Integer orderID 	= rs.getInt("order_id");
-            	Integer storageID 	= rs.getInt("storage_id");
             	String cityname 	= rs.getString("cityname");
             	Integer routeID 	= rs.getInt("route_id");
             	Double quantity 	= rs.getDouble("quantity");
 
-            	list.add(new Order(orderID, storageID, cityname, routeID, quantity));
+            	list.add(new Order(orderID, cityname, routeID, quantity));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
+    }
+	
+	public String createOrder(Order order) {
+        try {
+            String sql 	= "INSERT INTO `cadd`.`order` (`cityname`, `route_id`, `quantity`) "
+            			+ "VALUES (?, NULL, ?);";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, order.getCityName());
+            stmt.setDouble(2, order.getQuantity());
+            stmt.execute();
+            return null;
+        } catch (SQLException e) {
+            return e.getErrorCode() + " " + e.getMessage();
+        }
+    }
+	
+	public String removeOrder(Order order) {
+        try {
+            String sql 	= "DELETE FROM `cadd`.`order` WHERE `order`.`order_id` = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, order.getOrderID());
+            stmt.execute();
+            return null;
+        } catch (SQLException e) {
+            return e.getErrorCode() + " " + e.getMessage();
+        }
     }
     
 }
