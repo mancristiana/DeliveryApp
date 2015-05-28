@@ -6,29 +6,26 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Location {
+	
 	private StringProperty 	cityName;
+	private StringProperty 	storageName;
 	private DoubleProperty 	price;
-	private DoubleProperty 	latitude;
-	private DoubleProperty 	longitude;
 	
 	public Location() {
 		
 	}
 	
 	/**
-     * Constructor with complete data.
+     * Constructor with all the data.
      * 
-     * @param locationID
      * @param cityName
+     * @param storageName
      * @param price
-     * @param latitude
-     * @param longitude
      */
-	public Location(String cityName, Double price,Double latitude, Double longitude) {
-		this.cityName 	= new SimpleStringProperty(cityName);
-		this.price 		= new SimpleDoubleProperty(price);
-		this.latitude 	= new SimpleDoubleProperty(latitude);
-		this.longitude 	= new SimpleDoubleProperty(longitude);
+	public Location(String cityName,String storageName, Double price) {
+		this.cityName 		= new SimpleStringProperty(cityName);
+		this.storageName 	= new SimpleStringProperty(storageName);
+		this.price 			= new SimpleDoubleProperty(price);
 	}
     
 	//Setters	
@@ -36,16 +33,12 @@ public class Location {
 		this.cityName.set(cityName);
 	}
 
+	public void setStorageName(String storageName) {
+		this.storageName.set(storageName);
+	}
+	
 	public void setPrice(Double price) {
 		this.price.set(price);
-	}
-
-	public void setLatitude(Double latitude) {
-		this.latitude.set(latitude);
-	}
-
-	public void setLongitude(Double longitude) {
-		this.longitude.set(longitude);
 	}
 
 	//Getters
@@ -53,33 +46,25 @@ public class Location {
 		return cityName.get();
 	}
 
+	public String getStorageName() {
+		return storageName.get();
+	}
+	
 	public Double getPrice() {
 		return price.get();
-	}
-
-	public Double getLatitude() {
-		return latitude.get();
-	}
-
-	public Double getLongitude() {
-		return longitude.get();
 	}
 	
 	//Getters for Property
 	public StringProperty cityNameProperty() {
 		return cityName;
 	}
-
+	
+	public StringProperty storageNameProperty() {
+		return storageName;
+	}
+	
 	public DoubleProperty priceProperty() {
 		return price;
-	}
-
-	public DoubleProperty latitudeProperty() {
-		return latitude;
-	}
-
-	public DoubleProperty longitudeProperty() {
-		return longitude;
 	}
 	
 }

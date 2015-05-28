@@ -42,6 +42,7 @@ public class LocationEditDialogController {
         this.location = location;
 
         cityNameField.setText(location.getCityName());
+        cityNameField.setEditable(false);
         priceField.setText(location.getPrice().toString());
     }
 
@@ -52,7 +53,6 @@ public class LocationEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            location.setCityName(cityNameField.getText());
             location.setPrice(Double.parseDouble(priceField.getText()));
             
             //TODO edit in the database

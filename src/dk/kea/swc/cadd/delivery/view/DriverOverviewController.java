@@ -20,7 +20,7 @@ import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.LocationDAO;
 import dk.kea.swc.cadd.delivery.model.Location;
 
-public class LocationOverviewController {
+public class DriverOverviewController {
 	
 	@FXML private TableView<Location> 				locationTable;
 	@FXML private TableColumn<Location, String> 	cityNameColumn;
@@ -38,7 +38,7 @@ public class LocationOverviewController {
 	 * The constructor.
 	 * The constructor is called before the initialize() method.
 	 */
-	public LocationOverviewController() {
+	public DriverOverviewController() {
 		
 	}
 

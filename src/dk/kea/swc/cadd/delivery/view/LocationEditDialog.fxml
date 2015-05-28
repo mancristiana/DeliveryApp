@@ -20,7 +20,7 @@
          </rowConstraints>
          <children>
             <Label text="City name" />
-            <TextField fx:id="cityNameField" GridPane.columnIndex="1" />
+            <TextField fx:id="cityNameField" editable="false" GridPane.columnIndex="1" />
             <Label text="Price" GridPane.rowIndex="1" />
             <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>

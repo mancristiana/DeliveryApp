@@ -27,10 +27,9 @@ public class LocationDAO {
             ResultSet rs = stmt.getResultSet();
             while(rs.next()) {
             	String cityName 	= rs.getString("cityname");
+            	String storageName 	= rs.getString("storageName");
             	Double price 		= rs.getDouble("price");
-            	Double latitude 	= rs.getDouble("latitude");
-            	Double longitude 	= rs.getDouble("longitude");
-            	list.add(new Location(cityName,price,latitude,longitude));
+            	list.add(new Location(cityName,storageName,price));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,10 +46,9 @@ public class LocationDAO {
             ResultSet rs = stmt.getResultSet();
             while(rs.next()) {
             	String cityName 	= rs.getString("cityname");
+            	String storageName 	= rs.getString("storageName");
             	Double price 		= rs.getDouble("price");
-            	Double latitude 	= rs.getDouble("latitude");
-            	Double longitude 	= rs.getDouble("longitude");
-            	return new Location(cityName,price,latitude,longitude);
+            	return new Location(cityName,storageName,price);
             }
         } catch (SQLException e) {
             e.printStackTrace();

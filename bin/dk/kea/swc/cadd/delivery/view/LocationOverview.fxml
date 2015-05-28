@@ -11,9 +11,9 @@
       <TableView fx:id="locationTable" prefHeight="250.0" prefWidth="600.0">
          <columns>
             <TableColumn fx:id="cityNameColumn" text="City name" />
+            <TableColumn fx:id="storageNameColumn" text="Storage name" />
             <TableColumn fx:id="priceColumn" text="Price (RON/ton)" />
             <TableColumn fx:id="editColumn" text="Edit" />
-            <TableColumn fx:id="deleteColumn" text="Delete" />
          </columns>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />
@@ -21,37 +21,17 @@
       </TableView>
    </center>
    <top>
-      <GridPane BorderPane.alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <HBox BorderPane.alignment="CENTER">
          <children>
-            <HBox>
-               <children>
-                  <Label text="Locations">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="5.0" left="10.0" top="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="322.0" GridPane.columnIndex="1">
-               <children>
-                  <Button mnemonicParsing="false" text="Add">
-                     <HBox.margin>
-                        <Insets bottom="5.0" right="10.0" top="5.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
+            <Label text="Locations">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="10.0" top="5.0" />
+               </HBox.margin>
+            </Label>
          </children>
-      </GridPane>
+      </HBox>
    </top>
 </BorderPane>
