@@ -22,7 +22,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#showOrderCreate" text="New..." />
                   <MenuItem mnemonicParsing="false" onAction="#showOrderOverview" text="Pending orders" />
-                  <MenuItem mnemonicParsing="false" text="Archive" />
+                  <MenuItem mnemonicParsing="false" onAction="#showOrderArchive" text="Archive" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Routes">

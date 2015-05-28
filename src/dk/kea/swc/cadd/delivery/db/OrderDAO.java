@@ -17,10 +17,13 @@ public class OrderDAO {
 		con = DBConnector.getConnection();
 	}
 	
-	public ObservableList<Order> getOrders() {
+	public ObservableList<Order> getOrders(boolean hasRoute) {
 		ObservableList<Order> list = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM `order` WHERE 1";
+            String sql = "SELECT * FROM `order` ";
+            if(hasRoute)
+            	sql += "WHERE route_id > 0";
+            else sql += "WHERE route_id = 0";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.executeQuery();
 
@@ -42,7 +45,7 @@ public class OrderDAO {
 	public String createOrder(Order order) {
         try {
             String sql 	= "INSERT INTO `cadd`.`order` (`cityname`, `route_id`, `quantity`) "
-            			+ "VALUES (?, NULL, ?);";
+            			+ "VALUES (?, 0, ?);";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, order.getCityName());
             stmt.setDouble(2, order.getQuantity());
@@ -58,6 +61,25 @@ public class OrderDAO {
             String sql 	= "DELETE FROM `cadd`.`order` WHERE `order`.`order_id` = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, order.getOrderID());
+            stmt.execute();
+            return null;
+        } catch (SQLException e) {
+            return e.getErrorCode() + " " + e.getMessage();
+        }
+    }
+	
+	public String updateOrder(Order order) {
+        try {
+            String sql 	= "UPDATE  `cadd`.`order` "
+            			+ "SET  `cityname` =  ?,"
+            			+ "`route_id` =  ?,"
+            			+ "`quantity` =  ? "
+            			+ "WHERE  `order`.`order_id` =?;";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, order.getCityName());
+            stmt.setInt(2, order.getRouteID());
+            stmt.setDouble(3, order.getQuantity());
+            stmt.setInt(4, order.getOrderID());
             stmt.execute();
             return null;
         } catch (SQLException e) {

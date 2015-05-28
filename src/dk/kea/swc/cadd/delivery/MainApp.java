@@ -3,12 +3,13 @@ package dk.kea.swc.cadd.delivery;
 import java.io.IOException;
 
 import dk.kea.swc.cadd.delivery.model.Location;
+import dk.kea.swc.cadd.delivery.model.Order;
 import dk.kea.swc.cadd.delivery.view.LocationEditDialogController;
 import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
+import dk.kea.swc.cadd.delivery.view.OrderArchiveController;
+import dk.kea.swc.cadd.delivery.view.OrderEditDialogController;
 import dk.kea.swc.cadd.delivery.view.OrderOverviewController;
 import javafx.application.Application;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -122,6 +123,56 @@ public class MainApp extends Application {
             // Give the controller access to the main app.
             OrderOverviewController controller = loader.getController();
             controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showOrderArchive() {
+    	try {
+            // Load order overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/OrderArchive.fxml"));
+            Node orderArchive = loader.load();
+
+            // Set order overview into the center of root layout.
+            rootLayout.setCenter(orderArchive);
+            
+            // Give the controller access to the main app.
+            OrderArchiveController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showOrderEditDialog(Order order) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/OrderEditDialog.fxml"));
+            BorderPane page = (BorderPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Order");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            
+            // Setting the minimum width and height
+            dialogStage.setMinWidth(page.getMinWidth()+17.25);
+            dialogStage.setMinHeight(page.getMinHeight()+46.25);
+            
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            
+            // Set the location into the controller.
+            OrderEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setOrder(order);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
