@@ -56,11 +56,11 @@ public class DriverOverviewController {
 			
 		// Resize the columns (with percentages) when the window is enlarged //TODO COPYRIGHT
 		nameColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.196));
-		phoneColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.20));
-		emailColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.20));
-		availableColumn .prefWidthProperty().bind(driverTable.widthProperty().multiply(0.10));
-		editColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.15));
-		deleteColumn 	.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.15));
+		phoneColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.17));
+		emailColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.25));
+		availableColumn .prefWidthProperty().bind(driverTable.widthProperty().multiply(0.15));
+		editColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.10));
+		deleteColumn 	.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.13));
 		
 		// Initialize the table with the four columns
 		nameColumn		.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
