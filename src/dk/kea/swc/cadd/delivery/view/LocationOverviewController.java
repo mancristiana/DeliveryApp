@@ -112,10 +112,7 @@ public class LocationOverviewController {
             dialogStage.setTitle("Edit Location");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(mainApp.getPrimaryStage());
-            
-            // Setting the minimum width and height
-            dialogStage.setMinWidth(page.getMinWidth()+17.25);
-            dialogStage.setMinHeight(page.getMinHeight()+46.25);
+            dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);

@@ -2,6 +2,7 @@ package dk.kea.swc.cadd.delivery;
 
 import java.io.IOException;
 
+import dk.kea.swc.cadd.delivery.view.DriverOverviewController;
 import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
 import dk.kea.swc.cadd.delivery.view.OrderArchiveController;
 import dk.kea.swc.cadd.delivery.view.OrderOverviewController;
@@ -98,7 +99,7 @@ public class MainApp extends Application {
             rootLayout.setCenter(driverOverview);
             
             // Give the controller access to the main app.
-            LocationOverviewController controller = loader.getController();
+            DriverOverviewController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
