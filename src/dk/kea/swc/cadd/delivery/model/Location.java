@@ -15,7 +15,7 @@ public class Location {
 		
 	}
 	
-	/**
+	/** 
      * Constructor with all the data.
      * 
      * @param cityName

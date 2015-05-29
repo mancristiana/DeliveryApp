@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.LocationOverviewController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.LocationOverviewController">
    <center>
-      <TableView fx:id="locationTable" prefHeight="250.0" prefWidth="600.0">
+      <TableView fx:id="locationTable" >
          <columns>
             <TableColumn fx:id="cityNameColumn" text="City name" />
             <TableColumn fx:id="storageNameColumn" text="Storage name" />
@@ -21,17 +21,23 @@
       </TableView>
    </center>
    <top>
-      <HBox BorderPane.alignment="CENTER">
+      <HBox>
          <children>
             <Label text="Locations">
                <font>
                   <Font size="24.0" />
                </font>
                <HBox.margin>
-                  <Insets bottom="5.0" left="10.0" top="5.0" />
+                  <Insets left="10.0" />
                </HBox.margin>
             </Label>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" top="10.0" />
+         </padding>
       </HBox>
    </top>
 </BorderPane>

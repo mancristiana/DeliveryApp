@@ -42,13 +42,18 @@ public class DriverDialogController {
      * @param driver
      */
     public void setDriver(Driver driver) {
-        this.driver = driver;
-
-        nameField.setText(driver.getName());
-        phoneField.setText(driver.getPhone());
-        emailField.setText(driver.getEmail());
-        availableBox.setSelected(driver.getAvailable());
-        nameField.setEditable(false);
+    	if(driver !=null){
+	        this.driver = driver;
+	
+	        nameField.setText(driver.getName());
+	        phoneField.setText(driver.getPhone());
+	        emailField.setText(driver.getEmail());
+	        availableBox.setSelected(driver.getAvailable());
+	        nameField.setEditable(false);
+    	}
+    	else{
+    		
+    	}
     }
 
 

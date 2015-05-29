@@ -1,7 +1,6 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
-import java.net.URL;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -18,22 +17,22 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.MainApp;
-import dk.kea.swc.cadd.delivery.db.DriverDAO;
-import dk.kea.swc.cadd.delivery.model.Driver;
+import dk.kea.swc.cadd.delivery.db.TruckDAO;
+import dk.kea.swc.cadd.delivery.model.Truck;
 
-public class DriverOverviewController {
+public class TruckOverviewController {
 	
-	@FXML private TableView<Driver> 			driverTable;
-	@FXML private TableColumn<Driver, String> 	nameColumn;
-	@FXML private TableColumn<Driver, String> 	phoneColumn;
-	@FXML private TableColumn<Driver, String> 	emailColumn;
-	@FXML private TableColumn<Driver, Boolean> 	availableColumn;
-	@FXML private TableColumn<Driver, Boolean> 	editColumn;
-	@FXML private TableColumn<Driver, Boolean> 	deleteColumn;
+	@FXML private TableView<Truck> 			truckTable;
+	@FXML private TableColumn<Truck, Integer> 	capacityColumn;
+	@FXML private TableColumn<Truck, Double> 	speedColumn;
+    @FXML private TableColumn<Truck, Boolean> 	availableColumn;
+    @FXML private TableColumn<Truck, Boolean> editColumn;
+	@FXML private TableColumn<Truck, Boolean> deleteColumn;
+
 
 
 	// Data access object for the database
-	private DriverDAO driverDAO;
+	private TruckDAO truckDAO;
 	
 	private MainApp mainApp; //TODO
 
@@ -41,7 +40,7 @@ public class DriverOverviewController {
 	 * The constructor.
 	 * The constructor is called before the initialize() method.
 	 */
-	public DriverOverviewController() {
+	public TruckOverviewController() {
 		
 	}
 
@@ -52,40 +51,38 @@ public class DriverOverviewController {
 	@FXML
 	private void initialize() {
 		// Give the controller data to fill the table view
-		driverDAO = new DriverDAO();
-		driverTable.setItems(driverDAO.getDrivers());
+		truckDAO = new TruckDAO();
+		truckTable.setItems(truckDAO.getTrucks());
 			
 		// Resize the columns (with percentages) when the window is enlarged //TODO COPYRIGHT
-		nameColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.196));
-		phoneColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.17));
-		emailColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.25));
-		availableColumn .prefWidthProperty().bind(driverTable.widthProperty().multiply(0.15));
-		editColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.10));
-		deleteColumn 	.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.13));
+		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().multiply(0.196));
+		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().multiply(0.17));
+		availableColumn .prefWidthProperty().bind(truckTable.widthProperty().multiply(0.15));
+		editColumn		.prefWidthProperty().bind(truckTable.widthProperty().multiply(0.10));
+		deleteColumn 	.prefWidthProperty().bind(truckTable.widthProperty().multiply(0.13));
 		
-		// Initialize the table with the four columns
-		nameColumn		.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		phoneColumn		.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
-		emailColumn		.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+		// Initialize the table with the three columns
+		capacityColumn	.setCellValueFactory(cellData -> cellData.getValue().capacityProperty().asObject());
+		speedColumn		.setCellValueFactory(cellData -> cellData.getValue().speedProperty().asObject());
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
 		editColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		
 		// Create a cell value factory with buttons for each row in the table
-		editColumn	.setCellFactory( driverBooleanTableColumn -> new AddEditCell());
-		deleteColumn.setCellFactory( driverBooleanTableColumn -> new AddDeleteCell());
+		editColumn	.setCellFactory( truckBooleanTableColumn -> new AddEditCell());
+		deleteColumn.setCellFactory( truckBooleanTableColumn -> new AddDeleteCell());
 	}
 	
 	/** 
-	 * A table cell containing a button for editing a driver. 
+	 * A table cell containing a button for editing a truck. 
 	 */
-    private class AddEditCell extends TableCell<Driver, Boolean> {
+    private class AddEditCell extends TableCell<Truck, Boolean> {
       final Button button = new Button("Edit");
 
       AddEditCell() {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
-        	  showDriverDialog(driverTable.getItems().get(getTableRow().getIndex()));
+        	  showTruckDialog(truckTable.getItems().get(getTableRow().getIndex()));
         	  //TODO
           }
         });
@@ -94,8 +91,7 @@ public class DriverOverviewController {
       /** 
        * Places an edit button in the row only if the row is not empty. 
        */
-      @Override 
-      protected void updateItem(Boolean item, boolean empty) {
+      @Override protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -108,16 +104,16 @@ public class DriverOverviewController {
     }
    
     /** 
-	 * A table cell containing a button for editing a driver. 
+	 * A table cell containing a button for editing a truck. 
 	 */
-    private class AddDeleteCell extends TableCell<Driver, Boolean> {
+    private class AddDeleteCell extends TableCell<Truck, Boolean> {
       final Button button = new Button("Delete");
 
       AddDeleteCell() {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
-        	  driverTable.getItems().remove(selectedIndex);
+        	  truckTable.getItems().remove(selectedIndex);
         	  //TODO
           }
         });
@@ -126,8 +122,7 @@ public class DriverOverviewController {
       /** 
        * Places an edit button in the row only if the row is not empty. 
        */
-      @Override 
-      protected void updateItem(Boolean item, boolean empty) {
+      @Override protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -140,24 +135,18 @@ public class DriverOverviewController {
     }
     
     /**
-     * Shows the driver dialog.
+     * Shows the truck dialog.
      */
-    public void showDriverDialog(Driver driver) {
+    public void showTruckDialog(Truck truck) {
         try {
             // Load the fxml file and create a new stage for the dialog.
             FXMLLoader loader = new FXMLLoader();
-            URL a= MainApp.class.getResource("view/DriverDialog.fxml");
-            loader.setLocation(a);
+            loader.setLocation(MainApp.class.getResource("view/TruckDialog.fxml"));
             Pane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            if(driver!=null){
-            	dialogStage.setTitle("Edit driver");
-            }
-            else {
-            	dialogStage.setTitle("Add driver");
-            }
+            dialogStage.setTitle("Edit Truck");
             dialogStage.initModality(Modality.WINDOW_MODAL); //TODO
             dialogStage.initOwner(mainApp.getPrimaryStage());
             dialogStage.setResizable(false);
@@ -165,10 +154,10 @@ public class DriverOverviewController {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
             
-            // Set the driver object into the controller
-            DriverDialogController controller = loader.getController();
+            // Set the truck object into the controller
+            TruckDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setDriver(driver);
+            controller.setTruck(truck);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -177,11 +166,6 @@ public class DriverOverviewController {
         }
     }
 
-    @FXML
-    private void handleAdd(){
-    	showDriverDialog(null);
-  	  //TODO
-    }
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
