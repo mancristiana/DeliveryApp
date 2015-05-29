@@ -1,6 +1,7 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import dk.kea.swc.cadd.delivery.model.Driver;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -15,8 +16,10 @@ public class DriverDialogController {
     @FXML private TextField emailField;
     @FXML private CheckBox 	availableBox;
 
+    private boolean 	isNew;
     private Stage 		dialogStage;
     private Driver 		driver;
+    private ObservableList<Driver> driverList;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -52,22 +55,40 @@ public class DriverDialogController {
 	        nameField.setEditable(false);
     	}
     	else{
-    		
+    		isNew = true;
     	}
     }
 
-
+    /**
+     * Sets the driver to be edited in the dialog.
+     * 
+     * @param driverList
+     */
+	public void setDriverList(ObservableList<Driver> driverList) {
+		this.driverList = driverList;
+	}
     /**
      * Called when the user clicks ok.
      */
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            driver.setPhone(phoneField.getText());
-            driver.setEmail(emailField.getText());
-            driver.setAvailable(availableBox.isSelected());
-            //TODO edit in the database
-            dialogStage.close();
+        	if(isNew){
+        		Driver driver = new Driver();
+        		driver.setName(nameField.getText());
+        		driver.setPhone(phoneField.getText());
+	            driver.setEmail(emailField.getText());
+	            driver.setAvailable(availableBox.isSelected());
+	            driverList.add(driver);
+	            //TODO add in the database
+	            dialogStage.close();
+        	} else {
+	            driver.setPhone(phoneField.getText());
+	            driver.setEmail(emailField.getText());
+	            driver.setAvailable(availableBox.isSelected());
+	            //TODO edit in the database
+	            dialogStage.close();
+            }
         }
     }
 
@@ -113,4 +134,5 @@ public class DriverDialogController {
             return false;
         }
     }
+
 }

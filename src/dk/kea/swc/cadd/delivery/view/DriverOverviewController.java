@@ -146,8 +146,7 @@ public class DriverOverviewController {
         try {
             // Load the fxml file and create a new stage for the dialog.
             FXMLLoader loader = new FXMLLoader();
-            URL a= MainApp.class.getResource("view/DriverDialog.fxml");
-            loader.setLocation(a);
+            loader.setLocation(MainApp.class.getResource("view/DriverDialog.fxml"));
             Pane page = loader.load();
 
             // Create the dialog Stage.
@@ -169,7 +168,9 @@ public class DriverOverviewController {
             DriverDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setDriver(driver);
-
+            if(driver==null){
+            	controller.setDriverList(driverTable.getItems());
+            }
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
         } catch (IOException e) {

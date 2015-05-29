@@ -16,7 +16,11 @@ public class Driver {
 	private BooleanProperty available;
 	
 	public Driver() {
-		
+		this.driverId 	= new SimpleIntegerProperty();
+		this.name 		= new SimpleStringProperty();
+		this.phone 		= new SimpleStringProperty();
+		this.email 		= new SimpleStringProperty();
+		this.available 	= new SimpleBooleanProperty();
 	}
 	
 	/**
