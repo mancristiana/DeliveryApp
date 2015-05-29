@@ -5,8 +5,9 @@ import java.io.IOException;
 import dk.kea.swc.cadd.delivery.view.StorageOverviewController;
 import dk.kea.swc.cadd.delivery.view.DriverOverviewController;
 import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
-import dk.kea.swc.cadd.delivery.view.OrderArchiveController;
 import dk.kea.swc.cadd.delivery.view.OrderOverviewController;
+import dk.kea.swc.cadd.delivery.view.TruckOverviewController;
+import dk.kea.swc.cadd.delivery.view.RouteOverviewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -97,7 +98,21 @@ public class MainApp extends Application {
      * Shows the truck overview inside the root layout.
      */
     public void showTruckOverview() {
-    	//TODO
+    	try {
+    		// Load truck overview
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(MainApp.class.getResource("view/TruckOverview.fxml"));
+    		Pane truckOverview = loader.load();
+    		
+    		//Set truck overview into the center of the root layout
+    		rootLayout.setCenter(truckOverview);
+    		
+    		//Give the controller access to the main app
+    		TruckOverviewController controller = loader.getController();
+    		controller.setMainApp(this);
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
     }
     
     /**
@@ -179,6 +194,27 @@ public class MainApp extends Application {
 //            // Give the controller access to the main app.
 //            OrderArchiveController controller = loader.getController();
 //            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Shows the order overview inside the root layout.
+     */
+    public void showRouteOverview() {
+    	try {
+            // Load order overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/RouteOverview.fxml"));
+            Pane routeOverview = loader.load();
+
+            // Set order overview into the center of root layout.
+            rootLayout.setCenter(routeOverview);
+            
+            // Give the controller access to the main app.
+            RouteOverviewController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }

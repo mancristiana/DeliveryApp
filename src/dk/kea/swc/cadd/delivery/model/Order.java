@@ -20,6 +20,13 @@ public class Order {
 		this.quantity 	= new SimpleDoubleProperty();
 	}
 	
+	/**
+	 * Constructor with all the data.
+	 * @param orderID
+	 * @param cityName
+	 * @param routeID
+	 * @param quantity
+	 */
 	public Order(Integer orderID, String cityName, Integer routeID, Double quantity) {
 		this.orderID 	= new SimpleIntegerProperty(orderID);
 		this.cityName 	= new SimpleStringProperty(cityName);
