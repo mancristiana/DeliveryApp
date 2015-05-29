@@ -1,52 +1,64 @@
 package dk.kea.swc.cadd.delivery.model;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Storage {
-	private int storageID;
-	private String cityName;
-	private int availableQuantity;
-	private String latitude;
-	private String longitude;
+	private IntegerProperty storageID;
+	private StringProperty cityName;
+	private IntegerProperty availableQuantity;
+	
 	
 	public Storage() {
+		this.storageID = new SimpleIntegerProperty();
+		this.cityName = new SimpleStringProperty();
+		this.availableQuantity = new SimpleIntegerProperty();
+	}
+	
+	public Storage(Integer storageID, String cityName, Integer availableQuantity) {
+		this.storageID = new SimpleIntegerProperty (storageID);
+		this.cityName = new SimpleStringProperty (cityName);
+		this.availableQuantity = new SimpleIntegerProperty (availableQuantity);
 		
 	}
 	
-	public Storage(int storageID, String cityName, int availableQuantity, String latitude, String longitude) {
-		this.storageID = storageID;
-		this.cityName = cityName;
-		this.availableQuantity = availableQuantity;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
+	//Setters
 	
-	public int getStorageID() {
-		return storageID;
-	}
-	public void setStorageID(int id) {
-		this.storageID = id;
-	}
-	public String getCityName() {
-		return cityName;
+	public void setStorageID (Integer storageID) {
+		this.storageID.set(storageID);
 	}
 	public void setCityName(String cityName) {
-		this.cityName = cityName;
+		this.cityName.set(cityName);
 	}
-	public String getLongitude() {
-		return longitude;
+	public void setAvailableQuantity(Integer availableQuantity) {
+		this.availableQuantity.set(availableQuantity);
 	}
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
+	
+	//Getters
+	
+	public Integer getStorageID() {
+		return storageID.get();
 	}
-	public String getLatitude() {
-		return latitude;
+	public String getCityName() {
+		return cityName.get();
 	}
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
+	public Integer getAvailableQuantity() {
+		return availableQuantity.get();
 	}
-	public int getAvailableQuantity() {
+	
+	//Property Getters
+	
+	public IntegerProperty storageIDProperty() {
+		return storageID;
+	}
+	public StringProperty cityNameProperty() {
+		return cityName;
+	}
+	public IntegerProperty availableQuantityProperty() {
 		return availableQuantity;
-	}
-	public void setAvailableQuantity(int availableQuantity) {
-		this.availableQuantity = availableQuantity;
 	}
 }

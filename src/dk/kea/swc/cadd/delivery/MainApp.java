@@ -2,6 +2,7 @@ package dk.kea.swc.cadd.delivery;
 
 import java.io.IOException;
 
+import dk.kea.swc.cadd.delivery.view.StorageOverviewController;
 import dk.kea.swc.cadd.delivery.view.DriverOverviewController;
 import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
 import dk.kea.swc.cadd.delivery.view.OrderArchiveController;
@@ -75,8 +76,22 @@ public class MainApp extends Application {
      * Shows the storage overview inside the root layout.
      */
     public void showStorageOverview() {
-    	//TODO
+    	//show storage overview.
+    try{
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(MainApp.class.getResource("view/StorageOverview.fxml"));
+    	Pane driverOverview = loader.load();
+    	
+    	//set storage into the center of root layout
+    	rootLayout.setCenter(driverOverview);
+
+    	// Give the controller access to the main app.
+        StorageOverviewController controller = loader.getController();
+        controller.setMainApp(this);
+      } catch (IOException e) {
+        e.printStackTrace();
     }
+  }
     
     /**
      * Shows the truck overview inside the root layout.
@@ -90,7 +105,7 @@ public class MainApp extends Application {
      */
     public void showDriverOverview() {
         try {
-            // Load storage overview.
+            // Load driver overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/DriverOverview.fxml"));
             Pane driverOverview = loader.load();

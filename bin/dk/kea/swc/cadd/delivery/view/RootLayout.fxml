@@ -13,7 +13,7 @@
           <Menu mnemonicParsing="false" text="View">
             <items>
             	<MenuItem mnemonicParsing="false" onAction="#showLocationOverview" text="Locations" />
-            	<MenuItem mnemonicParsing="false" text="Storages" />
+            	<MenuItem mnemonicParsing="false" onAction="#showStorageOverview" text="Storages" />
               	<MenuItem mnemonicParsing="false" text="Trucks" />
             	<MenuItem mnemonicParsing="false" onAction="#showDriverOverview" text="Drivers" />
             </items>
