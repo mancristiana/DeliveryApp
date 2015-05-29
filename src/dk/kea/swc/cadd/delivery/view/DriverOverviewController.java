@@ -1,6 +1,7 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -93,7 +94,8 @@ public class DriverOverviewController {
       /** 
        * Places an edit button in the row only if the row is not empty. 
        */
-      @Override protected void updateItem(Boolean item, boolean empty) {
+      @Override 
+      protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -124,7 +126,8 @@ public class DriverOverviewController {
       /** 
        * Places an edit button in the row only if the row is not empty. 
        */
-      @Override protected void updateItem(Boolean item, boolean empty) {
+      @Override 
+      protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -143,12 +146,18 @@ public class DriverOverviewController {
         try {
             // Load the fxml file and create a new stage for the dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/DriverDialog.fxml"));
+            URL a= MainApp.class.getResource("view/DriverDialog.fxml");
+            loader.setLocation(a);
             Pane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Driver");
+            if(driver!=null){
+            	dialogStage.setTitle("Edit driver");
+            }
+            else {
+            	dialogStage.setTitle("Add driver");
+            }
             dialogStage.initModality(Modality.WINDOW_MODAL); //TODO
             dialogStage.initOwner(mainApp.getPrimaryStage());
             dialogStage.setResizable(false);
@@ -168,6 +177,11 @@ public class DriverOverviewController {
         }
     }
 
+    @FXML
+    private void handleAdd(){
+    	showDriverDialog(null);
+  	  //TODO
+    }
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
