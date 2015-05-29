@@ -9,7 +9,6 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.OrderDAO;
 import dk.kea.swc.cadd.delivery.model.Order;
 
@@ -25,8 +24,6 @@ public class OrderArchiveController {
 
 	// Data access object for the database
 	private OrderDAO orderDAO;
-	
-	private MainApp mainApp;
 
 	/**
 	 * The constructor.
@@ -119,8 +116,4 @@ public class OrderArchiveController {
       
     }
 	
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
-
 }

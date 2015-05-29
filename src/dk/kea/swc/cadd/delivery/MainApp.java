@@ -160,9 +160,9 @@ public class MainApp extends Application {
             // Set order overview into the center of root layout.
             rootLayout.setCenter(orderArchive);
             
-            // Give the controller access to the main app.
-            OrderArchiveController controller = loader.getController();
-            controller.setMainApp(this);
+//            // Give the controller access to the main app.
+//            OrderArchiveController controller = loader.getController();
+//            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
