@@ -28,7 +28,7 @@
           <Menu mnemonicParsing="false" text="Routes">
                <items>
                   <MenuItem mnemonicParsing="false" text="Generate new..." />
-                  <MenuItem mnemonicParsing="false" text="Current" />
+                  <MenuItem mnemonicParsing="false" onAction="#showRouteOverview" text="Current" />
                   <MenuItem mnemonicParsing="false" text="Finished" />
                </items>
           </Menu>
