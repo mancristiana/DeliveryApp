@@ -14,7 +14,7 @@
             <items>
             	<MenuItem mnemonicParsing="false" onAction="#showLocationOverview" text="Locations" />
             	<MenuItem mnemonicParsing="false" text="Storages" />
-              	<MenuItem mnemonicParsing="false" text="Trucks" />
+              	<MenuItem mnemonicParsing="false" onAction="#showTruckOverview"  text="Trucks" />
             	<MenuItem mnemonicParsing="false" onAction="#showDriverOverview" text="Drivers" />
             </items>
           </Menu>
