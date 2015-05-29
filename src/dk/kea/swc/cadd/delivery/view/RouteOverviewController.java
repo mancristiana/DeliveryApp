@@ -20,6 +20,7 @@ import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.RouteDAO;
 import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Route;
+import dk.kea.swc.cadd.delivery.util.MapOfRoute;
 
 public class RouteOverviewController {
 	
@@ -115,9 +116,10 @@ public class RouteOverviewController {
       AddMapCell() {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
-        	  //TO DO
-//        	  int selectedIndex = getTableRow().getIndex();
-//        	  routeTable.getItems().remove(selectedIndex);
+        	  int selectedIndex = getTableRow().getIndex();
+        	  Route selectedRoute = routeTable.getItems().get(selectedIndex);
+        	  
+        	  new MapOfRoute(selectedRoute);
           }
         });
       }

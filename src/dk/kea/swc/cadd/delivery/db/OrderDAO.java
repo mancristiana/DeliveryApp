@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dk.kea.swc.cadd.delivery.model.Order;
 import javafx.collections.FXCollections;
@@ -86,5 +87,34 @@ public class OrderDAO {
             return e.getErrorCode() + " " + e.getMessage();
         }
     }
+	
+	public ArrayList<Order> getOrdersByRoute(int routeID) {
+		ArrayList<Order> list = new ArrayList<>();
+        try {
+            String sql = "SELECT order_id, cityname, quantity FROM  `order` WHERE route_id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, routeID);
+            stmt.executeQuery();
+
+            ResultSet rs = stmt.getResultSet();
+            while(rs.next()) {
+            	Integer orderID 	= rs.getInt("order_id");
+            	String cityname 	= rs.getString("cityname");
+//            	Integer routeID 	= rs.getInt("route_id");
+            	Double quantity 	= rs.getDouble("quantity");
+
+            	list.add(new Order(orderID, cityname, routeID, quantity));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+	
+	
+//	
+//	SELECT * 
+//	FROM  `order` 
+//	WHERE route_id =1
     
 }
