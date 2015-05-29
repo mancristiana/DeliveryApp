@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.MainApp">
+<BorderPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.MainApp">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="View">
             <items>
-                     <MenuItem mnemonicParsing="false" onAction="#showLocationOverview" text="Locations" />
-               <MenuItem mnemonicParsing="false" text="Storages" />
+            	<MenuItem mnemonicParsing="false" onAction="#showLocationOverview" text="Locations" />
+            	<MenuItem mnemonicParsing="false" text="Storages" />
               	<MenuItem mnemonicParsing="false" text="Trucks" />
-               <MenuItem mnemonicParsing="false" text="Drivers" />
+            	<MenuItem mnemonicParsing="false" onAction="#showDriverOverview" text="Drivers" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Orders">
@@ -30,18 +30,15 @@
                   <MenuItem mnemonicParsing="false" text="Generate new..." />
                   <MenuItem mnemonicParsing="false" text="Current" />
                   <MenuItem mnemonicParsing="false" text="Finished" />
-               </items></Menu>
+               </items>
+          </Menu>
         </menus>
       </MenuBar>
    </top>
    <bottom>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Label text="(c) teamrocket">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
+            <Label text="(c) teamrocket" />
          </children>
       </HBox>
    </bottom>

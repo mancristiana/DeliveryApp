@@ -22,7 +22,7 @@ public class Location {
      * @param storageName
      * @param price
      */
-	public Location(String cityName,String storageName, Double price) {
+	public Location(String cityName,String storageName,Double price) {
 		this.cityName 		= new SimpleStringProperty(cityName);
 		this.storageName 	= new SimpleStringProperty(storageName);
 		this.price 			= new SimpleDoubleProperty(price);

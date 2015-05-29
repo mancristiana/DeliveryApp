@@ -1,19 +1,22 @@
 package dk.kea.swc.cadd.delivery.view;
 
-import dk.kea.swc.cadd.delivery.model.Location;
+import dk.kea.swc.cadd.delivery.model.Driver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LocationEditDialogController {
+public class DriverDialogController {
 
-    @FXML private TextField cityNameField;
-    @FXML private TextField priceField;
+    @FXML private TextField nameField;
+    @FXML private TextField phoneField;
+    @FXML private TextField emailField;
+    @FXML private CheckBox 	availableBox;
 
     private Stage 		dialogStage;
-    private Location 	location;
+    private Driver 		driver;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -34,16 +37,18 @@ public class LocationEditDialogController {
     }
 
     /**
-     * Sets the location to be edited in the dialog.
+     * Sets the driver to be edited in the dialog.
      * 
-     * @param location
+     * @param driver
      */
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
 
-        cityNameField.setText(location.getCityName());
-        cityNameField.setEditable(false);
-        priceField.setText(location.getPrice().toString());
+        nameField.setText(driver.getName());
+        phoneField.setText(driver.getPhone());
+        emailField.setText(driver.getEmail());
+        availableBox.setSelected(driver.getAvailable());
+        nameField.setEditable(false);
     }
 
 
@@ -53,8 +58,9 @@ public class LocationEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            location.setPrice(Double.parseDouble(priceField.getText()));
-            
+            driver.setPhone(phoneField.getText());
+            driver.setEmail(emailField.getText());
+            driver.setAvailable(availableBox.isSelected());
             //TODO edit in the database
             dialogStage.close();
         }
@@ -75,17 +81,18 @@ public class LocationEditDialogController {
      */
     private boolean isInputValid() {
         String errorMessage = "";
-
-        if (priceField.getText() == null || priceField.getText().length() == 0) {
-            errorMessage += "Invalid price!\n"; 
+        if (emailField.getText() == null || emailField.getText().length() == 0) {
+            errorMessage += "Invalid email!\n"; 
+        }
+        if (phoneField.getText() == null || phoneField.getText().length() == 0) {
+            errorMessage += "Invalid phone!\n"; 
         } else {
             try {
-                Double.parseDouble(priceField.getText());
+                Integer.parseInt(phoneField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "Invalid price (must be an integer)!\n"; 
+                errorMessage += "Invalid phone (must be an integer)!\n"; 
             }
         }
-
 
         if (errorMessage.length() == 0) {
             return true;
