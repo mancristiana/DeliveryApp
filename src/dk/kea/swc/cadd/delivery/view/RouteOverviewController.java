@@ -87,7 +87,7 @@ public class RouteOverviewController {
       AddDetailsCell() {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
-        	 // showDetailsDialog(routeTable.getItems().get(getTableRow().getIndex()));
+        	 showDetailsDialog(routeTable.getItems().get(getTableRow().getIndex()));
           }
         });
       }
@@ -171,19 +171,19 @@ public class RouteOverviewController {
     }
     
     /**
-     * Shows the driver dialog.
+     * Shows the details dialog.
      */
-    public void showDriverDialog(Driver driver) {
+    public void showDetailsDialog(Route route) {
         try {
             // Load the fxml file and create a new stage for the dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/DriverDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/RouteDetailsDialog.fxml"));
             Pane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Driver");
-            dialogStage.initModality(Modality.WINDOW_MODAL); //TODO
+            dialogStage.setTitle("Details");
+            dialogStage.initModality(Modality.APPLICATION_MODAL); 
             dialogStage.initOwner(mainApp.getPrimaryStage());
             dialogStage.setResizable(false);
             
@@ -191,9 +191,9 @@ public class RouteOverviewController {
             dialogStage.setScene(scene);
             
             // Set the driver object into the controller
-            DriverDialogController controller = loader.getController();
+            RouteDetailsDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setDriver(driver);
+            controller.setRoute(route);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
