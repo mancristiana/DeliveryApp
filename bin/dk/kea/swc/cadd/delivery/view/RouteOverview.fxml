@@ -17,7 +17,7 @@
             <TableColumn fx:id="truckIDColumn" maxWidth="361.0" minWidth="62.0" prefWidth="67.0" text="Truck ID" />
             <TableColumn fx:id="detailsColumn" maxWidth="295.0" minWidth="50.0" prefWidth="101.0" text="View Details" />
             <TableColumn fx:id="mapColumn" maxWidth="295.0" minWidth="50.0" prefWidth="83.0" text="Map" />
-            <TableColumn fx:id="deleteColumn" maxWidth="321.0" minWidth="16.0" prefWidth="77.0" text="Delete" />
+            <TableColumn fx:id="deleteColumn" maxWidth="321.0" minWidth="16.0" prefWidth="98.0" text="Mark as finished" />
          </columns>
          <BorderPane.margin>
             <Insets left="10.0" right="10.0" />
