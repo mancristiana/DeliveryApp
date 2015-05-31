@@ -21,10 +21,12 @@ public class OrderDAO {
 	public ObservableList<Order> getOrders(boolean hasRoute) {
 		ObservableList<Order> list = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM `order` ";
+            String sql = "SELECT  `order_id` ,  `order`.`cityname` ,  `location`.`storagename` AS  `storagename` ,  `route_id` ,  `quantity` "
+            		+ "FROM  `order` ,  `location` "
+            		+ "WHERE  `location`.`cityname` =  `order`.`cityname` ";
             if(hasRoute)
-            	sql += "WHERE route_id > 0";
-            else sql += "WHERE route_id = 0";
+            	sql += "AND route_id > 0";
+            else sql += "AND route_id = 0";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.executeQuery();
 
@@ -32,10 +34,11 @@ public class OrderDAO {
             while(rs.next()) {
             	Integer orderID 	= rs.getInt("order_id");
             	String cityname 	= rs.getString("cityname");
+            	String storagename 	= rs.getString("storagename");
             	Integer routeID 	= rs.getInt("route_id");
             	Double quantity 	= rs.getDouble("quantity");
 
-            	list.add(new Order(orderID, cityname, routeID, quantity));
+            	list.add(new Order(orderID, cityname, storagename, routeID, quantity));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,10 +91,12 @@ public class OrderDAO {
         }
     }
 	
-	public ArrayList<Order> getOrdersByRoute(int routeID) {
-		ArrayList<Order> list = new ArrayList<>();
+	public ObservableList<Order> getOrdersByRoute(int routeID) {
+		ObservableList<Order> list = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT order_id, cityname, quantity FROM  `order` WHERE route_id = ?";
+            String sql = "SELECT  `order_id` ,  `order`.`cityname` ,  `location`.`storagename` AS  `storagename` ,  `route_id` ,  `quantity` "
+            		+ "FROM  `order` ,  `location` "
+            		+ "WHERE  `location`.`cityname` =  `order`.`cityname` ";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, routeID);
             stmt.executeQuery();
@@ -100,10 +105,10 @@ public class OrderDAO {
             while(rs.next()) {
             	Integer orderID 	= rs.getInt("order_id");
             	String cityname 	= rs.getString("cityname");
-//            	Integer routeID 	= rs.getInt("route_id");
+            	String storagename 	= rs.getString("storagename");
             	Double quantity 	= rs.getDouble("quantity");
 
-            	list.add(new Order(orderID, cityname, routeID, quantity));
+            	list.add(new Order(orderID, cityname, storagename, routeID, quantity));
             }
         } catch (SQLException e) {
             e.printStackTrace();

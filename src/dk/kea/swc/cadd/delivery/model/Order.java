@@ -10,12 +10,14 @@ import javafx.beans.property.StringProperty;
 public class Order {
 	private IntegerProperty orderID;
 	private StringProperty 	cityName;
+	private StringProperty 	storageName;
 	private IntegerProperty routeID;
 	private DoubleProperty quantity;
 	
 	public Order() {
 		this.orderID 	= new SimpleIntegerProperty();
 		this.cityName 	= new SimpleStringProperty();
+		this.storageName = new SimpleStringProperty();
 		this.routeID 	= new SimpleIntegerProperty();
 		this.quantity 	= new SimpleDoubleProperty();
 	}
@@ -27,9 +29,10 @@ public class Order {
 	 * @param routeID
 	 * @param quantity
 	 */
-	public Order(Integer orderID, String cityName, Integer routeID, Double quantity) {
+	public Order(Integer orderID, String cityName, String storageName, Integer routeID, Double quantity) {
 		this.orderID 	= new SimpleIntegerProperty(orderID);
 		this.cityName 	= new SimpleStringProperty(cityName);
+		this.storageName 	= new SimpleStringProperty(storageName);
 		this.routeID 	= new SimpleIntegerProperty(routeID);
 		this.quantity 	= new SimpleDoubleProperty(quantity);
 	}
@@ -41,6 +44,10 @@ public class Order {
 		
 	public void setCityName(String cityName) {
 		this.cityName.set(cityName);
+	}
+	
+	public void setStorageName(String storageName) {
+		this.storageName.set(storageName);
 	}
 	
 	public void setRouteID(Integer routeID) {
@@ -60,6 +67,10 @@ public class Order {
 		return cityName.get();
 	}
 	
+	public String getStorageName() {
+		return storageName.get();
+	}
+	
 	public Integer getRouteID() {
 		return routeID.get();
 	}
@@ -75,6 +86,10 @@ public class Order {
 	
 	public StringProperty cityNameProperty() {
 		return cityName;
+	}
+	
+	public StringProperty storageNameProperty() {
+		return storageName;
 	}
 
 	public IntegerProperty routeIDProperty() {
