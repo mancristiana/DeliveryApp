@@ -18,8 +18,8 @@ public class TruckDialogController {
 	
 	private Truck   truck;
 	private Stage 	dialogStage;
-	private boolean isNewTruck;
-	TableView<Truck> truckTable;
+	private boolean isNew;
+	private TableView<Truck> truckTable;
 	private TruckDAO truckDAO;
 	
 	 /**
@@ -48,16 +48,17 @@ public class TruckDialogController {
 		
 		if (truck == null) {
 			this.truck = new Truck();
-			isNewTruck = true;
-			capacityField.setText("");
-			speedField.setText("");
-		    availableBox.setSelected(false);
-		   
-		    capacityField.setEditable(true);
-		    speedField.setEditable(true);
+			isNew = true;
+			//no need for these, as dialog is constructed again everytime
+//			capacityField.setText("");
+//			speedField.setText("");
+//		    availableBox.setSelected(false);
+//		   
+//		    capacityField.setEditable(true);
+//		    speedField.setEditable(true);
 		} else {
 			this.truck = truck;
-			isNewTruck = false;
+			isNew = false;
 			capacityField.setText(truck.getCapacity().toString());
 			speedField.setText(truck.getSpeed().toString());
 		    availableBox.setSelected(truck.getAvailable());
@@ -82,7 +83,7 @@ public class TruckDialogController {
 	            truck.setSpeed(Double.parseDouble(speedField.getText()));
 	            truck.setAvailable(availableBox.isSelected());
 	            
-	            if(isNewTruck) {
+	            if(isNew) {
 	            	System.out.println(truckDAO.createTruck(truck));
 	            	truckTable.getItems().add(truck);
 	            } else 

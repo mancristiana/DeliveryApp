@@ -1,11 +1,14 @@
 package dk.kea.swc.cadd.delivery.view;
 
+import dk.kea.swc.cadd.delivery.db.DriverDAO;
 import dk.kea.swc.cadd.delivery.model.Driver;
+import dk.kea.swc.cadd.delivery.model.Truck;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -20,6 +23,7 @@ public class DriverDialogController {
     private Stage 		dialogStage;
     private Driver 		driver;
     private ObservableList<Driver> driverList;
+    private DriverDAO driverDAO;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -27,7 +31,7 @@ public class DriverDialogController {
      */
     @FXML
     private void initialize() {
-    	
+    	driverDAO = new DriverDAO();
     }
 
     /**
@@ -47,14 +51,15 @@ public class DriverDialogController {
     public void setDriver(Driver driver) {
     	if(driver !=null){
 	        this.driver = driver;
-	
 	        nameField.setText(driver.getName());
 	        phoneField.setText(driver.getPhone());
 	        emailField.setText(driver.getEmail());
 	        availableBox.setSelected(driver.getAvailable());
-	        nameField.setEditable(false);
+	        nameField.setEditable(false); 
+	        isNew = false;
     	}
     	else{
+    		this.driver = new Driver();
     		isNew = true;
     	}
     }
@@ -73,22 +78,21 @@ public class DriverDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-        	if(isNew){
-        		Driver driver = new Driver();
-        		driver.setName(nameField.getText());
-        		driver.setPhone(phoneField.getText());
-	            driver.setEmail(emailField.getText());
-	            driver.setAvailable(availableBox.isSelected());
-	            driverList.add(driver);
-	            //TODO add in the database
-	            dialogStage.close();
+        	driver.setName(nameField.getText());
+    		driver.setPhone(phoneField.getText());
+            driver.setEmail(emailField.getText());
+            driver.setAvailable(availableBox.isSelected());
+	         
+            if(isNew) { 
+            	System.out.println(driverDAO.createDriver(driver));
+            	driverList.add(driver);
+	           
+	           
         	} else {
-	            driver.setPhone(phoneField.getText());
-	            driver.setEmail(emailField.getText());
-	            driver.setAvailable(availableBox.isSelected());
-	            //TODO edit in the database
-	            dialogStage.close();
+        		System.out.println(driverDAO.updateDriver(driver));
+	           
             }
+            dialogStage.close();
         }
     }
 

@@ -20,11 +20,11 @@
          </rowConstraints>
          <children>
             <Label text="Capacity" />
-            <TextField fx:id="capacityField" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="capacityField" GridPane.columnIndex="1" />
             <Label layoutX="10.0" layoutY="14.0" text="Speed" GridPane.rowIndex="1" />
             <Label text="Availability" GridPane.rowIndex="2" />
             <CheckBox fx:id="availableBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="speedField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="speedField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

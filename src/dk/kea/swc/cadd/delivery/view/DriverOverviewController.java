@@ -117,8 +117,9 @@ public class DriverOverviewController {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
+        	  System.out.println(driverDAO.removeDriver(driverTable.getItems().get(selectedIndex)));
         	  driverTable.getItems().remove(selectedIndex);
-        	  //TODO
+        	  
           }
         });
       }
