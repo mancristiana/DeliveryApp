@@ -2,6 +2,7 @@ package dk.kea.swc.cadd.delivery;
 
 import java.io.IOException;
 
+import dk.kea.swc.cadd.delivery.view.RouteCreateController;
 import dk.kea.swc.cadd.delivery.view.StorageOverviewController;
 import dk.kea.swc.cadd.delivery.view.DriverOverviewController;
 import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
@@ -194,6 +195,27 @@ public class MainApp extends Application {
 //            // Give the controller access to the main app.
 //            OrderArchiveController controller = loader.getController();
 //            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Shows the create order view inside the root layout.
+     */
+    public void showRouteCreate() {
+    	try {
+            // Load order overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/RouteCreate.fxml"));
+            Pane routeCreate = loader.load();
+
+            // Set order overview into the center of root layout.
+            rootLayout.setCenter(routeCreate);
+            
+            // Give the controller access to the main app.
+            RouteCreateController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }

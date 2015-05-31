@@ -61,6 +61,7 @@ import javafx.collections.ObservableList;
 			   return e.getErrorCode() + " " + e.getMessage();
 		   }
 	   }
+	   
 	   public String removeTruck(Truck truck) {
 		   try {
 			   String sql = "DELETE FROM `cadd`.`truck` WHERE `truck`.`truck_id` = ?";
