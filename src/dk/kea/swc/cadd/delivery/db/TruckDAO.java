@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mysql.jdbc.Statement;
+
 import dk.kea.swc.cadd.delivery.model.Truck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,13 +47,15 @@ import javafx.collections.ObservableList;
 	   
 	   public String createTruck(Truck truck) {
 		   try {
-			   String sql = "INSERT INTO 'cadd'.'truck' ('truck_id', 'capacity', 'speed', 'available') "
-		                  + "VALUES (?, ?, ?, 1)";
-			   PreparedStatement stmt = con.prepareStatement(sql);
-			   stmt.setInt(1, truck.getTruckID());
-			   stmt.setInt(2, truck.getCapacity());
-			   stmt.setDouble(3, truck.getSpeed());
+			   String sql = "INSERT INTO `cadd`.`truck` (`truck_id`, `capacity`, `speed`, `available`) VALUES (NULL, ?, ?, ?);";
+			   PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			   stmt.setInt(1, truck.getCapacity());
+			   stmt.setDouble(2, truck.getSpeed());
+			   stmt.setBoolean(3, truck.getAvailable());
 			   stmt.execute();
+			   ResultSet rs = stmt.getGeneratedKeys();
+			   if(rs.next())
+				   truck.setTruckID(rs.getInt(1));
 			   return null;
 		   }catch (SQLException e) {
 			   return e.getErrorCode() + " " + e.getMessage();
@@ -59,7 +63,7 @@ import javafx.collections.ObservableList;
 	   }
 	   public String removeTruck(Truck truck) {
 		   try {
-			   String sql = "DELETE FROM 'truck' WHERE 'truck'.'truck_id' = ?";
+			   String sql = "DELETE FROM `cadd`.`truck` WHERE `truck`.`truck_id` = ?";
 			   PreparedStatement stmt = con.prepareStatement(sql);
 			   stmt.setInt(1, truck.getTruckID());
 			   stmt.execute();
@@ -70,15 +74,12 @@ import javafx.collections.ObservableList;
 	   }
 	   public String updateTruck(Truck truck){
 		   try {
-			   String sql = "UPDATE 'cadd'.'truck' "
-					      + "SET 'capacity' = ? ,"
-					      + "'speed' = ?,"
-					      +" 'available' = ?"
-					      + "WHERE 'truck'.'truck_id' = ?;";
+			   String sql = "UPDATE  `cadd`.`truck` "
+			   		+ "SET  `available` = ? "
+			   		+ "WHERE  `truck`.`truck_id` = ?;";
 			   PreparedStatement stmt = con.prepareStatement(sql);
-			   stmt.setInt(1, truck.getCapacity());
-			   stmt.setDouble(2, truck.getSpeed());
-			   stmt.setBoolean(3, truck.getAvailable());
+			   stmt.setBoolean(1, truck.getAvailable());
+			   stmt.setInt(2, truck.getTruckID());
 			   stmt.execute();
 			   return null;
 		   } catch (SQLException e){

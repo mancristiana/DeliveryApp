@@ -73,6 +73,12 @@ public class TruckOverviewController {
 		deleteColumn.setCellFactory( truckBooleanTableColumn -> new AddDeleteCell());
 	}
 	
+	@FXML
+	private void handleAdd() {
+		showTruckDialog(null);
+		//truckTable.getItems().add(?);
+	}
+	
 	/** 
 	 * A table cell containing a button for editing a truck. 
 	 */
@@ -83,7 +89,6 @@ public class TruckOverviewController {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  showTruckDialog(truckTable.getItems().get(getTableRow().getIndex()));
-        	  //TODO
           }
         });
       }
@@ -113,8 +118,9 @@ public class TruckOverviewController {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
+        	  System.out.println(truckDAO.removeTruck(truckTable.getItems().get(selectedIndex)));
         	  truckTable.getItems().remove(selectedIndex);
-        	  //TODO
+        	  
           }
         });
       }
@@ -154,11 +160,12 @@ public class TruckOverviewController {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
             
-            // Set the truck object into the controller
+            // Set the truck, list object into the controller
             TruckDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setTruck(truck);
-
+            controller.setTable(truckTable);
+            
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
         } catch (IOException e) {

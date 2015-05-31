@@ -27,11 +27,10 @@ public class StorageDAO {
             
             ResultSet rs = stmt.getResultSet();
             while(rs.next()){
-            	Integer storageID = rs.getInt("storage_id");
-            	String cityName = rs.getString("cityname");
+                String cityName = rs.getString("cityname");
             	Integer availableQuantity = rs.getInt("available_quantity");
             	
-            	list.add(new Storage(storageID, cityName, availableQuantity));
+            	list.add(new Storage(cityName, availableQuantity));
             	}
             } catch (SQLException e){
             	e.printStackTrace();
@@ -41,12 +40,11 @@ public class StorageDAO {
 	
 	public String createStorage (Storage storage){
 		try{
-			String sql = "INSERT INTO storage (storage_id, cityname, available_quantity)"
-					   + "VALUES (?, 0, ?);";
+			String sql = "INSERT INTO storage (cityname, available_quantity)"
+					   + "VALUES (?, ?);";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, storage.getStorageID());
-			stmt.setString(2, storage.getCityName());
-			stmt.setInt(3, storage.getAvailableQuantity());
+			stmt.setString(1, storage.getCityName());
+			stmt.setInt(2, storage.getAvailableQuantity());
 			stmt.execute();
 			return null;
 		} catch (SQLException e){
@@ -56,9 +54,9 @@ public class StorageDAO {
 	
 	public String removeStorage (Storage storage){
 		try{
-			String sql = "DELETE FROM storage WHERE order.order_id = ?";
+			String sql = "DELETE FROM storage WHERE cityname = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, storage.getStorageID());
+			stmt.setString(1, storage.getCityName());
 			stmt.execute();
 			return null;
 		}catch (SQLException e){
@@ -67,19 +65,35 @@ public class StorageDAO {
 	}
 	public String updateStorage(Storage storage){
 		try {
-			String sql = "UPDATE storage"
-					   + "SET storage_id = ?"
-					   + "cityname = ?"
-					   + "available_quantity = ?"
-					   + "WHERE storage.storage_id = ?;";
+			String sql = "UPDATE storage "
+					   + "SET available_quantity = ? "
+					   + "WHERE cityname = ?;";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, storage.getStorageID());
+			stmt.setInt(1, storage.getAvailableQuantity());
 			stmt.setString(2, storage.getCityName());
-			stmt.setInt(3, storage.getAvailableQuantity());
+		
 			stmt.execute();
 			return null;
 		} catch (SQLException e){
-			return e.getErrorCode()+ " " + e.getMessage();
+			return e.getErrorCode() + " " + e.getMessage();
 		}
 	}
+	
+	public ObservableList<String> getStorageNames() {
+		ObservableList<String> list = FXCollections.observableArrayList();
+		try {
+            String sql = "SELECT cityname FROM storage WHERE 1";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.executeQuery();
+
+       ResultSet rs = stmt.getResultSet();
+        while(rs.next()) {
+        	String cityName 	= rs.getString("cityname");
+        	list.add(cityName);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+    }
 }

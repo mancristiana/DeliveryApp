@@ -19,7 +19,7 @@
          </rowConstraints>
          <children>
             <Label text="Storage Name" />
-            <TextField fx:id="storageField" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="cityNameField" editable="false" GridPane.columnIndex="1" />
             <Label text="Avalible Quantity" GridPane.rowIndex="1" />
             <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>

@@ -1,5 +1,6 @@
 package dk.kea.swc.cadd.delivery.view;
 
+import dk.kea.swc.cadd.delivery.db.StorageDAO;
 import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Storage;
 import javafx.fxml.FXML;
@@ -11,12 +12,12 @@ import javafx.stage.Stage;
 
 public class StorageEditDialogController {
 
-	@FXML private TextField storageField;
-    @FXML private TextField cityField;
+	@FXML private TextField cityNameField;
     @FXML private TextField quantityField;
     
     private Stage 		dialogStage;
     private Storage 	storage;
+    private StorageDAO	storageDAO;
     
     /**
      * Initializes the controller class. This method is automatically called
@@ -24,7 +25,7 @@ public class StorageEditDialogController {
      */
     @FXML
     private void initialize() {
-    	
+    	storageDAO = new StorageDAO();
     }
 
     /**
@@ -44,10 +45,10 @@ public class StorageEditDialogController {
     public void setStorage(Storage storage) {
         this.storage = storage;
         
-        storageField.setText(" :D ");//.setText(" :D ");//storage.getStorageID().toString());
-//        cityField.setText(storage.getCityName());
+        cityNameField.setText(storage.getCityName());
+        cityNameField.setEditable(false);
         quantityField.setText(storage.getAvailableQuantity().toString());
-//        storageField.setEditable(false);
+
     }
 
 
@@ -57,10 +58,9 @@ public class StorageEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            storage.setStorageID(Integer.parseInt(storageField.getText()));
-            storage.setCityName(cityField.getText());
+            storage.setCityName(cityNameField.getText());
             storage.setAvailableQuantity(Integer.parseInt(quantityField.getText()));
-            //TODO edit in the database
+            storageDAO.updateStorage(storage);
             dialogStage.close();
         }
     }
@@ -80,7 +80,7 @@ public class StorageEditDialogController {
      */
     private boolean isInputValid() {
         String errorMessage = "";
-        if (cityField.getText() == null || cityField.getText().length() == 0) {
+        if (cityNameField.getText() == null || cityNameField.getText().length() == 0) {
             errorMessage += "Invalid City Name!\n"; 
         } else {
             try {

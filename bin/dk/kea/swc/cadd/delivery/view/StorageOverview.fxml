@@ -11,10 +11,8 @@
       <TableView fx:id="storageTable" prefHeight="250.0" prefWidth="600.0">
          <columns>
             <TableColumn fx:id="cityColumn" text="City" />
-            <TableColumn fx:id="storageColumn" prefWidth="136.0" text="Storage Number" />
             <TableColumn fx:id="quantityColumn" prefWidth="171.0" text="Available Quantity" />
             <TableColumn fx:id="editColumn" minWidth="0.0" prefWidth="101.0" sortable="false" text="Edit" />
-            <TableColumn fx:id="deleteColumn" prefWidth="91.0" sortable="false" text="Delete" />
          </columns>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />

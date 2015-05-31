@@ -8,29 +8,22 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Storage {
-	private IntegerProperty storageID;
 	private StringProperty cityName;
 	private IntegerProperty availableQuantity;
 	
 	
 	public Storage() {
-		this.storageID = new SimpleIntegerProperty();
 		this.cityName = new SimpleStringProperty();
 		this.availableQuantity = new SimpleIntegerProperty();
 	}
 	
-	public Storage(Integer storageID, String cityName, Integer availableQuantity) {
-		this.storageID = new SimpleIntegerProperty (storageID);
+	public Storage(String cityName, Integer availableQuantity) {
 		this.cityName = new SimpleStringProperty (cityName);
 		this.availableQuantity = new SimpleIntegerProperty (availableQuantity);
 		
 	}
 	
 	//Setters
-	
-	public void setStorageID (Integer storageID) {
-		this.storageID.set(storageID);
-	}
 	public void setCityName(String cityName) {
 		this.cityName.set(cityName);
 	}
@@ -39,10 +32,6 @@ public class Storage {
 	}
 	
 	//Getters
-	
-	public Integer getStorageID() {
-		return storageID.get();
-	}
 	public String getCityName() {
 		return cityName.get();
 	}
@@ -51,10 +40,6 @@ public class Storage {
 	}
 	
 	//Property Getters
-	
-	public IntegerProperty storageIDProperty() {
-		return storageID;
-	}
 	public StringProperty cityNameProperty() {
 		return cityName;
 	}

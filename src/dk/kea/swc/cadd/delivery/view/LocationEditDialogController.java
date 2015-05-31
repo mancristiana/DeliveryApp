@@ -1,8 +1,11 @@
 package dk.kea.swc.cadd.delivery.view;
 
+import dk.kea.swc.cadd.delivery.db.LocationDAO;
+import dk.kea.swc.cadd.delivery.db.StorageDAO;
 import dk.kea.swc.cadd.delivery.model.Location;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -10,10 +13,13 @@ import javafx.stage.Stage;
 public class LocationEditDialogController {
 
     @FXML private TextField cityNameField;
+    @FXML private ChoiceBox<String> storageNameField;
     @FXML private TextField priceField;
 
     private Stage 		dialogStage;
     private Location 	location;
+    private LocationDAO locationDAO;
+    private StorageDAO	storageDAO;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -21,7 +27,9 @@ public class LocationEditDialogController {
      */
     @FXML
     private void initialize() {
-    	
+    	locationDAO = new LocationDAO();
+    	storageDAO = new StorageDAO();
+    	storageNameField.setItems(storageDAO.getStorageNames());
     }
 
     /**
@@ -43,6 +51,7 @@ public class LocationEditDialogController {
 
         cityNameField.setText(location.getCityName());
         cityNameField.setEditable(false);
+        storageNameField.getSelectionModel().select(location.getStorageName());
         priceField.setText(location.getPrice().toString());
     }
 
@@ -54,8 +63,8 @@ public class LocationEditDialogController {
     private void handleOk() {
         if (isInputValid()) {
             location.setPrice(Double.parseDouble(priceField.getText()));
-            
-            //TODO edit in the database
+            location.setStorageName(storageNameField.getSelectionModel().getSelectedItem().toString());
+            System.out.println(locationDAO.updateLocation(location));
             dialogStage.close();
         }
     }

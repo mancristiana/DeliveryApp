@@ -1,10 +1,12 @@
 package dk.kea.swc.cadd.delivery.view;
 
+import dk.kea.swc.cadd.delivery.db.TruckDAO;
 import dk.kea.swc.cadd.delivery.model.Truck;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -12,18 +14,21 @@ public class TruckDialogController {
 	
 	@FXML private TextField capacityField;
 	@FXML private TextField speedField;
-	@FXML private CheckBox availableBox;
+	@FXML private CheckBox 	availableBox;
 	
-	private Truck             truck;
-	private Stage 		dialogStage;
-
+	private Truck   truck;
+	private Stage 	dialogStage;
+	private boolean isNewTruck;
+	TableView<Truck> truckTable;
+	private TruckDAO truckDAO;
+	
 	 /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      */
 	@FXML
 	private void initialize(){
-		
+		truckDAO = new TruckDAO();
 	}
 	/**
      * Sets the stage of this dialog.
@@ -40,11 +45,31 @@ public class TruckDialogController {
      * @param truck
      */
 	public void setTruck(Truck truck){
-		this.truck= truck;
 		
-		capacityField.setText(truck.getCapacity().toString());
-		speedField.setText(truck.getSpeed().toString());
-	    availableBox.setSelected(truck.getAvailable());
+		if (truck == null) {
+			this.truck = new Truck();
+			isNewTruck = true;
+			capacityField.setText("");
+			speedField.setText("");
+		    availableBox.setSelected(false);
+		   
+		    capacityField.setEditable(true);
+		    speedField.setEditable(true);
+		} else {
+			this.truck = truck;
+			isNewTruck = false;
+			capacityField.setText(truck.getCapacity().toString());
+			speedField.setText(truck.getSpeed().toString());
+		    availableBox.setSelected(truck.getAvailable());
+		    
+		    capacityField.setEditable(false);
+		    speedField.setEditable(false);
+	    
+		}
+	}
+	
+	public void setTable(TableView<Truck> truckTable) {
+		this.truckTable = truckTable;
 	}
 	/**
     * Called when the user clicks ok.
@@ -56,7 +81,13 @@ public class TruckDialogController {
 	            truck.setCapacity(Integer.parseInt(capacityField.getText()));
 	            truck.setSpeed(Double.parseDouble(speedField.getText()));
 	            truck.setAvailable(availableBox.isSelected());
-	            //TODO edit in the database
+	            
+	            if(isNewTruck) {
+	            	System.out.println(truckDAO.createTruck(truck));
+	            	truckTable.getItems().add(truck);
+	            } else 
+	            	System.out.println(truckDAO.updateTruck(truck));
+	            
 	            dialogStage.close();
 	        }
 	    }

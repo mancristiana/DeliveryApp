@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dk.kea.swc.cadd.delivery.model.Location;
+import dk.kea.swc.cadd.delivery.model.Storage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -74,5 +75,22 @@ public class LocationDAO {
     }
     return list;
     }
+	
+	public String updateLocation(Location location){
+		try {
+			String sql = "UPDATE  `cadd`.`location` "
+					+ "SET  `storageName` =  ?, `price` =  ? "
+					+ "WHERE  `location`.`cityName` =  ?;";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, location.getStorageName());
+			stmt.setDouble(2, location.getPrice());
+			stmt.setString(3, location.getCityName());
+		
+			stmt.execute();
+			return null;
+		} catch (SQLException e){
+			return e.getErrorCode() + " " + e.getMessage();
+		}
+	}
     
 }
