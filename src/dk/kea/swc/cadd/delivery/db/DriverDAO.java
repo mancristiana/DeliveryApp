@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Statement;
 
 import dk.kea.swc.cadd.delivery.model.Driver;
-import dk.kea.swc.cadd.delivery.model.Truck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

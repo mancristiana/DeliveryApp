@@ -18,7 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.RouteDAO;
-import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Route;
 import dk.kea.swc.cadd.delivery.util.MapOfRoute;
 

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import dk.kea.swc.cadd.delivery.model.Location;
-import dk.kea.swc.cadd.delivery.model.Storage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

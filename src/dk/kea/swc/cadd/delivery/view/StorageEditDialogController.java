@@ -1,12 +1,10 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import dk.kea.swc.cadd.delivery.db.StorageDAO;
-import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Storage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 

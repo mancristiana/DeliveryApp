@@ -1,8 +1,6 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
-import java.net.URL;
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

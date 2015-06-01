@@ -3,8 +3,6 @@ package dk.kea.swc.cadd.delivery.view;
 import dk.kea.swc.cadd.delivery.db.OrderDAO;
 import dk.kea.swc.cadd.delivery.model.Order;
 import dk.kea.swc.cadd.delivery.model.Route;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -25,7 +23,6 @@ public class RouteDetailsDialogController {
     @FXML private TableColumn<Order, Double> quantityColumn;
 
     private Stage 	dialogStage;
-    private Route route;
     private OrderDAO orderDAO;
     
     /**
@@ -53,7 +50,6 @@ public class RouteDetailsDialogController {
      * @param location
      */
     public void setRoute(Route route) {
-    	this.route = route;
     	orderTable.setItems(orderDAO.getOrdersByRoute(route.getRouteID()));
         
     	locationColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
