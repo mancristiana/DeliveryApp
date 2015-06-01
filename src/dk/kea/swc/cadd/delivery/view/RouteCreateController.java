@@ -127,7 +127,6 @@ public class RouteCreateController {
             alert.showAndWait();
     	} else {
     		while(selected.size() != 0){
-    			System.out.println("blah");
     			ObservableList<Object> list = routeDAO.getDriverAndTruck();
     			if(list.size()==0){
 //    	    		 Show the error .
@@ -150,7 +149,7 @@ public class RouteCreateController {
     			orderDAO.updateOrder(selected.get(0));
 	    		    			
     			for(int i = 1; i<selected.size();i++){
-    				System.out.println("" + (sum+selected.get(i).getQuantity() < 21.0));
+    				System.out.println("" + (sum+selected.get(i).getQuantity() <= 21.0));
     				if(sum+selected.get(i).getQuantity() < 21.0){
     					sum+=selected.get(i).getQuantity();
     	    			selected.get(i).setRouteID(route.getRouteID());
@@ -166,10 +165,11 @@ public class RouteCreateController {
     			for(int i = 0; i<selected.size();i++){
     				if(selected.get(i).getRouteID() != 0){
     					selected.remove(i);
+    					i=-1;
     				}
     			}
     		}
-    		System.out.println(""+ mainApp == null);
+    		
     		mainApp.showRouteOverview();   
     	}
     }
