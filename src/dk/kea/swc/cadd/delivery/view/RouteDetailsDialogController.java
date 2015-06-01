@@ -3,6 +3,7 @@ package dk.kea.swc.cadd.delivery.view;
 import dk.kea.swc.cadd.delivery.db.OrderDAO;
 import dk.kea.swc.cadd.delivery.model.Order;
 import dk.kea.swc.cadd.delivery.model.Route;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -50,14 +51,16 @@ public class RouteDetailsDialogController {
      * @param location
      */
     public void setRoute(Route route) {
-    	orderTable.setItems(orderDAO.getOrdersByRoute(route.getRouteID()));
+    	ObservableList<Order> orderList = orderDAO.getOrdersByRoute(route.getRouteID());
+    	orderTable.setItems(orderList);
         
     	locationColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
     	quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 		
     	driverField.setText(route.getDriverID()+"");
         truckField.setText(route.getTruckID()+"");
-    	storageField.setText("");
+    	if(orderList.size() > 0)
+    		storageField.setText(orderList.get(0).getStorageName()+"");
     	finishedBox.setSelected(route.isFinished());
     }
 
