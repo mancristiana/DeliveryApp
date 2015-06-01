@@ -96,7 +96,7 @@ public class OrderDAO {
         try {
             String sql = "SELECT  `order_id` ,  `order`.`cityname` ,  `location`.`storagename` AS  `storagename` ,  `route_id` ,  `quantity` "
             		+ "FROM  `order` ,  `location` "
-            		+ "WHERE  `location`.`cityname` =  `order`.`cityname` ";
+            		+ "WHERE  `location`.`cityname` =  `order`.`cityname` AND route_id = ? ";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, routeID);
             stmt.executeQuery();

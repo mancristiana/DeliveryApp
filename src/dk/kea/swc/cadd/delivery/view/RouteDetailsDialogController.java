@@ -54,14 +54,16 @@ public class RouteDetailsDialogController {
      */
     public void setRoute(Route route) {
     	this.route = route;
-    	orderTable.setItems(orderDAO.getOrdersByRoute(route.getRouteID()));
+    	ObservableList<Order> orderList = orderDAO.getOrdersByRoute(route.getRouteID());
+    	orderTable.setItems(orderList);
         
     	locationColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
     	quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 		
     	driverField.setText(route.getDriverID()+"");
         truckField.setText(route.getTruckID()+"");
-    	storageField.setText("");
+    	if(orderList.size() > 0)
+    		storageField.setText(orderList.get(0).getStorageName()+"");
     	finishedBox.setSelected(route.isFinished());
     }
 
