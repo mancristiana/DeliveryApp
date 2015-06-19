@@ -12,12 +12,12 @@
    <center>
       <TableView fx:id="routeTable" prefHeight="179.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="routeIDColumn" maxWidth="200.0" minWidth="28.0" prefWidth="28.0" text="ID" />
-            <TableColumn fx:id="driverColumn" maxWidth="200.0" minWidth="39.0" prefWidth="60.0" text="Driver" />
-            <TableColumn fx:id="truckIDColumn" maxWidth="361.0" minWidth="62.0" prefWidth="67.0" text="Truck ID" />
-            <TableColumn fx:id="detailsColumn" maxWidth="295.0" minWidth="50.0" prefWidth="101.0" text="View Details" />
-            <TableColumn fx:id="mapColumn" maxWidth="295.0" minWidth="50.0" prefWidth="83.0" text="Map" />
-            <TableColumn fx:id="deleteColumn" maxWidth="321.0" minWidth="16.0" prefWidth="98.0" text="Mark as finished" />
+            <TableColumn fx:id="routeIDColumn" text="ID" />
+            <TableColumn fx:id="driverColumn" text="Driver" />
+            <TableColumn fx:id="truckIDColumn" text="Truck ID" />
+            <TableColumn fx:id="detailsColumn" text="Details" />
+            <TableColumn fx:id="mapColumn" text="Map" />
+            <TableColumn fx:id="deleteColumn" text="Mark finished" />
          </columns>
          <BorderPane.margin>
             <Insets left="10.0" right="10.0" />

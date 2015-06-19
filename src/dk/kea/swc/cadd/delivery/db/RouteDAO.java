@@ -35,7 +35,6 @@ public class RouteDAO {
             	Integer driverID 	= rs.getInt("driver_id");
             	Integer truckID 	= rs.getInt("truck_id");
             	Boolean finished 	= rs.getBoolean("finished");
-
             	list.add(new Route(routeID, driverID, truckID, finished));
             }
         } catch (SQLException e) {

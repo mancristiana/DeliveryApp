@@ -103,4 +103,8 @@ public class Driver {
 		return available;
 	}
 	
+	@Override
+	public String toString() {
+		return  "["+ getDriverId() +"] " + getName() + " (" + getPhone() + ")";
+	}
 }

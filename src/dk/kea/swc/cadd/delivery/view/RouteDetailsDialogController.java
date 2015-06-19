@@ -1,20 +1,24 @@
 package dk.kea.swc.cadd.delivery.view;
 
-import dk.kea.swc.cadd.delivery.db.OrderDAO;
-import dk.kea.swc.cadd.delivery.model.Order;
-import dk.kea.swc.cadd.delivery.model.Route;
+import java.time.LocalDate;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import dk.kea.swc.cadd.delivery.db.OrderDAO;
+import dk.kea.swc.cadd.delivery.model.Order;
+import dk.kea.swc.cadd.delivery.model.Route;
 
 public class RouteDetailsDialogController {
 
-	@FXML private TextField dateField;
+	@FXML private DatePicker dateField;
 	@FXML private TextField driverField;
+	@FXML private TextField contactField;
 	@FXML private TextField truckField;
 	@FXML private TextField storageField;
 	@FXML private CheckBox finishedBox;
@@ -57,7 +61,11 @@ public class RouteDetailsDialogController {
     	locationColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
     	quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 		
-    	driverField.setText(route.getDriverID()+"");
+    	if(route.getDate() == null)
+    		dateField.setValue(LocalDate.now());
+    	else dateField.setValue(route.getDate());
+    	driverField.setText(route.getDriver().getName());
+    	contactField.setText(route.getDriver().getPhone());
         truckField.setText(route.getTruckID()+"");
     	if(orderList.size() > 0)
     		storageField.setText(orderList.get(0).getStorageName()+"");

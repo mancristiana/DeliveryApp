@@ -13,6 +13,8 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -28,7 +30,7 @@ public class TruckOverviewController {
     @FXML private TableColumn<Truck, Boolean> 	availableColumn;
     @FXML private TableColumn<Truck, Boolean> editColumn;
 	@FXML private TableColumn<Truck, Boolean> deleteColumn;
-
+	@FXML private Button newButton;
 
 
 	// Data access object for the database
@@ -71,6 +73,9 @@ public class TruckOverviewController {
 		// Create a cell value factory with buttons for each row in the table
 		editColumn	.setCellFactory( truckBooleanTableColumn -> new AddEditCell());
 		deleteColumn.setCellFactory( truckBooleanTableColumn -> new AddDeleteCell());
+		
+		Image image = new Image(getClass().getResourceAsStream("images/plus.png"));
+	    newButton.setGraphic(new ImageView(image));
 	}
 	
 	@FXML
@@ -83,9 +88,11 @@ public class TruckOverviewController {
 	 * A table cell containing a button for editing a truck. 
 	 */
     private class AddEditCell extends TableCell<Truck, Boolean> {
-      final Button button = new Button("Edit");
-
+      final Button button = new Button("");
+      Image image = new Image(getClass().getResourceAsStream("images/edit.png"));
+      
       AddEditCell() {
+    	  button.setGraphic(new ImageView(image));
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  showTruckDialog(truckTable.getItems().get(getTableRow().getIndex()));
@@ -112,9 +119,11 @@ public class TruckOverviewController {
 	 * A table cell containing a button for editing a truck. 
 	 */
     private class AddDeleteCell extends TableCell<Truck, Boolean> {
-      final Button button = new Button("Delete");
-
+      final Button button = new Button("");
+      Image image = new Image(getClass().getResourceAsStream("images/delete.png"));
+      
       AddDeleteCell() {
+    	  button.setGraphic(new ImageView(image));
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();

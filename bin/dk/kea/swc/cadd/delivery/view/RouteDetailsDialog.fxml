@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane minHeight="180.0" minWidth="300.0" prefHeight="350.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.RouteDetailsDialogController">
+<BorderPane minHeight="180.0" minWidth="300.0" prefHeight="390.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.RouteDetailsDialogController">
    <center>
       <GridPane prefHeight="75.0">
          <columnConstraints>
@@ -17,6 +17,7 @@
          <rowConstraints>
             <RowConstraints maxHeight="251.0" minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="269.0" minHeight="28.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="269.0" minHeight="28.0" prefHeight="32.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="270.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="277.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="269.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
@@ -24,21 +25,23 @@
          </rowConstraints>
          <children>
             <Label text="Date" />
-            <TextField fx:id="dateField" GridPane.columnIndex="1" />
+            <DatePicker fx:id="dateField" GridPane.columnIndex="1" />
             <Label layoutX="10.0" layoutY="14.0" text="Driver" GridPane.rowIndex="1" />
-            <Label text="Truck" GridPane.rowIndex="2" />
-            <CheckBox fx:id="finishedBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Truck" GridPane.rowIndex="3" />
+            <CheckBox fx:id="finishedBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="driverField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Finished" GridPane.rowIndex="4" />
-            <TextField fx:id="truckField" prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TableView fx:id="orderTable" prefHeight="258.0" prefWidth="519.0" GridPane.columnSpan="3" GridPane.rowIndex="5">
+            <Label text="Finished" GridPane.rowIndex="5" />
+            <TextField fx:id="truckField" prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TableView fx:id="orderTable" prefHeight="258.0" prefWidth="519.0" GridPane.columnSpan="3" GridPane.rowIndex="6">
               <columns>
                 <TableColumn fx:id="locationColumn" prefWidth="140.0" text="Location" />
                 <TableColumn fx:id="quantityColumn" prefWidth="139.0" text="Quantity (tons)" />
               </columns>
             </TableView>
-            <Label text="Storage" GridPane.rowIndex="3" />
-            <TextField fx:id="storageField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Storage" GridPane.rowIndex="4" />
+            <TextField fx:id="storageField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Contact" GridPane.rowIndex="2" />
+            <TextField fx:id="contactField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

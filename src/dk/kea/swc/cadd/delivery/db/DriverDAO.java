@@ -41,6 +41,28 @@ public class DriverDAO {
         return list;
     }
 	
+	public Driver getDriverByID(int id) {
+		try {
+            String sql = "SELECT * FROM driver WHERE driver_id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeQuery();
+
+            ResultSet rs = stmt.getResultSet();
+            while(rs.next()) {
+            	Integer driverId 	= rs.getInt("driver_id");
+            	String name 		= rs.getString("name");
+            	String phone		= rs.getString("phone");
+            	String email 		= rs.getString("email");
+            	Boolean available 	= rs.getBoolean("available");
+            	return new Driver(driverId,name,phone,email,available);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+	
 	public String createDriver(Driver driver) {
 	   try {
 		   String sql = "INSERT INTO `cadd`.`driver` (`driver_id`, `name`, `phone`, `email`, `available`) VALUES (NULL, ?, ?, ?, ?);";

@@ -39,7 +39,7 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#handleAdd" text="Add" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <Button fx:id="newButton" mnemonicParsing="false" onAction="#handleAdd" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>

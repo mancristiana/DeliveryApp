@@ -13,6 +13,8 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -73,9 +75,11 @@ public class OrderOverviewController {
 	
 	/** A table cell containing a button for editing an order. */
     private class AddEditCell extends TableCell<Order, Boolean> {
-      final Button button = new Button("Edit");
-
+      final Button button = new Button("");
+      Image image = new Image(getClass().getResourceAsStream("images/edit.png"));
+      
       AddEditCell() {
+    	  button.setGraphic(new ImageView(image));
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  showOrderEditDialog(orderTable.getItems().get(getTableRow().getIndex()));
@@ -98,9 +102,11 @@ public class OrderOverviewController {
     
     /** A table cell containing a button for editing an order. */
     private class AddDeleteCell extends TableCell<Order, Boolean> {
-      final Button button = new Button("Delete");
-
+      final Button button = new Button("");
+      Image image = new Image(getClass().getResourceAsStream("images/delete.png"));
+      
       AddDeleteCell() {
+    	  button.setGraphic(new ImageView(image));
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();

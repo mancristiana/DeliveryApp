@@ -13,6 +13,8 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,7 +27,7 @@ public class RouteOverviewController {
 	
 	@FXML private TableView<Route> routeTable;
 	@FXML private TableColumn<Route, Integer> 	routeIDColumn;
-	@FXML private TableColumn<Route, Integer> 	driverColumn;
+	@FXML private TableColumn<Route, String> 	driverColumn;
 	@FXML private TableColumn<Route, Integer> 	truckIDColumn;
 	@FXML private TableColumn<Route, Boolean> 	detailsColumn;
 	@FXML private TableColumn<Route, Boolean> 	mapColumn;
@@ -57,15 +59,15 @@ public class RouteOverviewController {
 			
 		// Resize the columns (with percentages) when the window is enlarged 
 		routeIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.05));
-		driverColumn	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.30));
-		truckIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.05));
-		detailsColumn 	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.20));
-		mapColumn		.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.20));
-		deleteColumn 	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.20));
+		driverColumn	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.50));
+		truckIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.10));
+		detailsColumn 	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.10));
+		mapColumn		.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.10));
+		deleteColumn 	.prefWidthProperty().bind(routeTable.widthProperty().multiply(0.10));
 		
 		// Initialize the table with the four columns
 		routeIDColumn	.setCellValueFactory(cellData -> cellData.getValue().routeIDProperty().asObject());
-		driverColumn	.setCellValueFactory(cellData -> cellData.getValue().driverIDProperty().asObject());
+		driverColumn	.setCellValueFactory(cellData -> cellData.getValue().driverProperty());
 		truckIDColumn	.setCellValueFactory(cellData -> cellData.getValue().truckIDProperty().asObject());
 		detailsColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		mapColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
@@ -81,9 +83,11 @@ public class RouteOverviewController {
 	 * A table cell containing a button for showing details of a route. 
 	 */
     private class AddDetailsCell extends TableCell<Route, Boolean> {
-      final Button button = new Button("View Details");
+      final Button button = new Button("");
+      Image image = new Image(getClass().getResourceAsStream("images/edit.png"));  	  
 
       AddDetailsCell() {
+    	  button.setGraphic(new ImageView(image));
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	 showDetailsDialog(routeTable.getItems().get(getTableRow().getIndex()));
@@ -110,9 +114,11 @@ public class RouteOverviewController {
 	 * A table cell containing a button for opening a map showing the route. 
 	 */
     private class AddMapCell extends TableCell<Route, Boolean> {
-      final Button button = new Button("Show map");
-
+      final Button button = new Button("");
+      Image image = new Image(getClass().getResourceAsStream("images/map.png"));
+      
       AddMapCell() {
+    	  button.setGraphic(new ImageView(image));
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
@@ -142,9 +148,11 @@ public class RouteOverviewController {
 	 * A table cell containing a button for opening a map showing the route. 
 	 */
     private class AddDeleteCell extends TableCell<Route, Boolean> {
-      final Button button = new Button("Delete");
-
+      final Button button = new Button("");
+      Image image = new Image(getClass().getResourceAsStream("images/check.png"));
+      
       AddDeleteCell() {
+    	  button.setGraphic(new ImageView(image));
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
