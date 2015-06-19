@@ -85,7 +85,7 @@ public class OrderOverviewController {
         	  showOrderEditDialog(orderTable.getItems().get(getTableRow().getIndex()));
           }
         });
-      }
+      } 
       
       /** Places an edit button in the row only if the row is not empty. */
       @Override protected void updateItem(Boolean item, boolean empty) {
