@@ -1,0 +1,15 @@
+@font-face {
+    font-family: OpenSans-Light;
+    src: url('OpenSans-Light.ttf');
+}
+
+.text {
+    -fx-font-family: OpenSans-Light;
+}
+
+#pagetitle {
+	-fx-font-size: 20pt;
+}
+#page-container{
+	-fx-padding: 0 10 0 10;
+}
