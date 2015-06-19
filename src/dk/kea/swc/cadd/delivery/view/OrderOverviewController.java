@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -55,11 +57,9 @@ public class OrderOverviewController {
 		orderTable.setItems(orderDAO.getOrders(false));
 			
 		//Resize the columns (with percentages) when the window is enlarged
-		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.05));
-		cityNameColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.35));
-		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.40));
-		editColumn		.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.10));
-		deleteColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.10));
+		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().subtract(130).multiply(0.20));
+		cityNameColumn	.prefWidthProperty().bind(orderTable.widthProperty().subtract(130).multiply(0.35));
+		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().subtract(130).multiply(0.45));
 		
 		// Initialize the table with the four columns.
 		orderIDColumn	.setCellValueFactory(cellData -> cellData.getValue().orderIDProperty().asObject());
@@ -76,15 +76,17 @@ public class OrderOverviewController {
 	/** A table cell containing a button for editing an order. */
     private class AddEditCell extends TableCell<Order, Boolean> {
       final Button button = new Button("");
-      Image image = new Image(getClass().getResourceAsStream("images/edit.png"));
+      HBox wrap = new HBox();
       
       AddEditCell() {
-    	  button.setGraphic(new ImageView(image));
+    	  button.setId("edit-button");
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  showOrderEditDialog(orderTable.getItems().get(getTableRow().getIndex()));
           }
         });
+	    	wrap.setAlignment(Pos.CENTER);
+	    	wrap.getChildren().add(button);
       } 
       
       /** Places an edit button in the row only if the row is not empty. */
@@ -92,7 +94,7 @@ public class OrderOverviewController {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(button);
+          setGraphic(wrap);
         } else {
           setGraphic(null);
         }
@@ -103,10 +105,10 @@ public class OrderOverviewController {
     /** A table cell containing a button for editing an order. */
     private class AddDeleteCell extends TableCell<Order, Boolean> {
       final Button button = new Button("");
-      Image image = new Image(getClass().getResourceAsStream("images/delete.png"));
+      HBox wrap = new HBox();
       
       AddDeleteCell() {
-    	  button.setGraphic(new ImageView(image));
+    	  button.setId("delete-button");
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
@@ -114,6 +116,8 @@ public class OrderOverviewController {
         	  orderTable.getItems().remove(selectedIndex);
           }
         });
+	    	wrap.setAlignment(Pos.CENTER);
+	    	wrap.getChildren().add(button);
       }
       
       /** Places an edit button in the row only if the row is not empty. */
@@ -121,7 +125,7 @@ public class OrderOverviewController {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(button);
+          setGraphic(wrap);
         } else {
           setGraphic(null);
         }

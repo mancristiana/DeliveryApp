@@ -19,18 +19,7 @@
          </BorderPane.margin>
       </TableView>
    </center>
-   <top>
-      <HBox BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Storages">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="10.0" top="5.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
-   </top>
+	<top>
+		<Label id="pagetitle" text="Storages" />
+	</top>
 </BorderPane>

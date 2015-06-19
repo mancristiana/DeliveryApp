@@ -10,7 +10,7 @@
             <TableColumn fx:id="cityNameColumn" text="City name" />
             <TableColumn fx:id="storageNameColumn" text="Storage name" />
             <TableColumn fx:id="priceColumn" text="Price (RON/ton)" />
-            <TableColumn fx:id="editColumn" prefWidth="50" sortable="false" text="Edit" />
+            <TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false" />
          </columns>
       </TableView>
    </center>

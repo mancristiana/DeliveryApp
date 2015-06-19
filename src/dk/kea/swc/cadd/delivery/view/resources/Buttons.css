@@ -1,8 +1,14 @@
-#edit-button {
-  	-fx-background-image: url('edit.png');
-  	-fx-background-repeat: no-repeat;
+.button{
+	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px 25px;
   	-fx-background-position: center;
   	-fx-min-height: 40;
   	-fx-min-width: 40;
+}
+#edit-button {
+  	-fx-background-image: url('edit.png');
+}
+
+#delete-button {
+  	-fx-background-image: url('delete.png');
 }
