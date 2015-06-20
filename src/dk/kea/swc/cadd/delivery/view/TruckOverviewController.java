@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,12 +26,12 @@ import dk.kea.swc.cadd.delivery.model.Truck;
 
 public class TruckOverviewController {
 	
-	@FXML private TableView<Truck> 			truckTable;
+	@FXML private TableView<Truck> 	truckTable;
 	@FXML private TableColumn<Truck, Integer> 	capacityColumn;
 	@FXML private TableColumn<Truck, Double> 	speedColumn;
     @FXML private TableColumn<Truck, Boolean> 	availableColumn;
-    @FXML private TableColumn<Truck, Boolean> editColumn;
-	@FXML private TableColumn<Truck, Boolean> deleteColumn;
+    @FXML private TableColumn<Truck, Boolean> 	editColumn;
+	@FXML private TableColumn<Truck, Boolean> 	deleteColumn;
 	@FXML private Button newButton;
 
 
@@ -57,11 +59,9 @@ public class TruckOverviewController {
 		truckTable.setItems(truckDAO.getTrucks());
 			
 		// Resize the columns (with percentages) when the window is enlarged //TODO COPYRIGHT
-		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().multiply(0.196));
-		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().multiply(0.17));
-		availableColumn .prefWidthProperty().bind(truckTable.widthProperty().multiply(0.15));
-		editColumn		.prefWidthProperty().bind(truckTable.widthProperty().multiply(0.10));
-		deleteColumn 	.prefWidthProperty().bind(truckTable.widthProperty().multiply(0.13));
+		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.40));
+		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.30));
+		availableColumn .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.30));
 		
 		// Initialize the table with the three columns
 		capacityColumn	.setCellValueFactory(cellData -> cellData.getValue().capacityProperty().asObject());
@@ -73,9 +73,6 @@ public class TruckOverviewController {
 		// Create a cell value factory with buttons for each row in the table
 		editColumn	.setCellFactory( truckBooleanTableColumn -> new AddEditCell());
 		deleteColumn.setCellFactory( truckBooleanTableColumn -> new AddDeleteCell());
-		
-		Image image = new Image(getClass().getResourceAsStream("images/plus.png"));
-	    newButton.setGraphic(new ImageView(image));
 	}
 	
 	@FXML
@@ -88,16 +85,18 @@ public class TruckOverviewController {
 	 * A table cell containing a button for editing a truck. 
 	 */
     private class AddEditCell extends TableCell<Truck, Boolean> {
-      final Button button = new Button("");
-      Image image = new Image(getClass().getResourceAsStream("images/edit.png"));
+    	final Button button = new Button();
+    	HBox wrap = new HBox();
       
       AddEditCell() {
-    	  button.setGraphic(new ImageView(image));
+    	  button.setId("edit-button");
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  showTruckDialog(truckTable.getItems().get(getTableRow().getIndex()));
           }
         });
+    	  wrap.setAlignment(Pos.CENTER);
+    	  wrap.getChildren().add(button);
       }
       
       /** 
@@ -107,7 +106,7 @@ public class TruckOverviewController {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(button);
+          setGraphic(wrap);
         } else {
           setGraphic(null);
         }
@@ -119,11 +118,11 @@ public class TruckOverviewController {
 	 * A table cell containing a button for editing a truck. 
 	 */
     private class AddDeleteCell extends TableCell<Truck, Boolean> {
-      final Button button = new Button("");
-      Image image = new Image(getClass().getResourceAsStream("images/delete.png"));
+    	final Button button = new Button();
+    	HBox wrap = new HBox();
       
       AddDeleteCell() {
-    	  button.setGraphic(new ImageView(image));
+    	  button.setId("delete-button");
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
@@ -132,6 +131,8 @@ public class TruckOverviewController {
         	  
           }
         });
+    	  wrap.setAlignment(Pos.CENTER);
+    	  wrap.getChildren().add(button);
       }
       
       /** 
@@ -141,7 +142,7 @@ public class TruckOverviewController {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(button);
+          setGraphic(wrap);
         } else {
           setGraphic(null);
         }

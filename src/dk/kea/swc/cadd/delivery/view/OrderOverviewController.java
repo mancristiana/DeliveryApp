@@ -14,8 +14,6 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -75,7 +73,7 @@ public class OrderOverviewController {
 	
 	/** A table cell containing a button for editing an order. */
     private class AddEditCell extends TableCell<Order, Boolean> {
-      final Button button = new Button("");
+      final Button button = new Button();
       HBox wrap = new HBox();
       
       AddEditCell() {
@@ -104,7 +102,7 @@ public class OrderOverviewController {
     
     /** A table cell containing a button for editing an order. */
     private class AddDeleteCell extends TableCell<Order, Boolean> {
-      final Button button = new Button("");
+      final Button button = new Button();
       HBox wrap = new HBox();
       
       AddDeleteCell() {

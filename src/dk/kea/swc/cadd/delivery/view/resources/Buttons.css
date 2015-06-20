@@ -1,14 +1,35 @@
-.button{
+.button:hover{
+	-fx-base: #FFFFFF;
+}
+#edit-button {
+	-fx-background-image: url('edit.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px 25px;
   	-fx-background-position: center;
   	-fx-min-height: 40;
   	-fx-min-width: 40;
-}
-#edit-button {
-  	-fx-background-image: url('edit.png');
+  	-fx-max-height: 40;
+  	-fx-max-width: 40;
 }
 
 #delete-button {
-  	-fx-background-image: url('delete.png');
+	-fx-background-image: url('delete.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-size: 25px 25px;
+  	-fx-background-position: center;
+  	-fx-min-height: 40;
+  	-fx-min-width: 40;
+  	-fx-max-height: 40;
+  	-fx-max-width: 40;	
+}
+
+#add-button {
+	-fx-font-weight: bold;
+  	-fx-alignment: center_right;
+	-fx-background-image: url('add.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 25px 25px;
+	-fx-background-position: 7;
+  	-fx-min-width: 75;
+  	-fx-max-width: 75;
 }

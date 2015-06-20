@@ -7,7 +7,7 @@
     -fx-font-family: OpenSans-Light;
 }
 
-#pagetitle {
+#page-title {
 	-fx-font-size: 20pt;
 }
 #page-container{

@@ -19,6 +19,6 @@
       </TableView>
    </center>
    <top>
-      <Label id="pagetitle" text="Order Overview" />
+		<Label id="page-title" text="Order Overview" />
    </top>
 </BorderPane>

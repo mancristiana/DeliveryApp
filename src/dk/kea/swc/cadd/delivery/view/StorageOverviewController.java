@@ -7,12 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -52,9 +54,8 @@ public class StorageOverviewController {
 		storageTable.setItems(storageDAO.getStorages());
 		
 	    // Resize the columns (with percentages) when the window is enlarged //TODO COPYRIGHT		
-		cityColumn		.prefWidthProperty().bind(storageTable.widthProperty().multiply(0.45));
-		quantityColumn	.prefWidthProperty().bind(storageTable.widthProperty().multiply(0.30));
-		editColumn		.prefWidthProperty().bind(storageTable.widthProperty().multiply(0.25));
+		cityColumn		.prefWidthProperty().bind(storageTable.widthProperty().subtract(75).multiply(0.60));
+		quantityColumn	.prefWidthProperty().bind(storageTable.widthProperty().subtract(75).multiply(0.40));
 				
 		// Initialize the table with the four columns
 		cityColumn		.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
@@ -69,14 +70,18 @@ public class StorageOverviewController {
 	 * A table cell containing a button for editing 
 	 */
     private class AddEditCell extends TableCell<Storage, Boolean> {
-      final Button button = new Button("Edit");
+        final Button button = new Button();
+        HBox wrap = new HBox();
       
       AddEditCell() {
+    	  button.setId("edit-button");
     	  button.setOnAction(new EventHandler<ActionEvent>() {
     		  @Override public void handle(ActionEvent actionEvent) {
     			  showEditStorageDialog(storageTable.getItems().get(getTableRow().getIndex()));
     		  }
     	  });
+    	  wrap.setAlignment(Pos.CENTER);
+    	  wrap.getChildren().add(button);
       }
       
       /** 
@@ -86,7 +91,7 @@ public class StorageOverviewController {
     	  super.updateItem(item, empty);
     	  if (!empty) {
     		  setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-    		  setGraphic(button);
+    		  setGraphic(wrap);
     	  } else {
     		  setGraphic(null);
     	  }

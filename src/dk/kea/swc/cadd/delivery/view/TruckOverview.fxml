@@ -6,19 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.TruckOverviewController">
+<BorderPane id="page-container" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.TruckOverviewController">
    <center>
-      <TableView fx:id="truckTable" prefHeight="250.0" prefWidth="600.0">
+      <TableView fx:id="truckTable">
          <columns>
             <TableColumn fx:id="capacityColumn" text="Capacity" />
             <TableColumn fx:id="speedColumn" text="Speed" />
             <TableColumn fx:id="availableColumn" text="Availability" />
-            <TableColumn fx:id="editColumn" sortable="false" text="Edit" />
-            <TableColumn fx:id="deleteColumn" sortable="false" text="Delete" />
+            <TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false"/>
+            <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false"/>
          </columns>
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" />
-         </BorderPane.margin>
       </TableView>
    </center>
    <top>
@@ -31,23 +28,9 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Trucks">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Label>
-            <Button fx:id="newButton" mnemonicParsing="false" onAction="#handleAdd" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </Button>
+            <Label id="page-title" text="Trucks" />
+            <Button id="add-button" fx:id="newButton" mnemonicParsing="false" onAction="#handleAdd" GridPane.columnIndex="1" GridPane.halignment="RIGHT" text="Add"/>
          </children>
-         <padding>
-            <Insets bottom="10.0" top="10.0" />
-         </padding>
       </GridPane>
    </top>
 </BorderPane>

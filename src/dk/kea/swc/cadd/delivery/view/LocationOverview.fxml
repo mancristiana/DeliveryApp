@@ -15,6 +15,6 @@
       </TableView>
    </center>
    <top>
-      <Label id="pagetitle" text="Locations" />
+      <Label id="page-title" text="Locations" />
    </top>
 </BorderPane>

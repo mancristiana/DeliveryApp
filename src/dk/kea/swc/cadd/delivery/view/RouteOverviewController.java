@@ -83,7 +83,7 @@ public class RouteOverviewController {
 	 * A table cell containing a button for showing details of a route. 
 	 */
     private class AddDetailsCell extends TableCell<Route, Boolean> {
-      final Button button = new Button("");
+      final Button button = new Button();
       Image image = new Image(getClass().getResourceAsStream("images/edit.png"));  	  
 
       AddDetailsCell() {
@@ -114,7 +114,7 @@ public class RouteOverviewController {
 	 * A table cell containing a button for opening a map showing the route. 
 	 */
     private class AddMapCell extends TableCell<Route, Boolean> {
-      final Button button = new Button("");
+      final Button button = new Button();
       Image image = new Image(getClass().getResourceAsStream("images/map.png"));
       
       AddMapCell() {
@@ -148,7 +148,7 @@ public class RouteOverviewController {
 	 * A table cell containing a button for opening a map showing the route. 
 	 */
     private class AddDeleteCell extends TableCell<Route, Boolean> {
-      final Button button = new Button("");
+      final Button button = new Button();
       Image image = new Image(getClass().getResourceAsStream("images/check.png"));
       
       AddDeleteCell() {

@@ -2,58 +2,23 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.OrderArchiveController">
+<BorderPane id="page-container" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.OrderArchiveController">
    <center>
-      <TableView fx:id="orderTable" prefHeight="179.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="orderTable">
          <columns>
-            <TableColumn fx:id="orderIDColumn" maxWidth="200.0" minWidth="28.0" prefWidth="28.0" text="ID" />
-            <TableColumn fx:id="routeIDColumn" maxWidth="200.0" minWidth="28.0" prefWidth="64.0" text="RouteID" />
-            <TableColumn fx:id="cityNameColumn" maxWidth="200.0" minWidth="39.0" prefWidth="82.0" text="Location" />
-            <TableColumn fx:id="quantityColumn" maxWidth="361.0" minWidth="110.0" prefWidth="122.0" text="Requested quntity (tons)" />
-            <TableColumn fx:id="deleteColumn" maxWidth="321.0" minWidth="50.0" prefWidth="60.0" text="Delete" />
+            <TableColumn fx:id="orderIDColumn" text="ID" />
+            <TableColumn fx:id="routeIDColumn" text="RouteID" />
+            <TableColumn fx:id="cityNameColumn" text="Location" />
+            <TableColumn fx:id="quantityColumn" text="Requested quntity (tons)" />
+            <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false"  />
          </columns>
-         <BorderPane.margin>
-            <Insets left="10.0" right="10.0" />
-         </BorderPane.margin>
       </TableView>
    </center>
    <top>
-      <GridPane BorderPane.alignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </GridPane.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Label prefHeight="35.0" prefWidth="197.0" text="Order Archive">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-               </children>
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </GridPane.margin>
-            </HBox>
-         </children>
-      </GridPane>
+		<Label id="page-title" text="Order Archive" />
    </top>
 </BorderPane>
