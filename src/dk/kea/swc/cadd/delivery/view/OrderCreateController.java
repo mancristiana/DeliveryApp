@@ -100,6 +100,12 @@ public class OrderCreateController {
 	        	quantityValidationLabel.setVisible(true);
 	        	isValid = false;
 	        }
+        	
+        	if( Double.parseDouble(quantityField.getText()) > 21) {
+        		quantityValidationLabel.setText("Quantity can't be larger than 21 tons!");
+	        	quantityValidationLabel.setVisible(true);
+	        	isValid = false;
+        	}
         }
     	
         return isValid;        	

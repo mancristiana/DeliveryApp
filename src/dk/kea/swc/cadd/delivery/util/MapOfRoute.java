@@ -15,10 +15,13 @@ public class MapOfRoute {
 	private String url = "https://www.google.dk/maps/dir/";	
 	
 	public MapOfRoute(Route route) {
-		//url += 
-		//TO DO add storage location
 		List<Order> orderList = new OrderDAO().getOrdersByRoute(route.getRouteID());
 		Iterator<Order> itr = orderList.iterator();
+		if(itr.hasNext()) {
+			Order o = itr.next();
+			url += o.getStorageName().replaceAll(" ", "+") + "/";
+			url += o.getCityName().replaceAll(" ", "+") + "/";
+		}
 		while(itr.hasNext()) {
 			url += itr.next().getCityName().replaceAll(" ", "+") + "/";// + ",+Romania/";
 		}

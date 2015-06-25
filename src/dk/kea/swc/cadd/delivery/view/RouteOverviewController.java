@@ -156,8 +156,9 @@ public class RouteOverviewController {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
+        	 
+        	  routeDAO.finishRoute(routeTable.getItems().get(selectedIndex));
         	  routeTable.getItems().remove(selectedIndex);
-        	  //TO DO DATABASE
           }
         });
       }
