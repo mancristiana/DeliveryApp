@@ -3,16 +3,9 @@ package dk.kea.swc.cadd.delivery;
 import java.io.IOException;
 
 import dk.kea.swc.cadd.delivery.view.RouteCreateController;
-import dk.kea.swc.cadd.delivery.view.StorageOverviewController;
-import dk.kea.swc.cadd.delivery.view.DriverOverviewController;
-import dk.kea.swc.cadd.delivery.view.LocationOverviewController;
-import dk.kea.swc.cadd.delivery.view.OrderOverviewController;
-import dk.kea.swc.cadd.delivery.view.TruckOverviewController;
-import dk.kea.swc.cadd.delivery.view.RouteOverviewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -26,7 +19,6 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DeliveryApp");
-        
         
         initRootLayout();
         showOrderOverview();
@@ -59,147 +51,49 @@ public class MainApp extends Application {
      * Shows the location overview inside the root layout.
      */
     public void showLocationOverview() {
-        try {
-            // Load location overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/LocationOverview.fxml"));
-            Pane locationOverview = loader.load();
-
-            // Set location overview into the center of root layout.
-            rootLayout.setCenter(locationOverview);
-            
-            // Give the controller access to the main app.
-            LocationOverviewController controller = loader.getController();
-            controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	showPage("LocationOverview");
     }
     
     /**
      * Shows the storage overview inside the root layout.
      */
     public void showStorageOverview() {
-    	//show storage overview.
-    try{
-    	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(MainApp.class.getResource("view/StorageOverview.fxml"));
-    	Pane driverOverview = loader.load();
-    	
-    	//set storage into the center of root layout
-    	rootLayout.setCenter(driverOverview);
-
-    	// Give the controller access to the main app.
-        StorageOverviewController controller = loader.getController();
-        controller.setMainApp(this);
-      } catch (IOException e) {
-        e.printStackTrace();
+    	showPage("StorageOverview");
     }
-  }
     
     /**
      * Shows the truck overview inside the root layout.
      */
     public void showTruckOverview() {
-    	try {
-    		// Load truck overview
-    		FXMLLoader loader = new FXMLLoader();
-    		loader.setLocation(MainApp.class.getResource("view/TruckOverview.fxml"));
-    		Pane truckOverview = loader.load();
-    		
-    		//Set truck overview into the center of the root layout
-    		rootLayout.setCenter(truckOverview);
-    		
-    		//Give the controller access to the main app
-    		TruckOverviewController controller = loader.getController();
-    		controller.setMainApp(this);
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
+    	showPage("TruckOverview");
     }
     
     /**
      * Shows the driver overview inside the root layout.
      */
     public void showDriverOverview() {
-        try {
-            // Load driver overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/DriverOverview.fxml"));
-            Pane driverOverview = loader.load();
-
-            // Set driver overview into the center of root layout.
-            rootLayout.setCenter(driverOverview);
-            
-            // Give the controller access to the main app.
-            DriverOverviewController controller = loader.getController();
-            controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	showPage("DriverOverview");
     }
     
     /**
      * Shows the create order view inside the root layout.
      */
     public void showOrderCreate() {
-    	try {
-            // Load order overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/OrderCreate.fxml"));
-            Pane orderCreate = loader.load();
-
-            // Set order overview into the center of root layout.
-            rootLayout.setCenter(orderCreate);
-            
-            // Give the controller access to the main app.
-//            OrderCreateController controller = loader.getController();
-//            controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	showPage("OrderCreate");
     }
     
     /**
      * Shows the order overview inside the root layout.
      */
     public void showOrderOverview() {
-    	try {
-            // Load order overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/OrderOverview.fxml"));
-            Pane orderOverview = loader.load();
-
-            // Set order overview into the center of root layout.
-            rootLayout.setCenter(orderOverview);
-            
-            // Give the controller access to the main app.
-            OrderOverviewController controller = loader.getController();
-            controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	showPage("OrderOverview");
     }
     
     /**
      * Shows the order archive view inside the root layout.
      */
     public void showOrderArchive() {
-    	try {
-            // Load order overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/OrderArchive.fxml"));
-            Pane orderArchive = loader.load();
-
-            // Set order overview into the center of root layout.
-            rootLayout.setCenter(orderArchive);
-            
-//            // Give the controller access to the main app.
-//            OrderArchiveController controller = loader.getController();
-//            controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    	showPage("OrderArchive");
     }
     
     /**
@@ -227,28 +121,28 @@ public class MainApp extends Application {
      * Shows the order overview inside the root layout.
      */
     public void showRouteOverview() {
-    	try {
-            // Load order overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RouteOverview.fxml"));
-            Pane routeOverview = loader.load();
+    	showPage("RouteOverview");
+    }
 
-            // Set order overview into the center of root layout.
-            rootLayout.setCenter(routeOverview);
-            
-            // Give the controller access to the main app.
-            RouteOverviewController controller = loader.getController();
-            controller.setMainApp(this);
+    public void showPage(String name){
+    	try {
+            // Load the page into a Pane object.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/"+name+".fxml"));
+            Pane page = loader.load();
+
+            // Set the page in the center of root layout.
+            rootLayout.setCenter(page);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    /**
+    
+	/**
      * Returns the main stage.
-     * @return primaryStage
+     * @return <code>primaryStage</code>
      */
-    public Stage getPrimaryStage() {
+	public Stage getPrimaryStage() {
         return primaryStage;
     }
 

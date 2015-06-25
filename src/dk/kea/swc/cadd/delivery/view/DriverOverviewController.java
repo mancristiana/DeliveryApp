@@ -156,8 +156,7 @@ public class DriverOverviewController {
             else {
             	dialogStage.setTitle("Add driver");
             }
-            dialogStage.initModality(Modality.WINDOW_MODAL); //TODO
-            dialogStage.initOwner(mainApp.getPrimaryStage());
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);

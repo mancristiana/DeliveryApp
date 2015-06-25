@@ -112,8 +112,7 @@ public class StorageOverviewController {
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Storage");
-            dialogStage.initModality(Modality.WINDOW_MODAL); //TODO
-            dialogStage.initOwner(mainApp.getPrimaryStage());
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);

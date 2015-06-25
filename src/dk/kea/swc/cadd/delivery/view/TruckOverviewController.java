@@ -163,8 +163,7 @@ public class TruckOverviewController {
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Truck");
-            dialogStage.initModality(Modality.WINDOW_MODAL); //TODO
-            dialogStage.initOwner(mainApp.getPrimaryStage());
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);

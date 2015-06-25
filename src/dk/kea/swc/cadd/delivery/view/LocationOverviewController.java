@@ -114,8 +114,7 @@ public class LocationOverviewController {
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Location");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(mainApp.getPrimaryStage());
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);

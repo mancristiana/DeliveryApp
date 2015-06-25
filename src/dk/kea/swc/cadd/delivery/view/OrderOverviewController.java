@@ -34,7 +34,6 @@ public class OrderOverviewController {
 	// Data access object for the database
 	private OrderDAO orderDAO;
 	
-	private MainApp mainApp;
 
 	/**
 	 * The constructor.
@@ -50,6 +49,7 @@ public class OrderOverviewController {
 	 */
 	@FXML
 	private void initialize() {
+		
 		// Give the controller data to fill the table view.
 		orderDAO = new OrderDAO();
 		orderTable.setItems(orderDAO.getOrders(false));
@@ -141,8 +141,7 @@ public class OrderOverviewController {
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Order");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(mainApp.getPrimaryStage());
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             
             // Setting the minimum width and height
             dialogStage.setMinWidth(page.getMinWidth()+17.25);
@@ -162,9 +161,5 @@ public class OrderOverviewController {
             e.printStackTrace();
         }
     }
-	
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
 
 }
