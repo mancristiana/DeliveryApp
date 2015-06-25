@@ -1,15 +1,11 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
+
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
@@ -18,6 +14,7 @@ import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.DriverDAO;
 import dk.kea.swc.cadd.delivery.model.Driver;
+import dk.kea.swc.cadd.delivery.view.ui.ButtonCell;
 
 public class DriverOverviewController {
 	
@@ -29,12 +26,9 @@ public class DriverOverviewController {
 	@FXML private TableColumn<Driver, Boolean> 	editColumn;
 	@FXML private TableColumn<Driver, Boolean> 	deleteColumn;
 
-
 	// Data access object for the database
 	private DriverDAO driverDAO;
 	
-	private MainApp mainApp; //TODO
-
 	/**
 	 * The constructor.
 	 * The constructor is called before the initialize() method.
@@ -49,95 +43,44 @@ public class DriverOverviewController {
 	 */
 	@FXML
 	private void initialize() {
-		// Give the controller data to fill the table view
-		driverDAO = new DriverDAO();
-		driverTable.setItems(driverDAO.getDrivers());
+//		// Adds the list of drivers from the database to the table
+//		driverTable.setItems(driverDAO.getDrivers());
 			
-		// Resize the columns (with percentages) when the window is enlarged //TODO COPYRIGHT
-		nameColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.196));
-		phoneColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.17));
-		emailColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.25));
-		availableColumn .prefWidthProperty().bind(driverTable.widthProperty().multiply(0.15));
-		editColumn		.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.10));
-		deleteColumn 	.prefWidthProperty().bind(driverTable.widthProperty().multiply(0.13));
+		// Resize the columns (with percentages) when the window is enlarged
+		nameColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.30));
+		phoneColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.17));
+		emailColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.33));
+		availableColumn .prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.20));
 		
-		// Initialize the table with the four columns
+		// Sets the values of the columns
 		nameColumn		.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		phoneColumn		.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
 		emailColumn		.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
+		
+		// The value of the columns with buttons are booleans that check if the row is empty or now
 		editColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		
-		// Create a cell value factory with buttons for each row in the table
-		editColumn	.setCellFactory( driverBooleanTableColumn -> new AddEditCell());
-		deleteColumn.setCellFactory( driverBooleanTableColumn -> new AddDeleteCell());
+		// Creates a cell value factory with edit buttons for each row in the table
+		editColumn		.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Driver>("edit-button"){
+			@Override
+			public void onButtonClicked() {
+	        	showDriverDialog(driverTable.getItems().get(getTableRow().getIndex()));
+	        	//TODO
+			}});
+		
+		// Creates a cell value factory with delete buttons for each row in the table
+		deleteColumn	.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Driver>("delete-button"){
+			@Override
+			public void onButtonClicked(){
+				int selectedIndex = getTableRow().getIndex();
+				System.out.println(driverDAO.removeDriver(driverTable.getItems().get(selectedIndex)));
+				driverTable.getItems().remove(selectedIndex);
+			}
+		});
 	}
-	
-	/** 
-	 * A table cell containing a button for editing a driver. 
-	 */
-    private class AddEditCell extends TableCell<Driver, Boolean> {
-      final Button button = new Button("Edit");
 
-      AddEditCell() {
-    	  button.setOnAction(new EventHandler<ActionEvent>() {
-          @Override public void handle(ActionEvent actionEvent) {
-        	  showDriverDialog(driverTable.getItems().get(getTableRow().getIndex()));
-        	  //TODO
-          }
-        });
-      }
-      
-      /** 
-       * Places an edit button in the row only if the row is not empty. 
-       */
-      @Override 
-      protected void updateItem(Boolean item, boolean empty) {
-        super.updateItem(item, empty);
-        if (!empty) {
-          setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(button);
-        } else {
-          setGraphic(null);
-        }
-      }
-      
-    }
-   
-    /** 
-	 * A table cell containing a button for editing a driver. 
-	 */
-    private class AddDeleteCell extends TableCell<Driver, Boolean> {
-      final Button button = new Button("Delete");
-
-      AddDeleteCell() {
-    	  button.setOnAction(new EventHandler<ActionEvent>() {
-          @Override public void handle(ActionEvent actionEvent) {
-        	  int selectedIndex = getTableRow().getIndex();
-        	  System.out.println(driverDAO.removeDriver(driverTable.getItems().get(selectedIndex)));
-        	  driverTable.getItems().remove(selectedIndex);
-        	  
-          }
-        });
-      }
-      
-      /** 
-       * Places an edit button in the row only if the row is not empty. 
-       */
-      @Override 
-      protected void updateItem(Boolean item, boolean empty) {
-        super.updateItem(item, empty);
-        if (!empty) {
-          setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(button);
-        } else {
-          setGraphic(null);
-        }
-      }
-      
-    }
-    
     /**
      * Shows the driver dialog.
      */
@@ -156,8 +99,7 @@ public class DriverOverviewController {
             else {
             	dialogStage.setTitle("Add driver");
             }
-            dialogStage.initModality(Modality.WINDOW_MODAL); //TODO
-            dialogStage.initOwner(mainApp.getPrimaryStage());
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);
@@ -177,13 +119,18 @@ public class DriverOverviewController {
         }
     }
 
+    public void refreshTable(){
+    	LoadingScreen.show();
+    	driverDAO = new DriverDAO();
+    	// Adds the list of drivers from the database to the table
+    	driverTable.setItems(driverDAO.getDrivers());
+    	LoadingScreen.hide();
+    }
     @FXML
     private void handleAdd(){
-    	showDriverDialog(null);
+    	refreshTable();
+//    	showDriverDialog(null);
   	  //TODO
     }
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
 
 }

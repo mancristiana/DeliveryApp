@@ -12,9 +12,9 @@
          <columns>
             <TableColumn fx:id="capacityColumn" text="Capacity" />
             <TableColumn fx:id="speedColumn" text="Speed" />
-            <TableColumn fx:id="availableColumn" text="Availability" />
-            <TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false"/>
-            <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false"/>
+            <TableColumn fx:id="availableColumn" text="Available" />
+            <TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false" />
+            <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false" />
          </columns>
       </TableView>
    </center>
@@ -29,7 +29,7 @@
         </rowConstraints>
          <children>
             <Label id="page-title" text="Trucks" />
-            <Button id="add-button" fx:id="newButton" mnemonicParsing="false" onAction="#handleAdd" GridPane.columnIndex="1" GridPane.halignment="RIGHT" text="Add"/>
+            <Button id="add-button" onAction="#handleAdd" text="Add" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
          </children>
       </GridPane>
    </top>

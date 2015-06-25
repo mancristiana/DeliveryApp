@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 
 public class DriverDAO {
 
-	private final Connection con;
+	private Connection con;
 	
 	public DriverDAO() {
 		con = DBConnector.getConnection();

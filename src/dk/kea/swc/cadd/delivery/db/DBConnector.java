@@ -24,4 +24,21 @@ public class DBConnector {
         return con;
     }
     
+//    public static Connection getConnection() {
+//    	String USER = "root";
+//    	String PASS = "";
+//    	String DB = "cadd";
+//    	String URL = "jdbc:mysql://localhost";
+//    	String PORT = "3306";
+//        Connection con = null;
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            String urlForConn = URL + ":" + PORT + "/" + DB;
+//            con = DriverManager.getConnection(urlForConn, USER, PASS);
+//        } catch (ClassNotFoundException | SQLException e) {
+//        	e.printStackTrace();
+//        }
+//        return con;
+//    }
+    
 }

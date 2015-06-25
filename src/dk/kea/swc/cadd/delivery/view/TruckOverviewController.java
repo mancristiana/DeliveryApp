@@ -14,8 +14,6 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -32,20 +30,16 @@ public class TruckOverviewController {
     @FXML private TableColumn<Truck, Boolean> 	availableColumn;
     @FXML private TableColumn<Truck, Boolean> 	editColumn;
 	@FXML private TableColumn<Truck, Boolean> 	deleteColumn;
-	@FXML private Button newButton;
-
 
 	// Data access object for the database
 	private TruckDAO truckDAO;
-	
-	private MainApp mainApp; //TODO
 
 	/**
 	 * The constructor.
 	 * The constructor is called before the initialize() method.
 	 */
 	public TruckOverviewController() {
-		
+		truckDAO = new TruckDAO();
 	}
 
 	/**
@@ -54,11 +48,10 @@ public class TruckOverviewController {
 	 */
 	@FXML
 	private void initialize() {
-		// Give the controller data to fill the table view
-		truckDAO = new TruckDAO();
+		// Adds the list of trucks from the database to the table
 		truckTable.setItems(truckDAO.getTrucks());
 			
-		// Resize the columns (with percentages) when the window is enlarged //TODO COPYRIGHT
+		// Resize the columns (with percentages) when the window is enlarged
 		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.40));
 		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.30));
 		availableColumn .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.30));
@@ -163,8 +156,7 @@ public class TruckOverviewController {
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Truck");
-            dialogStage.initModality(Modality.WINDOW_MODAL); //TODO
-            dialogStage.initOwner(mainApp.getPrimaryStage());
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);
@@ -182,9 +174,5 @@ public class TruckOverviewController {
             e.printStackTrace();
         }
     }
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
 
 }

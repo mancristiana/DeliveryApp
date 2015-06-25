@@ -192,7 +192,6 @@ public class RouteOverviewController {
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Details");
             dialogStage.initModality(Modality.APPLICATION_MODAL); 
-            dialogStage.initOwner(mainApp.getPrimaryStage());
             dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);
