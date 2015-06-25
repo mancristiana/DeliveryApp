@@ -12,15 +12,5 @@
 }
 
 #page-container{
-	-fx-padding: 0 10 0 10;
-}
-
-#loading-image{
-	-fx-background-color: red;
-	-fx-background-repeat: no-repeat;
-  	-fx-background-size: 25px 25px;
-  	  	-fx-min-height: 40;
-  	-fx-min-width: 40;
-  	-fx-max-height: 40;
-  	-fx-max-width: 40;	
+	-fx-padding: 0 10 10 10;
 }

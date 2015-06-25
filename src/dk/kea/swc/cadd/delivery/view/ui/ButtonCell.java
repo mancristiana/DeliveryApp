@@ -13,8 +13,8 @@ import javafx.scene.layout.HBox;
  */
 public abstract class ButtonCell<T> extends TableCell<T, Boolean> {
 	
-	private Button button;
-	private HBox wrap;
+	private Button 	button;
+	private HBox 	wrap;
 	
 	/** 
 	 * Creates a centered button with the given css id.

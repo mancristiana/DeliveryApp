@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.DriverDAO;
 import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.view.ui.ButtonCell;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 
 public class DriverOverviewController {
 	
@@ -26,27 +28,16 @@ public class DriverOverviewController {
 	@FXML private TableColumn<Driver, Boolean> 	editColumn;
 	@FXML private TableColumn<Driver, Boolean> 	deleteColumn;
 
-	// Data access object for the database
-	private DriverDAO driverDAO;
-	
-	/**
-	 * The constructor.
-	 * The constructor is called before the initialize() method.
-	 */
-	public DriverOverviewController() {
-		
-	}
-
 	/**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
 	 */
 	@FXML
 	private void initialize() {
-//		// Adds the list of drivers from the database to the table
-//		driverTable.setItems(driverDAO.getDrivers());
-			
-		// Resize the columns (with percentages) when the window is enlarged
+    	// Adds the list of drivers from the database to the table
+    	driverTable.setItems(DriverDAO.getDrivers());
+    	
+		// Resizes the columns (with percentages) when the window is enlarged
 		nameColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.30));
 		phoneColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.17));
 		emailColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.33));
@@ -67,7 +58,6 @@ public class DriverOverviewController {
 			@Override
 			public void onButtonClicked() {
 	        	showDriverDialog(driverTable.getItems().get(getTableRow().getIndex()));
-	        	//TODO
 			}});
 		
 		// Creates a cell value factory with delete buttons for each row in the table
@@ -75,10 +65,8 @@ public class DriverOverviewController {
 			@Override
 			public void onButtonClicked(){
 				int selectedIndex = getTableRow().getIndex();
-				System.out.println(driverDAO.removeDriver(driverTable.getItems().get(selectedIndex)));
-				driverTable.getItems().remove(selectedIndex);
-			}
-		});
+				deleteDriver(driverTable.getItems().get(selectedIndex));
+			}});
 	}
 
     /**
@@ -86,51 +74,63 @@ public class DriverOverviewController {
      */
     public void showDriverDialog(Driver driver) {
         try {
-            // Load the fxml file and create a new stage for the dialog.
+            // Loads the fxml file and creates a new stage for the dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/DriverDialog.fxml"));
             Pane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            if(driver!=null){
-            	dialogStage.setTitle("Edit driver");
-            }
-            else {
-            	dialogStage.setTitle("Add driver");
-            }
+            dialogStage.setTitle(driver==null ? "Add driver" : "Edit driver");
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setResizable(false);
-            
+        
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
             
-            // Set the driver object into the controller
+            // Gives the controller access to the driver and the driver list
             DriverDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
             controller.setDriver(driver);
-            if(driver==null){
-            	controller.setDriverList(driverTable.getItems());
-            }
-            // Show the dialog and wait until the user closes it
+            controller.setDriverTable(driverTable);
+            controller.setDialogStage(dialogStage);
+            
+            // Shows the dialog and waits for the user
             dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void refreshTable(){
-    	LoadingScreen.show();
-    	driverDAO = new DriverDAO();
-    	// Adds the list of drivers from the database to the table
-    	driverTable.setItems(driverDAO.getDrivers());
-    	LoadingScreen.hide();
-    }
     @FXML
     private void handleAdd(){
-    	refreshTable();
-//    	showDriverDialog(null);
-  	  //TODO
+    	showDriverDialog(null);
     }
-
+    
+    private void deleteDriver(Driver driver){
+		String errorMessage = "";
+		
+        errorMessage = DriverDAO.removeDriver(driver);
+        
+        // Checks if we got sql errors
+		if(!errorMessage.isEmpty()){
+            // Shows the error message because we got a sql error.
+			MyAlert alert = new MyAlert(
+					AlertType.ERROR,
+					"Error while deleting driver",
+					errorMessage,
+					"The driver was not deleted.");
+			alert.showAndWait();
+		} else {
+			// Shows the confirmation message because the update was successful
+			MyAlert alert = new MyAlert(
+					AlertType.INFORMATION,
+					"Success",
+					"Changes were submitted successfully",
+					"The driver with ID: "+driver.getDriverId()+" was deleted.");
+			alert.showAndWait();
+			
+			// Updates the application's driver list with the new changes
+			driverTable.getItems().remove(driver);
+		}
+    }
 }

@@ -19,11 +19,14 @@ public class DriverDAO {
 		con = DBConnector.getConnection();
 	}
 	
-	public ObservableList<Driver> getDrivers() {
+	public static ObservableList<Driver> getDrivers() {
 		ObservableList<Driver> list = FXCollections.observableArrayList();
-        try {
+		Connection connection = null;
+		   try {
+			connection= DBConnector.getConnection();
+			
             String sql = "SELECT * FROM driver ORDER BY driver_id";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeQuery();
 
             ResultSet rs = stmt.getResultSet();
@@ -63,56 +66,67 @@ public class DriverDAO {
         return null;
     }
 	
-	public String createDriver(Driver driver) {
-	   try {
-		   String sql = "INSERT INTO `cadd`.`driver` (`driver_id`, `name`, `phone`, `email`, `available`) VALUES (NULL, ?, ?, ?, ?);";
-		   PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		   stmt.setString(1, driver.getName());
-		   stmt.setString(2, driver.getPhone());
-		   stmt.setString(3, driver.getEmail());
-		   stmt.setBoolean(4, driver.getAvailable());
-
-		   stmt.execute();
-		   ResultSet rs = stmt.getGeneratedKeys();
-		   if(rs.next())
-			   driver.setDriverId(rs.getInt(1));
-		   return null;
-	   }catch (SQLException e) {
-		   return e.getErrorCode() + " " + e.getMessage();
-	   }
-   }
-	
-	public String removeDriver(Driver driver) {
-	   try {
-		   String sql = "DELETE FROM `cadd`.`driver` WHERE `driver`.`driver_id` = ?";
-		   PreparedStatement stmt = con.prepareStatement(sql);
-		   stmt.setInt(1, driver.getDriverId());
-		   stmt.execute();
-		   return null;
-	   } catch (SQLException e){
-		   return e.getErrorCode() + " " + e.getMessage();
-	   }
+	public static String removeDriver(Driver driver) {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
+			   
+			String sql = "DELETE FROM `cadd`.`driver` WHERE `driver`.`driver_id` = ?";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, driver.getDriverId());
+		 	stmt.execute();
+			return "";
+		} catch (SQLException e){
+		   return "Error code: " +e.getErrorCode() + "\nMessage: " + e.getMessage();
+		}
 	}
 	
-	public String updateDriver(Driver driver){
-		   try {
-			   String sql = "UPDATE  `cadd`.`driver` "
+	public static String createDriver(Driver driver) {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
+			   
+			String sql = "INSERT INTO `cadd`.`driver` (`driver_id`, `name`, `phone`, `email`, `available`) VALUES (NULL, ?, ?, ?, ?);";
+			   
+			PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, driver.getName());
+			stmt.setString(2, driver.getPhone());
+			stmt.setString(3, driver.getEmail());
+			stmt.setBoolean(4, driver.getAvailable());
+			stmt.execute();
+			   
+			ResultSet rs = stmt.getGeneratedKeys();
+			if(rs.next()){
+				driver.setDriverId(rs.getInt(1));
+			}
+			return "";
+		} catch (SQLException e) {
+			return "Error code: " +e.getErrorCode() + "\nMessage: " + e.getMessage();
+		}
+	}
+	
+	public static String updateDriver(Driver driver){
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
+			
+			String sql = "UPDATE  `cadd`.`driver` "
 			   		+ "SET  `name` =  ?,"
 			   		+ "`phone` =  ?,"
 			   		+ "`email` =  ?,"
 			   		+ "`available` = ? "
 			   		+ "WHERE  `driver`.`driver_id` = ?;";
-			   PreparedStatement stmt = con.prepareStatement(sql);
-			   stmt.setString(1, driver.getName());
-			   stmt.setString(2, driver.getPhone());
-			   stmt.setString(3, driver.getEmail());
-			   stmt.setBoolean(4, driver.getAvailable());
-			   stmt.setInt(5, driver.getDriverId());
-			   stmt.execute();
-			   return null;
-		   } catch (SQLException e){
-			   return e.getErrorCode() + " " + e.getMessage();
-		   }
-	   }
-    
+			
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, driver.getName());
+			stmt.setString(2, driver.getPhone());
+			stmt.setString(3, driver.getEmail());
+			stmt.setBoolean(4, driver.getAvailable());
+			stmt.setInt(5, driver.getDriverId());
+			stmt.execute();
+			return "";
+		} catch (SQLException e) {
+			return "Error code: " +e.getErrorCode() + "\nMessage: " + e.getMessage();
+		}
+	}
 }

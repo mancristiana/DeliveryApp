@@ -2,11 +2,11 @@ package dk.kea.swc.cadd.delivery.view;
 
 import dk.kea.swc.cadd.delivery.db.DriverDAO;
 import dk.kea.swc.cadd.delivery.model.Driver;
-import javafx.collections.ObservableList;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -16,92 +16,42 @@ public class DriverDialogController {
     @FXML private TextField phoneField;
     @FXML private TextField emailField;
     @FXML private CheckBox 	availableBox;
-
-    private boolean 	isNew;
-    private Stage 		dialogStage;
-    private Driver 		driver;
-    private ObservableList<Driver> driverList;
-    private DriverDAO driverDAO;
-
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    @FXML
-    private void initialize() {
-    	driverDAO = new DriverDAO();
-    }
+    
+	private TableView<Driver> driverTable;
+    private boolean	isNew;
+    private Stage	dialogStage;
+    private Driver	driver;
 
     /**
-     * Sets the stage of this dialog.
-     * 
-     * @param dialogStage
-     */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    /**
-     * Sets the driver to be edited in the dialog.
-     * 
-     * @param driver
+     * Sets the values of the fields with the data from the driver.
+     *
+     * @param driver - or null for empty fields
      */
     public void setDriver(Driver driver) {
-    	if(driver !=null){
-	        this.driver = driver;
-	        nameField.setText(driver.getName());
+    	// Checks if the user clicked new or edit
+    	this.isNew = driver==null;
+    	
+    	// If the user clicked new, we create a new Driver, otherwise we work with the selected driver
+    	this.driver = isNew ? new Driver() : driver;
+    	
+    	if(!isNew){
+    		nameField.setText(driver.getName());
 	        phoneField.setText(driver.getPhone());
 	        emailField.setText(driver.getEmail());
 	        availableBox.setSelected(driver.getAvailable());
-	        nameField.setEditable(false); 
-	        isNew = false;
-    	}
-    	else{
-    		this.driver = new Driver();
-    		isNew = true;
+	        
+	        nameField.setEditable(false);
     	}
     }
-
-    /**
-     * Sets the driver to be edited in the dialog.
-     * 
-     * @param driverList
-     */
-	public void setDriverList(ObservableList<Driver> driverList) {
-		this.driverList = driverList;
+    
+	public void setDriverTable(TableView<Driver> table) {
+		this.driverTable = table;
 	}
-    /**
-     * Called when the user clicks ok.
-     */
-    @FXML
-    private void handleOk() {
-        if (isInputValid()) {
-        	driver.setName(nameField.getText());
-    		driver.setPhone(phoneField.getText());
-            driver.setEmail(emailField.getText());
-            driver.setAvailable(availableBox.isSelected());
-	         
-            if(isNew) { 
-            	System.out.println(driverDAO.createDriver(driver));
-            	driverList.add(driver);
-	           
-	           
-        	} else {
-        		System.out.println(driverDAO.updateDriver(driver));
-	           
-            }
-            dialogStage.close();
-        }
-    }
 
-    /**
-     * Called when the user clicks cancel.
-     */
-    @FXML
-    private void handleCancel() {
-        dialogStage.close();
-    }
-
+	public void setDialogStage(Stage stage) {
+		this.dialogStage = stage;
+	}
+	
     /**
      * Validates the user input in the text fields.
      * 
@@ -109,32 +59,95 @@ public class DriverDialogController {
      */
     private boolean isInputValid() {
         String errorMessage = "";
-        if (emailField.getText() == null || emailField.getText().length() == 0) {
-            errorMessage += "Invalid email!\n"; 
+        
+        // Validates the email
+        if (emailField.getText().isEmpty()) {
+            errorMessage += "Email is required.\n"; 
         }
-        if (phoneField.getText() == null || phoneField.getText().length() == 0) {
-            errorMessage += "Invalid phone!\n"; 
+        
+        // Validates the phone
+        if (phoneField.getText().isEmpty()) {
+            errorMessage += "Phone is required.\n"; 
         } else {
             try {
                 Integer.parseInt(phoneField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "Invalid phone (must be an integer)!\n"; 
+                errorMessage += "Invalid phone format (must be an integer).\n"; 
             }
         }
-
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            // Show the error message.
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
+        
+        // Checks if we found any errors
+        if (errorMessage.length() != 0) {
+            // Shows the error message because the input is not valid.
+   			MyAlert alert = new MyAlert(
+					AlertType.ERROR,
+					"Invalid input",
+					errorMessage,
+					"Please correct invalid fields and try again.");
             alert.showAndWait();
+            
+            // Returns false because the input is not valid
             return false;
+        } else {
+        	// Returns true because the input is valid
+        	return true;
+        }
+    }
+	
+    /**
+     * Called when the user clicks ok.
+     */
+    @FXML
+    private void handleOk() {
+    	if (isInputValid()) {
+        	driver.setName(nameField.getText());
+    		driver.setPhone(phoneField.getText());
+            driver.setEmail(emailField.getText());
+            driver.setAvailable(availableBox.isSelected());
+	        
+            String errorMessage = "";
+            
+            // Checks if the driver was created or edited
+            if(isNew) {
+            	errorMessage = DriverDAO.createDriver(driver);
+        	} else {
+        		errorMessage = DriverDAO.updateDriver(driver);
+            }
+            
+            // Checks if we got sql errors
+    		if(!errorMessage.isEmpty()){
+                // Shows the error message because we got a sql error.
+    			MyAlert alert = new MyAlert(
+    					AlertType.ERROR,
+    					"Error while submitting changes",
+    					errorMessage,
+    					"The driver was not created/updated.");
+    			alert.showAndWait();
+    		} else {
+    			// Shows the confirmation message because the update was successful
+    			MyAlert alert = new MyAlert(
+    					AlertType.INFORMATION,
+    					"Success",
+    					"Changes were submitted successfully",
+    					"The driver with ID: "+driver.getDriverId()+" was created/updated.");
+    			alert.showAndWait();
+    			
+    			// Updates the application's driver list with the new data from the database 
+    			driverTable.setItems(DriverDAO.getDrivers());
+    			
+        		// Closes the add/edit dialog
+        		dialogStage.close();
+    		}
         }
     }
 
+    
+    /**
+     * Called when the user clicks cancel.
+     */
+    @FXML
+	private void handleCancel() {
+    	// Closes the add/edit dialog
+        dialogStage.close();
+    }
 }

@@ -1,10 +1,6 @@
 package dk.kea.swc.cadd.delivery;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import dk.kea.swc.cadd.delivery.view.LoadingScreen;
 import dk.kea.swc.cadd.delivery.view.RouteCreateController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +20,6 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("DeliveryApp");
 
         initRootLayout();
-        LoadingScreen.initLoadingScreen(rootLayout);
         showOrderOverview();
     }
 
