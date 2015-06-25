@@ -38,7 +38,7 @@ public class RouteCreateController {
 	private TruckDAO  truckDAO;
 	
 	private MainApp mainApp;
-	private ObservableList<Order> selected;
+	private ObservableList<Order> selectedItems;
 
 	/**
 	 * The constructor.
@@ -54,7 +54,7 @@ public class RouteCreateController {
 	 */
 	@FXML
 	private void initialize() {
-		selected = FXCollections.observableArrayList();
+		selectedItems = FXCollections.observableArrayList();
 		
 		// Give the controller data to fill the table view.
 		orderDAO = new OrderDAO();
@@ -88,10 +88,10 @@ public class RouteCreateController {
     	  check.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  if(check.isSelected()){
-        		  selected.add(orderTable.getItems().get(getTableRow().getIndex()));  
+        		  selectedItems.add(orderTable.getItems().get(getTableRow().getIndex()));  
         	  }
         	  else{
-        		  selected.remove(orderTable.getItems().get(getTableRow().getIndex()));
+        		  selectedItems.remove(orderTable.getItems().get(getTableRow().getIndex()));
         	  }
           }
         });
@@ -115,62 +115,83 @@ public class RouteCreateController {
      */
     @FXML
     private void handleCreate() {
-    	if(selected.size() == 0 ){
-            // Show the error message.
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText("Ops! You didn't select any orders.");
-
-            alert.showAndWait();
-    	} else {
-    		while(selected.size() != 0){
-    			ObservableList<Object> list = routeDAO.getDriverAndTruck();
-    			if(list.size()==0){
-//    	    		 Show the error .
-    	            Alert alert = new Alert(AlertType.ERROR);
-    	            alert.initOwner(mainApp.getPrimaryStage());
-    	            alert.setTitle("Ops");
-    	            alert.setHeaderText("There are no drivers or trucks available");
-
-    	            alert.showAndWait();
+    	//If no orders/items selected, show an alert
+    	if(selectedItems.size() == 0 ){ 
+    		showAlert(AlertType.ERROR, "Invalid Fields", "Please correct invalid fields", "Ops! You didn't select any orders.");
+    	} 
+    	//If there are selected orders/items
+    	else {
+    		// Start creating as many routes as possible
+    		while(selectedItems.size() != 0){
+    			// Get one available driver and truck
+    			ObservableList<Object> driverTruck = routeDAO.getDriverAndTruck(); 
+    			
+    			// If there aren't available ones, show error message and return
+    			if(driverTruck.size() == 0){
+    				showAlert(AlertType.ERROR, "Ops",null,"There are no drivers or trucks available");
     	            return;
     			}
-	    		Driver driver = (Driver) list.get(0);
-	    		Truck truck = (Truck) list.get(1);
-	    		
-	    		Route route = routeDAO.createRoute(driver.getDriverId(),truck.getTruckID());
-	    		
-    			double sum = selected.get(0).getQuantity();
     			
-    			selected.get(0).setRouteID(route.getRouteID());
-    			orderDAO.updateOrder(selected.get(0));
-	    		    			
-    			for(int i = 1; i<selected.size();i++){
-    				System.out.println("" + (sum+selected.get(i).getQuantity() <= 21.0));
-    				if(sum+selected.get(i).getQuantity() < 21.0){
-    					sum+=selected.get(i).getQuantity();
-    	    			selected.get(i).setRouteID(route.getRouteID());
-    	    			orderDAO.updateOrder(selected.get(i));
-    				}
-    			}
+    			// Create a new route using the available driver and truck 
+	    		Driver driver 	= (Driver) driverTruck.get(0);
+	    		Truck truck 	= (Truck)  driverTruck.get(1);
+	    
+	    		Route route = routeDAO.createRoute(driver.getDriverId(), truck.getTruckID());
 	    		
+	    		// Set availability to false so the same driver and truck won't be selected again for the next route
 	    		driver.setAvailable(false);
 	    		driverDAO.updateDriver(driver);
 	    		truck.setAvailable(false);
 	    		truckDAO.updateTruck(truck);
 	    		
-    			for(int i = 0; i<selected.size();i++){
-    				if(selected.get(i).getRouteID() != 0){
-    					selected.remove(i);
+	    		// Start adding orders to the route
+	    		
+	    		double totalQuantity = 0; //selectedItems.get(0).getQuantity(); //get quantity of the first selected item
+    			String storage = null;
+	    		
+    			selectedItems.get(0).setRouteID(route.getRouteID()); 	
+    			orderDAO.updateOrder(selectedItems.get(0));			 	
+
+    			// Try to add as many selected items to the route as possible
+    			for(int i = 0; i < selectedItems.size(); i++){
+    				Order order = selectedItems.get(i);
+    				
+    				// Check if order fits and if it has the same storage as the route, skip order otherwise
+    				if(totalQuantity + order.getQuantity() <= truck.getCapacity() && (order.getStorageName().equals(storage) || storage == null)){
+    					totalQuantity += order.getQuantity();
+    					if (storage == null) storage = order.getStorageName();
+    					order.setRouteID(route.getRouteID());	//add it to the route by setting route id of the order
+    	    			orderDAO.updateOrder(order);				//make the changes in the DB
+    				}
+    			}
+	    		
+    			// Remove added orders the from the selectedItems  list
+    			for(int i = 0; i < selectedItems.size(); i++){
+    				if(selectedItems.get(i).getRouteID() != 0){
+    					selectedItems.remove(i);
     					i=-1;
     				}
     			}
+    			
+    			// Show success message for a route
+    			String details = "Route ID " + route.getRouteID() 	+ "\n" +
+    							 "Driver " 	 + driver.getName()		+ "\n" +
+    							 "Truck  " 	 + truck.getTruckID() + " (capacity " + truck.getCapacity() + ")\n";
+    			showAlert(AlertType.INFORMATION,"Success!", "New route was successfully created", details);
+    			
     		}
     		
     		mainApp.showRouteOverview();   
     	}
+    }
+    
+    private void showAlert(AlertType type, String title, String header, String message) {
+    	Alert alert = new Alert(type);
+        alert.initOwner(mainApp.getPrimaryStage());
+        if(title 	!= null) alert.setTitle(title);
+        if(header 	!= null) alert.setHeaderText(header);
+        if(message 	!= null) alert.setContentText(message);
+        alert.showAndWait();
     }
     
 	public void setMainApp(MainApp mainApp) {
