@@ -47,6 +47,13 @@ public class MainApp extends Application {
     }
     
     /**
+     * Shows the location overview inside the root layout.
+     */
+    public void showLocationOverview() {
+		showPage("LocationOverview");
+    }
+    
+    /**
      * Shows the storage overview inside the root layout.
      */
     public void showStorageOverview() {
@@ -114,13 +121,6 @@ public class MainApp extends Application {
      */
     public void showRouteOverview() {
     	showPage("RouteOverview");
-    }
-
-    /**
-     * Shows the location overview inside the root layout.
-     */
-    public void showLocationOverview() {
-		showPage("LocationOverview");
     }
     
     public void showPage(String name){

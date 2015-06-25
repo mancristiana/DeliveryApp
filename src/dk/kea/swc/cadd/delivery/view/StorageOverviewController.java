@@ -29,9 +29,6 @@ public class StorageOverviewController {
 	@FXML private TableColumn<Storage, String> 		cityColumn;
 	@FXML private TableColumn<Storage, Integer> 	quantityColumn;
 	@FXML private TableColumn<Storage, Boolean> 	editColumn;
-	
-	//data access object for the database
-	private StorageDAO storageDAO;
 
 	/**
 	 * The constructor.
@@ -48,8 +45,7 @@ public class StorageOverviewController {
 	@FXML
 	private void initialize() {
 		// Give the controller data to fill the table view
-		storageDAO = new StorageDAO();
-		storageTable.setItems(storageDAO.getStorages());
+		storageTable.setItems(StorageDAO.getStorages());
 		
 	    // Resize the columns (with percentages) when the window is enlarged //TODO COPYRIGHT		
 		cityColumn		.prefWidthProperty().bind(storageTable.widthProperty().subtract(75).multiply(0.60));

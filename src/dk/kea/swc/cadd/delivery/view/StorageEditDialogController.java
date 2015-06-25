@@ -15,7 +15,6 @@ public class StorageEditDialogController {
     
     private Stage 		dialogStage;
     private Storage 	storage;
-    private StorageDAO	storageDAO;
     
     /**
      * Initializes the controller class. This method is automatically called
@@ -23,7 +22,6 @@ public class StorageEditDialogController {
      */
     @FXML
     private void initialize() {
-    	storageDAO = new StorageDAO();
     }
 
     /**
@@ -58,7 +56,7 @@ public class StorageEditDialogController {
         if (isInputValid()) {
             storage.setCityName(cityNameField.getText());
             storage.setAvailableQuantity(Integer.parseInt(quantityField.getText()));
-            storageDAO.updateStorage(storage);
+            StorageDAO.updateStorage(storage);
             dialogStage.close();
         }
     }

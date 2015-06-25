@@ -30,11 +30,6 @@ public class RouteCreateController {
 	@FXML private TableColumn<Order, Integer> orderIDColumn;
 	@FXML private TableColumn<Order, String> cityNameColumn;
 	@FXML private TableColumn<Order, Double> quantityColumn;
-
-	// Data access object for the database
-	private OrderDAO orderDAO;
-	private RouteDAO routeDAO;
-	private TruckDAO  truckDAO;
 	
 	private MainApp mainApp;
 	private ObservableList<Order> selectedItems;
@@ -56,11 +51,7 @@ public class RouteCreateController {
 		selectedItems = FXCollections.observableArrayList();
 		
 		// Give the controller data to fill the table view.
-		orderDAO = new OrderDAO();
-		orderTable.setItems(orderDAO.getOrders(false));
-			
-		routeDAO = new RouteDAO();
-		truckDAO = new TruckDAO();
+		orderTable.setItems(OrderDAO.getOrders(false));
 		
 		//Resize the columns (with percentages) when the window is enlarged
 		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.05));
@@ -126,7 +117,7 @@ public class RouteCreateController {
     		// Start creating as many routes as possible
     		while(selectedItems.size() != 0){
     			// Get one available driver and truck
-    			ObservableList<Object> driverTruck = routeDAO.getDriverAndTruck(); 
+    			ObservableList<Object> driverTruck = RouteDAO.getDriverAndTruck(); 
     			
     			// If there aren't available ones, show error message and return
     			if(driverTruck.size() == 0){
@@ -142,13 +133,13 @@ public class RouteCreateController {
 	    		Driver driver 	= (Driver) driverTruck.get(0);
 	    		Truck truck 	= (Truck)  driverTruck.get(1);
 	    
-	    		Route route = routeDAO.createRoute(driver.getDriverId(), truck.getTruckID());
+	    		Route route = RouteDAO.createRoute(driver.getDriverId(), truck.getTruckID());
 	    		
 	    		// Set availability to false so the same driver and truck won't be selected again for the next route
 	    		driver.setAvailable(false);
 	    		DriverDAO.updateDriver(driver);
 	    		truck.setAvailable(false);
-	    		truckDAO.updateTruck(truck);
+	    		TruckDAO.updateTruck(truck);
 	    		
 	    		// Start adding orders to the route
 	    		
@@ -156,7 +147,7 @@ public class RouteCreateController {
     			String storage = null;
 	    		
     			selectedItems.get(0).setRouteID(route.getRouteID()); 	
-    			orderDAO.updateOrder(selectedItems.get(0));			 	
+    			OrderDAO.updateOrder(selectedItems.get(0));			 	
 
     			// Try to add as many selected items to the route as possible
     			for(int i = 0; i < selectedItems.size(); i++){
@@ -167,7 +158,7 @@ public class RouteCreateController {
     					totalQuantity += order.getQuantity();
     					if (storage == null) storage = order.getStorageName();
     					order.setRouteID(route.getRouteID());	//add it to the route by setting route id of the order
-    	    			orderDAO.updateOrder(order);				//make the changes in the DB
+    					OrderDAO.updateOrder(order);				//make the changes in the DB
     				}
     			}
 	    		

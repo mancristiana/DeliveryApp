@@ -14,18 +14,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class RouteDAO {
-
-	private final Connection con;
 	
-	public RouteDAO() {
-		con = DBConnector.getConnection();
-	}
-	
-	public ObservableList<Route> getRoutes(boolean isFinished) {
+	public static ObservableList<Route> getRoutes(boolean isFinished) {
 		ObservableList<Route> list = FXCollections.observableArrayList();
-        try {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
             String sql = "SELECT * FROM  `route` WHERE finished = ?";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setBoolean(1, isFinished);
             stmt.executeQuery();
             
@@ -43,11 +39,13 @@ public class RouteDAO {
         return list;
     }
 	
-	public ObservableList<Object> getDriverAndTruck() {
+	public static ObservableList<Object> getDriverAndTruck() {
 		ObservableList<Object> list = FXCollections.observableArrayList();
-        try {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
             String sql = "SELECT * FROM driver , truck WHERE driver.available = 1 AND truck.available = 1 LIMIT 1";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeQuery();
             
             ResultSet rs = stmt.getResultSet();
@@ -73,20 +71,22 @@ public class RouteDAO {
     }
 	
 	/**
-	 * Generates a new route in the database containing given parameters. 
+	 * Generates a new route in the database connectiontaining given parameters. 
 	 * DB returns an auto-incremented key representing routeId.
-	 * Creates a route object containing driverId, truckId and DB-returned routeID
+	 * Creates a route object connectiontaining driverId, truckId and DB-returned routeID
 	 * @param driverId	id of driver assigned for new route
 	 * @param truckId   id of truck	 assigned for new route
 	 * @return created route
 	 */
-   public Route createRoute(Integer driverId, Integer truckId) {
+   public static Route createRoute(Integer driverId, Integer truckId) {
 	   Route route = null;
-	   try {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
 		   String sql 	= "INSERT INTO `cadd`.`route` (`driver_id`, `truck_id`, `finished`) "
    			+ "VALUES (?, ?, 0);";
 		   
-		   PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		   PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		   stmt.setInt(1, driverId);
 		   stmt.setInt(2, truckId);
 		   
@@ -101,15 +101,17 @@ public class RouteDAO {
 	   return route;
    }
    
-   public String updateRoute(Route route) {
-       try {
+   public static String updateRoute(Route route) {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
            String sql 	= "UPDATE  `cadd`.`route` "
            				+ "SET  `driver_id` =  ?,"
            				+ "`truck_id` =  ?,"
            				+ "`finished` = ?,"
            				+ "`date` =  '2015-06-19 17:17:33' "
            				+ "WHERE  `route`.`route_id` = ?;";
-           PreparedStatement stmt = con.prepareStatement(sql);
+           PreparedStatement stmt = connection.prepareStatement(sql);
            stmt.setInt(1, route.getDriverID());
            stmt.setInt(2, route.getTruckID());
            stmt.setBoolean(3, route.isFinished()); 
@@ -122,12 +124,14 @@ public class RouteDAO {
        }
    }
    
-   public String finishRoute(Route route) {
-       try {
+   public static String finishRoute(Route route) {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
            String sql 	= "UPDATE  `cadd`.`route`, `cadd`.`truck`, `cadd`.`driver` "
            		+ "SET  `route`.`finished` = 1, `truck`.`available` = 1, `driver`.`available` = 1 "
            		+ "WHERE  `route`.`route_id` = ? AND `truck`.`truck_id` = ? AND `driver`.`driver_id` = ?;";
-           PreparedStatement stmt = con.prepareStatement(sql);
+           PreparedStatement stmt = connection.prepareStatement(sql);
            stmt.setInt(1, route.getRouteID());
            stmt.setInt(2, route.getTruckID());
            stmt.setInt(3, route.getDriverID());

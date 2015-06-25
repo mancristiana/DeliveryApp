@@ -17,8 +17,6 @@ public class OrderEditDialogController {
 
     private Stage 	dialogStage;
     private Order 	order;
-    private LocationDAO locationDAO;
-    private OrderDAO orderDAO;
     
     /**
      * Initializes the controller class. This method is automatically called
@@ -26,9 +24,7 @@ public class OrderEditDialogController {
      */
     @FXML
     private void initialize() {
-    	locationDAO = new LocationDAO();
-    	orderDAO = new OrderDAO();
-    	cityNameField.setItems(locationDAO.getLocationNames());
+    	cityNameField.setItems(LocationDAO.getLocationNames());
     }
 
     /**
@@ -61,7 +57,7 @@ public class OrderEditDialogController {
         	 order.setCityName(cityNameField.getSelectionModel().getSelectedItem().toString());
              order.setQuantity(Double.parseDouble(quantityField.getText()));
              
-             orderDAO.updateOrder(order);
+             OrderDAO.updateOrder(order);
             dialogStage.close();
         }
     }

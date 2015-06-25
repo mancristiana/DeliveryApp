@@ -18,8 +18,6 @@ public class LocationEditDialogController {
 
     private Stage 		dialogStage;
     private Location 	location;
-    private LocationDAO locationDAO;
-    private StorageDAO	storageDAO;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -27,9 +25,7 @@ public class LocationEditDialogController {
      */
     @FXML
     private void initialize() {
-    	locationDAO = new LocationDAO();
-    	storageDAO = new StorageDAO();
-    	storageNameField.setItems(storageDAO.getStorageNames());
+    	storageNameField.setItems(StorageDAO.getStorageNames());
     }
 
     /**
@@ -64,7 +60,7 @@ public class LocationEditDialogController {
         if (isInputValid()) {
             location.setPrice(Double.parseDouble(priceField.getText()));
             location.setStorageName(storageNameField.getSelectionModel().getSelectedItem().toString());
-            System.out.println(locationDAO.updateLocation(location));
+            System.out.println(LocationDAO.updateLocation(location));
             dialogStage.close();
         }
     }

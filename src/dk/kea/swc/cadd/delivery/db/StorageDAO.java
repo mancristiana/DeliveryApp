@@ -11,18 +11,14 @@ import javafx.collections.ObservableList;
 
 public class StorageDAO {
 	
-	private final Connection con;
-	
-	public StorageDAO(){
-		con = DBConnector.getConnection();
-	}
-	
-	public ObservableList<Storage> getStorages(){
+	public static ObservableList<Storage> getStorages(){
 		ObservableList<Storage> list = FXCollections.observableArrayList();
+		Connection connection = null;
 		try {
+			connection= DBConnector.getConnection();
 			
 			String sql = "SELECT * FROM `storage` WHERE 1";
-			PreparedStatement stmt = con.prepareStatement(sql); 
+			PreparedStatement stmt = connection.prepareStatement(sql); 
             stmt.executeQuery();
             
             ResultSet rs = stmt.getResultSet();
@@ -38,11 +34,13 @@ public class StorageDAO {
 		return list;
 	}
 	
-	public String createStorage (Storage storage){
-		try{
+	public static String createStorage (Storage storage){
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
 			String sql = "INSERT INTO storage (cityname, available_quantity)"
 					   + "VALUES (?, ?);";
-			PreparedStatement stmt = con.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, storage.getCityName());
 			stmt.setInt(2, storage.getAvailableQuantity());
 			stmt.execute();
@@ -52,10 +50,12 @@ public class StorageDAO {
 		} 
 	}
 	
-	public String removeStorage (Storage storage){
-		try{
+	public static String removeStorage (Storage storage){
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
 			String sql = "DELETE FROM storage WHERE cityname = ?";
-			PreparedStatement stmt = con.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, storage.getCityName());
 			stmt.execute();
 			return null;
@@ -63,12 +63,14 @@ public class StorageDAO {
 			return e.getErrorCode() + " " + e.getMessage();
 		}	
 	}
-	public String updateStorage(Storage storage){
+	public static String updateStorage(Storage storage){
+		Connection connection = null;
 		try {
+			connection= DBConnector.getConnection();
 			String sql = "UPDATE storage "
 					   + "SET available_quantity = ? "
 					   + "WHERE cityname = ?;";
-			PreparedStatement stmt = con.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, storage.getAvailableQuantity());
 			stmt.setString(2, storage.getCityName());
 		
@@ -79,11 +81,13 @@ public class StorageDAO {
 		}
 	}
 	
-	public ObservableList<String> getStorageNames() {
+	public static ObservableList<String> getStorageNames() {
 		ObservableList<String> list = FXCollections.observableArrayList();
+		Connection connection = null;
 		try {
+			connection= DBConnector.getConnection();
             String sql = "SELECT cityname FROM storage WHERE 1";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeQuery();
 
        ResultSet rs = stmt.getResultSet();

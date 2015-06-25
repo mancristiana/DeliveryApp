@@ -12,20 +12,16 @@ import dk.kea.swc.cadd.delivery.model.Truck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-   public class TruckDAO {
+public class TruckDAO {
 	   
-	   private final Connection con;
-
-	   public TruckDAO() {
-		   con = DBConnector.getConnection();
-	   }
-	   
-	   public ObservableList<Truck> getTrucks(){
+	   public static ObservableList<Truck> getTrucks(){
 	    ObservableList<Truck> list = FXCollections.observableArrayList();
 	   
-	    try {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
 	    	String sql = "SELECT * FROM truck ORDER BY truck_id";
-	    	PreparedStatement stmt = con.prepareStatement(sql);
+	    	PreparedStatement stmt = connection.prepareStatement(sql);
 	    	stmt.executeQuery();
 	    	
 	    	ResultSet rs = stmt.getResultSet();
@@ -45,10 +41,12 @@ import javafx.collections.ObservableList;
 	   
 	   }
 	   
-	   public String createTruck(Truck truck) {
-		   try {
+	   public static String createTruck(Truck truck) {
+			Connection connection = null;
+			try {
+				connection= DBConnector.getConnection();
 			   String sql = "INSERT INTO `cadd`.`truck` (`truck_id`, `capacity`, `speed`, `available`) VALUES (NULL, ?, ?, ?);";
-			   PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			   PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			   stmt.setInt(1, truck.getCapacity());
 			   stmt.setDouble(2, truck.getSpeed());
 			   stmt.setBoolean(3, truck.getAvailable());
@@ -62,10 +60,12 @@ import javafx.collections.ObservableList;
 		   }
 	   }
 	   
-	   public String removeTruck(Truck truck) {
-		   try {
+	   public static String removeTruck(Truck truck) {
+			Connection connection = null;
+			try {
+				connection= DBConnector.getConnection();
 			   String sql = "DELETE FROM `cadd`.`truck` WHERE `truck`.`truck_id` = ?";
-			   PreparedStatement stmt = con.prepareStatement(sql);
+			   PreparedStatement stmt = connection.prepareStatement(sql);
 			   stmt.setInt(1, truck.getTruckID());
 			   stmt.execute();
 			   return null;
@@ -73,12 +73,14 @@ import javafx.collections.ObservableList;
 			   return e.getErrorCode() + " " + e.getMessage();
 		   }
 	   }
-	   public String updateTruck(Truck truck){
-		   try {
+	   public static String updateTruck(Truck truck){
+			Connection connection = null;
+			try {
+				connection= DBConnector.getConnection();
 			   String sql = "UPDATE  `cadd`.`truck` "
 			   		+ "SET  `available` = ? "
 			   		+ "WHERE  `truck`.`truck_id` = ?;";
-			   PreparedStatement stmt = con.prepareStatement(sql);
+			   PreparedStatement stmt = connection.prepareStatement(sql);
 			   stmt.setBoolean(1, truck.getAvailable());
 			   stmt.setInt(2, truck.getTruckID());
 			   stmt.execute();

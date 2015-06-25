@@ -20,7 +20,6 @@ public class TruckDialogController {
 	private Stage 	dialogStage;
 	private boolean isNew;
 	private TableView<Truck> truckTable;
-	private TruckDAO truckDAO;
 	
 	 /**
      * Initializes the controller class. This method is automatically called
@@ -28,7 +27,6 @@ public class TruckDialogController {
      */
 	@FXML
 	private void initialize(){
-		truckDAO = new TruckDAO();
 	}
 	/**
      * Sets the stage of this dialog.
@@ -84,10 +82,10 @@ public class TruckDialogController {
 	            truck.setAvailable(availableBox.isSelected());
 	            
 	            if(isNew) {
-	            	System.out.println(truckDAO.createTruck(truck));
+	            	System.out.println(TruckDAO.createTruck(truck));
 	            	truckTable.getItems().add(truck);
 	            } else 
-	            	System.out.println(truckDAO.updateTruck(truck));
+	            	System.out.println(TruckDAO.updateTruck(truck));
 	            
 	            dialogStage.close();
 	        }

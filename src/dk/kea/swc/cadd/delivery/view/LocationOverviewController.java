@@ -30,10 +30,6 @@ public class LocationOverviewController {
 	@FXML private TableColumn<Location, Double> 	priceColumn;
 	@FXML private TableColumn<Location, Boolean> 	editColumn;
 
-
-	// Data access object for the database
-	private LocationDAO locationDAO;
-
 	/**
 	 * The constructor.
 	 * The constructor is called before the initialize() method.
@@ -49,8 +45,7 @@ public class LocationOverviewController {
 	@FXML
 	private void initialize() {
 		// Give the controller data to fill the table view
-		locationDAO = new LocationDAO();
-		locationTable.setItems(locationDAO.getLocations());
+		locationTable.setItems(LocationDAO.getLocations());
 			
 		// Resize the columns (with percentages) when the window is enlarged //TODO COPYRIGHT
 		cityNameColumn		.prefWidthProperty().bind(locationTable.widthProperty().subtract(75).multiply(0.34));

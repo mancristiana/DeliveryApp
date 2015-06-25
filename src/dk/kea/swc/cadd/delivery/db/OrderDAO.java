@@ -4,28 +4,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import dk.kea.swc.cadd.delivery.model.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class OrderDAO {
 
-	private final Connection con;
-	
-	public OrderDAO() {
-		con = DBConnector.getConnection();
-	}
-	
-	public ObservableList<Order> getOrders(boolean hasRoute) {
+	public static ObservableList<Order> getOrders(boolean hasRoute) {
 		ObservableList<Order> list = FXCollections.observableArrayList();
-        try {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
             String sql = "SELECT  `order_id` ,  `order`.`cityname` ,  `location`.`storagename` AS  `storagename` ,  `route_id` ,  `quantity` "
             		+ "FROM  `order` ,  `location` "
             		+ "WHERE  `location`.`cityname` =  `order`.`cityname` ";
             if(hasRoute)
             	sql += "AND route_id > 0";
             else sql += "AND route_id = 0";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeQuery();
 
             ResultSet rs = stmt.getResultSet();
@@ -44,11 +41,13 @@ public class OrderDAO {
         return list;
     }
 	
-	public String createOrder(Order order) {
-        try {
+	public static String createOrder(Order order) {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
             String sql 	= "INSERT INTO `cadd`.`order` (`cityname`, `route_id`, `quantity`) "
             			+ "VALUES (?, 0, ?);";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, order.getCityName());
             stmt.setDouble(2, order.getQuantity());
             stmt.execute();
@@ -58,10 +57,12 @@ public class OrderDAO {
         }
     }
 	
-	public String removeOrder(Order order) {
-        try {
+	public static String removeOrder(Order order) {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
             String sql 	= "DELETE FROM `cadd`.`order` WHERE `order`.`order_id` = ?";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, order.getOrderID());
             stmt.execute();
             return null;
@@ -70,14 +71,16 @@ public class OrderDAO {
         }
     }
 	
-	public String updateOrder(Order order) {
-        try {
+	public static String updateOrder(Order order) {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
             String sql 	= "UPDATE  `cadd`.`order` "
             			+ "SET  `cityname` =  ?,"
             			+ "`route_id` =  ?,"
             			+ "`quantity` =  ? "
             			+ "WHERE  `order`.`order_id` =?;";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, order.getCityName());
             stmt.setInt(2, order.getRouteID());
             stmt.setDouble(3, order.getQuantity());
@@ -89,13 +92,15 @@ public class OrderDAO {
         }
     }
 	
-	public ObservableList<Order> getOrdersByRoute(int routeID) {
+	public static ObservableList<Order> getOrdersByRoute(int routeID) {
 		ObservableList<Order> list = FXCollections.observableArrayList();
-        try {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
             String sql = "SELECT  `order_id` ,  `order`.`cityname` ,  `location`.`storagename` AS  `storagename` ,  `route_id` ,  `quantity` "
             		+ "FROM  `order` ,  `location` "
             		+ "WHERE  `location`.`cityname` =  `order`.`cityname` AND route_id = ? ";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, routeID);
             stmt.executeQuery();
 
@@ -113,11 +118,5 @@ public class OrderDAO {
         }
         return list;
     }
-	
-	
-//	
-//	SELECT * 
-//	FROM  `order` 
-//	WHERE route_id =1
     
 }

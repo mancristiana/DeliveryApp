@@ -16,7 +16,7 @@ public class DriverDAO {
 	public static ObservableList<Driver> getDrivers() {
 		ObservableList<Driver> list = FXCollections.observableArrayList();
 		Connection connection = null;
-		   try {
+		try {
 			connection= DBConnector.getConnection();
 			
             String sql = "SELECT * FROM driver ORDER BY driver_id";
@@ -40,7 +40,7 @@ public class DriverDAO {
 	
 	public static Driver getDriverByID(int id) {
 		Connection connection = null;
-		   try {
+		try {
 			connection= DBConnector.getConnection();
 			
             String sql = "SELECT * FROM driver WHERE driver_id = ?";

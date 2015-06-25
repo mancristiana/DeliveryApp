@@ -15,7 +15,7 @@ public class MapOfRoute {
 	private String url = "https://www.google.dk/maps/dir/";	
 	
 	public MapOfRoute(Route route) {
-		List<Order> orderList = new OrderDAO().getOrdersByRoute(route.getRouteID());
+		List<Order> orderList = OrderDAO.getOrdersByRoute(route.getRouteID());
 		Iterator<Order> itr = orderList.iterator();
 		if(itr.hasNext()) {
 			Order o = itr.next();

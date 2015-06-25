@@ -31,15 +31,11 @@ public class TruckOverviewController {
     @FXML private TableColumn<Truck, Boolean> 	editColumn;
 	@FXML private TableColumn<Truck, Boolean> 	deleteColumn;
 
-	// Data access object for the database
-	private TruckDAO truckDAO;
-
 	/**
 	 * The constructor.
 	 * The constructor is called before the initialize() method.
 	 */
 	public TruckOverviewController() {
-		truckDAO = new TruckDAO();
 	}
 
 	/**
@@ -49,7 +45,7 @@ public class TruckOverviewController {
 	@FXML
 	private void initialize() {
 		// Adds the list of trucks from the database to the table
-		truckTable.setItems(truckDAO.getTrucks());
+		truckTable.setItems(TruckDAO.getTrucks());
 			
 		// Resize the columns (with percentages) when the window is enlarged
 		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.40));
@@ -119,7 +115,7 @@ public class TruckOverviewController {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
-        	  System.out.println(truckDAO.removeTruck(truckTable.getItems().get(selectedIndex)));
+        	  System.out.println(TruckDAO.removeTruck(truckTable.getItems().get(selectedIndex)));
         	  truckTable.getItems().remove(selectedIndex);
         	  
           }

@@ -16,20 +16,15 @@ public class OrderCreateController {
     @FXML private Label quantityValidationLabel;
     @FXML private Label greatSuccessLabel;
 
-
 	private Order	order;
-	private OrderDAO orderDAO;
-	private LocationDAO locationDAO;
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      */
     @FXML
     private void initialize() {
-    	orderDAO = new OrderDAO();
-    	locationDAO = new LocationDAO();
     	order = new Order();
-    	cityNameField.setItems(locationDAO.getLocationNames());
+    	cityNameField.setItems(LocationDAO.getLocationNames());
     	quantityField.setText("");
     	cityNameValidationLabel.setVisible(false);
     	quantityValidationLabel.setVisible(false);
@@ -47,7 +42,7 @@ public class OrderCreateController {
             order.setCityName(cityNameField.getSelectionModel().getSelectedItem().toString());
             order.setQuantity(Double.parseDouble(quantityField.getText()));
             
-            String dbMessage = orderDAO.createOrder(order);
+            String dbMessage = OrderDAO.createOrder(order);
             if(dbMessage != null) {
             	greatSuccessLabel.setStyle("-fx-color: red");
             	greatSuccessLabel.setText(dbMessage);

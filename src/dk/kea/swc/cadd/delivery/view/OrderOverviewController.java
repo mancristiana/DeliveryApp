@@ -30,9 +30,6 @@ public class OrderOverviewController {
 	@FXML private TableColumn<Order, Double> quantityColumn;
 	@FXML private TableColumn<Order, Boolean> editColumn;
 	@FXML private TableColumn<Order, Boolean> deleteColumn;
-
-	// Data access object for the database
-	private OrderDAO orderDAO;
 	
 
 	/**
@@ -51,8 +48,7 @@ public class OrderOverviewController {
 	private void initialize() {
 		
 		// Give the controller data to fill the table view.
-		orderDAO = new OrderDAO();
-		orderTable.setItems(orderDAO.getOrders(false));
+		orderTable.setItems(OrderDAO.getOrders(false));
 			
 		//Resize the columns (with percentages) when the window is enlarged
 		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().subtract(130).multiply(0.20));
@@ -110,7 +106,7 @@ public class OrderOverviewController {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
-        	  orderDAO.removeOrder(orderTable.getItems().get(selectedIndex));
+        	  OrderDAO.removeOrder(orderTable.getItems().get(selectedIndex));
         	  orderTable.getItems().remove(selectedIndex);
           }
         });

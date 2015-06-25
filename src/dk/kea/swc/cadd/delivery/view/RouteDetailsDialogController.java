@@ -28,18 +28,7 @@ public class RouteDetailsDialogController {
     @FXML private TableColumn<Order, Double> quantityColumn;
 
     private Stage 	dialogStage;
-    private OrderDAO orderDAO;
     
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    @FXML
-    private void initialize() {
-    	orderDAO = new OrderDAO();
-    	
-    }
-
     /**
      * Sets the stage of this dialog.
      * 
@@ -55,7 +44,7 @@ public class RouteDetailsDialogController {
      * @param location
      */
     public void setRoute(Route route) {
-    	ObservableList<Order> orderList = orderDAO.getOrdersByRoute(route.getRouteID());
+    	ObservableList<Order> orderList = OrderDAO.getOrdersByRoute(route.getRouteID());
     	orderTable.setItems(orderList);
         
     	locationColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());

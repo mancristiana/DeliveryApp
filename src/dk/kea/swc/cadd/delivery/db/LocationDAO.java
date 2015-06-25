@@ -11,17 +11,13 @@ import javafx.collections.ObservableList;
 
 public class LocationDAO {
 
-	private final Connection con;
-	
-	public LocationDAO() {
-		con = DBConnector.getConnection();
-	}
-	
-	public ObservableList<Location> getLocations() {
+	public static ObservableList<Location> getLocations() {
 		ObservableList<Location> list = FXCollections.observableArrayList();
-        try {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
             String sql = "SELECT * FROM location ORDER BY cityname";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeQuery();
 
             ResultSet rs = stmt.getResultSet();
@@ -37,10 +33,12 @@ public class LocationDAO {
         return list;
     }
 	
-	public Location getLocationByID(String id) {
+	public static Location getLocationByID(String id) {
+		Connection connection = null;
 		try {
+			connection= DBConnector.getConnection();
             String sql = "SELECT * FROM location WHERE id = ?";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, id);
             stmt.executeQuery();
             ResultSet rs = stmt.getResultSet();
@@ -57,11 +55,13 @@ public class LocationDAO {
            
     }
 	
-	public ObservableList<String> getLocationNames() {
+	public static ObservableList<String> getLocationNames() {
 		ObservableList<String> list = FXCollections.observableArrayList();
+		Connection connection = null;
 		try {
+			connection= DBConnector.getConnection();
             String sql = "SELECT cityname FROM location WHERE 1";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeQuery();
 
        ResultSet rs = stmt.getResultSet();
@@ -75,12 +75,14 @@ public class LocationDAO {
     return list;
     }
 	
-	public String updateLocation(Location location){
+	public static String updateLocation(Location location){
+		Connection connection = null;
 		try {
+			connection= DBConnector.getConnection();
 			String sql = "UPDATE  `cadd`.`location` "
 					+ "SET  `storageName` =  ?, `price` =  ? "
 					+ "WHERE  `location`.`cityName` =  ?;";
-			PreparedStatement stmt = con.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, location.getStorageName());
 			stmt.setDouble(2, location.getPrice());
 			stmt.setString(3, location.getCityName());
