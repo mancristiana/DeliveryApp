@@ -33,8 +33,6 @@ public class StorageOverviewController {
 	//data access object for the database
 	private StorageDAO storageDAO;
 
-	private MainApp mainApp; 
-	
 	/**
 	 * The constructor.
 	 * The constructor is called before the initialize() method.
@@ -128,10 +126,6 @@ public class StorageOverviewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
     }
 }
  

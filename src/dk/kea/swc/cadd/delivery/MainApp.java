@@ -45,8 +45,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
-
     
     /**
      * Shows the storage overview inside the root layout.
@@ -138,14 +136,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-    
-	/**
-     * Returns the main stage.
-     * @return <code>primaryStage</code>
-     */
-	public Stage getPrimaryStage() {
-        return primaryStage;
-    }
+
 
     public static void main(String[] args) {
         launch(args);

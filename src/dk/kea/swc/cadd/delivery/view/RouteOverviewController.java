@@ -36,8 +36,6 @@ public class RouteOverviewController {
 
 	// Data access object for the database
 	private RouteDAO routeDAO;
-	
-	private MainApp mainApp; //TODO
 
 	/**
 	 * The constructor.
@@ -208,9 +206,5 @@ public class RouteOverviewController {
             e.printStackTrace();
         }
     }
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
 
 }

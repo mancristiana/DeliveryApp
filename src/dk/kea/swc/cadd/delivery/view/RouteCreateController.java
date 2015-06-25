@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
@@ -22,6 +21,7 @@ import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Order;
 import dk.kea.swc.cadd.delivery.model.Route;
 import dk.kea.swc.cadd.delivery.model.Truck;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 
 public class RouteCreateController {
 	
@@ -34,7 +34,6 @@ public class RouteCreateController {
 	// Data access object for the database
 	private OrderDAO orderDAO;
 	private RouteDAO routeDAO;
-	private DriverDAO driverDAO;
 	private TruckDAO  truckDAO;
 	
 	private MainApp mainApp;
@@ -61,7 +60,6 @@ public class RouteCreateController {
 		orderTable.setItems(orderDAO.getOrders(false));
 			
 		routeDAO = new RouteDAO();
-		driverDAO = new DriverDAO();
 		truckDAO = new TruckDAO();
 		
 		//Resize the columns (with percentages) when the window is enlarged
@@ -117,7 +115,11 @@ public class RouteCreateController {
     private void handleCreate() {
     	//If no orders/items selected, show an alert
     	if(selectedItems.size() == 0 ){ 
-    		showAlert(AlertType.ERROR, "Invalid Fields", "Please correct invalid fields", "Ops! You didn't select any orders.");
+    		showAlert(
+    				AlertType.ERROR,
+    				"Invalid Fields",
+    				"Please correct invalid fields",
+    				"Ops! You didn't select any orders.");
     	} 
     	//If there are selected orders/items
     	else {
@@ -128,7 +130,11 @@ public class RouteCreateController {
     			
     			// If there aren't available ones, show error message and return
     			if(driverTruck.size() == 0){
-    				showAlert(AlertType.ERROR, "Ops",null,"There are no drivers or trucks available");
+    				showAlert(
+    						AlertType.ERROR, 
+    						"Ops",
+    						"",
+    						"There are no drivers or trucks available");
     	            return;
     			}
     			
@@ -140,7 +146,7 @@ public class RouteCreateController {
 	    		
 	    		// Set availability to false so the same driver and truck won't be selected again for the next route
 	    		driver.setAvailable(false);
-	    		driverDAO.updateDriver(driver);
+	    		DriverDAO.updateDriver(driver);
 	    		truck.setAvailable(false);
 	    		truckDAO.updateTruck(truck);
 	    		
@@ -177,7 +183,11 @@ public class RouteCreateController {
     			String details = "Route ID " + route.getRouteID() 	+ "\n" +
     							 "Driver " 	 + driver.getName()		+ "\n" +
     							 "Truck  " 	 + truck.getTruckID() + " (capacity " + truck.getCapacity() + ")\n";
-    			showAlert(AlertType.INFORMATION,"Success!", "New route was successfully created", details);
+    			showAlert(
+    					AlertType.INFORMATION,
+    					"Success!",
+    					"New route was successfully created",
+    					details);
     			
     		}
     		
@@ -185,12 +195,8 @@ public class RouteCreateController {
     	}
     }
     
-    private void showAlert(AlertType type, String title, String header, String message) {
-    	Alert alert = new Alert(type);
-        alert.initOwner(mainApp.getPrimaryStage());
-        if(title 	!= null) alert.setTitle(title);
-        if(header 	!= null) alert.setHeaderText(header);
-        if(message 	!= null) alert.setContentText(message);
+    private void showAlert(AlertType type, String title, String header, String content) {
+    	MyAlert alert = new MyAlert(type,title,header,content);
         alert.showAndWait();
     }
     

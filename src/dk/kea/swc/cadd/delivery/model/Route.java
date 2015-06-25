@@ -36,7 +36,7 @@ public class Route {
 		this.driverID 	= new SimpleIntegerProperty(driverID);
 		this.truckID 	= new SimpleIntegerProperty(truckID);
 		this.finished 	= new SimpleBooleanProperty(finished);
-		this.driver		= new DriverDAO().getDriverByID(driverID);
+		this.driver		= DriverDAO.getDriverByID(driverID);
 	}
 
 	//Setters
@@ -46,7 +46,7 @@ public class Route {
 	
 	public void setDriverID(Integer driverID) {
 		this.driverID.set(driverID);
-		this.driver	= new DriverDAO().getDriverByID(driverID);
+		this.driver	= DriverDAO.getDriverByID(driverID);
 	}
 	
 	public void setTruckID(Integer truckID) {

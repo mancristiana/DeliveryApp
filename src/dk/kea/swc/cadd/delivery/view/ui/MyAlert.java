@@ -5,11 +5,11 @@ import javafx.stage.Modality;
 
 public class MyAlert extends Alert{
 
-	public MyAlert(AlertType type, String title, String headerText, String contentText) {
+	public MyAlert(AlertType type, String title, String headerText, String content) {
 		super(type);
 		this.initModality(Modality.APPLICATION_MODAL);
 		this.setTitle(title);
 		this.setHeaderText(headerText);
-		this.setContentText(contentText);
+		this.setContentText(content);
 	}
 }

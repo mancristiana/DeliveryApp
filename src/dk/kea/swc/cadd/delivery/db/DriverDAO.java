@@ -13,12 +13,6 @@ import javafx.collections.ObservableList;
 
 public class DriverDAO {
 
-	private Connection con;
-	
-	public DriverDAO() {
-		con = DBConnector.getConnection();
-	}
-	
 	public static ObservableList<Driver> getDrivers() {
 		ObservableList<Driver> list = FXCollections.observableArrayList();
 		Connection connection = null;
@@ -44,10 +38,13 @@ public class DriverDAO {
         return list;
     }
 	
-	public Driver getDriverByID(int id) {
-		try {
+	public static Driver getDriverByID(int id) {
+		Connection connection = null;
+		   try {
+			connection= DBConnector.getConnection();
+			
             String sql = "SELECT * FROM driver WHERE driver_id = ?";
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeQuery();
 
@@ -63,7 +60,7 @@ public class DriverDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return null; //TODO sql handling
     }
 	
 	public static String removeDriver(Driver driver) {

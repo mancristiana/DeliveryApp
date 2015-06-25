@@ -33,8 +33,6 @@ public class LocationOverviewController {
 
 	// Data access object for the database
 	private LocationDAO locationDAO;
-	
-	private MainApp mainApp; //TODO
 
 	/**
 	 * The constructor.
@@ -131,9 +129,5 @@ public class LocationOverviewController {
             e.printStackTrace();
         }
     }
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
 
 }
