@@ -84,7 +84,7 @@ public class RouteOverviewController {
 	 */
     private class AddDetailsCell extends TableCell<Route, Boolean> {
       final Button button = new Button();
-      Image image = new Image(getClass().getResourceAsStream("images/edit.png"));  	  
+      Image image = new Image(getClass().getResourceAsStream("resources/images/edit.png"));  	  
 
       AddDetailsCell() {
     	  button.setGraphic(new ImageView(image));
@@ -115,7 +115,7 @@ public class RouteOverviewController {
 	 */
     private class AddMapCell extends TableCell<Route, Boolean> {
       final Button button = new Button();
-      Image image = new Image(getClass().getResourceAsStream("images/map.png"));
+      Image image = new Image(getClass().getResourceAsStream("resources/images/map.png"));
       
       AddMapCell() {
     	  button.setGraphic(new ImageView(image));
@@ -149,7 +149,7 @@ public class RouteOverviewController {
 	 */
     private class AddDeleteCell extends TableCell<Route, Boolean> {
       final Button button = new Button();
-      Image image = new Image(getClass().getResourceAsStream("images/check.png"));
+      Image image = new Image(getClass().getResourceAsStream("resources/images/check.png"));
       
       AddDeleteCell() {
     	  button.setGraphic(new ImageView(image));
