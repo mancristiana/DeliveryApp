@@ -1,7 +1,10 @@
 package dk.kea.swc.cadd.delivery;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import dk.kea.swc.cadd.delivery.view.LoadingScreen;
 import dk.kea.swc.cadd.delivery.view.RouteCreateController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +22,9 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DeliveryApp");
-        
+
         initRootLayout();
+        LoadingScreen.initLoadingScreen(rootLayout);
         showOrderOverview();
     }
 
@@ -47,12 +51,7 @@ public class MainApp extends Application {
         }
     }
 
-    /**
-     * Shows the location overview inside the root layout.
-     */
-    public void showLocationOverview() {
-    	showPage("LocationOverview");
-    }
+
     
     /**
      * Shows the storage overview inside the root layout.
@@ -124,6 +123,13 @@ public class MainApp extends Application {
     	showPage("RouteOverview");
     }
 
+    /**
+     * Shows the location overview inside the root layout.
+     */
+    public void showLocationOverview() {
+		showPage("LocationOverview");
+    }
+    
     public void showPage(String name){
     	try {
             // Load the page into a Pane object.
