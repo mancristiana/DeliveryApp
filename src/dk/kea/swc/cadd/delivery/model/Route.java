@@ -24,15 +24,18 @@ public class Route {
 		this.truckID 	= new SimpleIntegerProperty();
 		this.finished 	= new SimpleBooleanProperty(false);
 	}
-	
+	public Route(Integer routeID, Integer driverID, Integer truckID, Boolean finished) {
+		this(routeID, LocalDate.now(), driverID, truckID, finished);
+	}
 	/**
 	 * Constructor with all the data.
 	 * @param routeID
 	 * @param driverID
 	 * @param truckID
 	 */
-	public Route(Integer routeID, Integer driverID, Integer truckID, Boolean finished) {
+	public Route(Integer routeID, LocalDate date, Integer driverID, Integer truckID, Boolean finished) {
 		this.routeID 	= new SimpleIntegerProperty(routeID);
+		this.date		= date;
 		this.driverID 	= new SimpleIntegerProperty(driverID);
 		this.truckID 	= new SimpleIntegerProperty(truckID);
 		this.finished 	= new SimpleBooleanProperty(finished);
@@ -109,6 +112,10 @@ public class Route {
 
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+	
+	public StringProperty dateProperty() {
+		return new SimpleStringProperty(date.toString());
 	}
 	
 }

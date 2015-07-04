@@ -1,9 +1,12 @@
 package dk.kea.swc.cadd.delivery.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import com.mysql.jdbc.Statement;
 
@@ -28,10 +31,16 @@ public class RouteDAO {
             ResultSet rs = stmt.getResultSet();
             while(rs.next()) {
             	Integer routeID 	= rs.getInt("route_id");
+            	LocalDate	date 	= LocalDate.now();
+            	try {
+            		date	= LocalDate.parse(rs.getDate("date").toString());
+            	} catch(NullPointerException e) {
+            		System.out.println("Date is null and has been set to today's date");
+            	}
             	Integer driverID 	= rs.getInt("driver_id");
             	Integer truckID 	= rs.getInt("truck_id");
             	Boolean finished 	= rs.getBoolean("finished");
-            	list.add(new Route(routeID, driverID, truckID, finished));
+            	list.add(new Route(routeID, date, driverID, truckID, finished));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,12 +92,13 @@ public class RouteDAO {
 		Connection connection = null;
 		try {
 			connection= DBConnector.getConnection();
-		   String sql 	= "INSERT INTO `cadd`.`route` (`driver_id`, `truck_id`, `finished`) "
-   			+ "VALUES (?, ?, 0);";
+		   String sql 	= "INSERT INTO `cadd`.`route` (`date`,`driver_id`, `truck_id`, `finished`) "
+   			+ "VALUES (?, ?, ?, 0);";
 		   
 		   PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		   stmt.setInt(1, driverId);
-		   stmt.setInt(2, truckId);
+		   stmt.setDate(1, Date.valueOf(LocalDate.now()));
+		   stmt.setInt(2, driverId);
+		   stmt.setInt(3, truckId);
 		   
 		   stmt.execute();
 		   ResultSet rs = stmt.getGeneratedKeys();
@@ -102,21 +112,21 @@ public class RouteDAO {
    }
    
    public static String updateRoute(Route route) {
-		Connection connection = null;
+	   Connection connection = null;
 		try {
 			connection= DBConnector.getConnection();
            String sql 	= "UPDATE  `cadd`.`route` "
            				+ "SET  `driver_id` =  ?,"
            				+ "`truck_id` =  ?,"
            				+ "`finished` = ?,"
-           				+ "`date` =  '2015-06-19 17:17:33' "
+           				+ "`date` =  ? "
            				+ "WHERE  `route`.`route_id` = ?;";
            PreparedStatement stmt = connection.prepareStatement(sql);
            stmt.setInt(1, route.getDriverID());
            stmt.setInt(2, route.getTruckID());
            stmt.setBoolean(3, route.isFinished()); 
-        //   stmt.setDate(4, route.);
-           stmt.setInt(4, route.getRouteID());
+           stmt.setDate(4, Date.valueOf(route.getDate())); 
+           stmt.setInt(5, route.getRouteID());
            stmt.execute();
            return null;
        } catch (SQLException e) {
@@ -142,5 +152,21 @@ public class RouteDAO {
            return e.getErrorCode() + " " + e.getMessage();
        }
    }
+   
+   public static String deleteRoute(Route route) {
+		Connection connection = null;
+		try {
+			connection= DBConnector.getConnection();
+          String sql 	= "DELETE FROM `cadd`.`route` "
+          				+ "WHERE  `route`.`route_id` = ?";
+          PreparedStatement stmt = connection.prepareStatement(sql);
+          stmt.setInt(1, route.getRouteID());
+          stmt.execute();
+          return null;
+      } catch (SQLException e) {
+   	   e.printStackTrace();
+          return e.getErrorCode() + " " + e.getMessage();
+      }
+  }
     
 }

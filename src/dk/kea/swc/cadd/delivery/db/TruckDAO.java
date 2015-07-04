@@ -20,7 +20,7 @@ public class TruckDAO {
 		Connection connection = null;
 		try {
 			connection= DBConnector.getConnection();
-	    	String sql = "SELECT * FROM truck ORDER BY truck_id";
+	    	String sql = "SELECT * FROM truck WHERE retired = 0 ORDER BY truck_id";
 	    	PreparedStatement stmt = connection.prepareStatement(sql);
 	    	stmt.executeQuery();
 	    	
@@ -68,9 +68,24 @@ public class TruckDAO {
 			   PreparedStatement stmt = connection.prepareStatement(sql);
 			   stmt.setInt(1, truck.getTruckID());
 			   stmt.execute();
-			   return null;
+			   return "";
 		   } catch (SQLException e){
-			   return e.getErrorCode() + " " + e.getMessage();
+			   if(e.getErrorCode() == 1451) { 	// This case is when "Cannot delete or update a parent row: a foreign key constraint fails" 
+					try {						// which means truck is assigned to a route
+						String sql = "UPDATE   `cadd`.`truck` "
+						   		+ "SET  `retired` =  1, `available` = 0 "
+						   		+ "WHERE `truck`.`truck_id` = ?";
+						
+						PreparedStatement stmt = connection.prepareStatement(sql);
+						stmt.setInt(1, truck.getTruckID());
+						stmt.execute();
+						return "Truck has been active on routes. \nCan't delete from DB. \nIt is marked as retired instead.";
+					} catch (SQLException e2) {
+						return "Error code: " +e2.getErrorCode() + "\nMessage: " + e2.getMessage();
+					}
+					
+				}
+				return "Error code: " +e.getErrorCode() + "\nMessage: " + e.getMessage();
 		   }
 	   }
 	   public static String updateTruck(Truck truck){

@@ -117,9 +117,13 @@ public class DriverOverviewController {
 			MyAlert alert = new MyAlert(
 					AlertType.ERROR,
 					"Error while deleting driver",
-					errorMessage,
-					"The driver was not deleted.");
+					"The driver was not deleted.",
+					errorMessage
+					);
 			alert.showAndWait();
+			if (errorMessage.startsWith("Driver"))
+				// Updates the application's driver list with the new changes
+				driverTable.getItems().remove(driver);
 		} else {
 			// Shows the confirmation message because the update was successful
 			MyAlert alert = new MyAlert(

@@ -7,9 +7,9 @@ public class MyAlert extends Alert{
 
 	public MyAlert(AlertType type, String title, String headerText, String content) {
 		super(type);
-		this.initModality(Modality.APPLICATION_MODAL);
-		this.setTitle(title);
-		this.setHeaderText(headerText);
-		this.setContentText(content);
+		initModality(Modality.APPLICATION_MODAL);
+		setTitle(title);
+		setHeaderText(headerText);
+		setContentText(content);
 	}
 }

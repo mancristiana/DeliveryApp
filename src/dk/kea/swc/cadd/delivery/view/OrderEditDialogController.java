@@ -3,6 +3,7 @@ package dk.kea.swc.cadd.delivery.view;
 import dk.kea.swc.cadd.delivery.db.LocationDAO;
 import dk.kea.swc.cadd.delivery.db.OrderDAO;
 import dk.kea.swc.cadd.delivery.model.Order;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
@@ -97,14 +98,8 @@ public class OrderEditDialogController {
             return true;
         } else {
             // Show the error message.
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
-            alert.showAndWait();
-
+            new MyAlert(AlertType.ERROR,"Invalid Fields",null,"Please correct invalid fields").showAndWait();
+  
             return false;
         }
     }

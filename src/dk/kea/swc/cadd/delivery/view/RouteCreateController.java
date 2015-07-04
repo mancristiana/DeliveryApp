@@ -1,5 +1,8 @@
 package dk.kea.swc.cadd.delivery.view;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +33,8 @@ public class RouteCreateController {
 	@FXML private TableColumn<Order, Integer> orderIDColumn;
 	@FXML private TableColumn<Order, String> cityNameColumn;
 	@FXML private TableColumn<Order, Double> quantityColumn;
+	@FXML private TableColumn<Order, Double> priceColumn;
+	@FXML private TableColumn<Order, Double> profitColumn;
 	
 	private MainApp mainApp;
 	private ObservableList<Order> selectedItems;
@@ -56,13 +61,17 @@ public class RouteCreateController {
 		//Resize the columns (with percentages) when the window is enlarged
 		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.05));
 		cityNameColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.35));
-		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.40));
+		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
+		priceColumn		.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
+		profitColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
 		
 		// Initialize the table with the four columns.
 		selectColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		orderIDColumn	.setCellValueFactory(cellData -> cellData.getValue().orderIDProperty().asObject());
 		cityNameColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
 		quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
+		priceColumn		.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+		profitColumn	.setCellValueFactory(cellData -> cellData.getValue().profitProperty().asObject());
 
 		// Create a cell value factory with buttons for each row in the table.
 		selectColumn	.setCellFactory( orderBooleanTableColumn -> new AddSelectCell());
@@ -162,9 +171,12 @@ public class RouteCreateController {
     				}
     			}
 	    		
+    			Set<String> cityNames = new HashSet<>();
+    			
     			// Remove added orders the from the selectedItems  list
     			for(int i = 0; i < selectedItems.size(); i++){
     				if(selectedItems.get(i).getRouteID() != 0){
+    					cityNames.add(selectedItems.get(i).getCityName()); // Put city names in a set (for display)
     					selectedItems.remove(i);
     					i=-1;
     				}
@@ -173,7 +185,8 @@ public class RouteCreateController {
     			// Show success message for a route
     			String details = "Route ID " + route.getRouteID() 	+ "\n" +
     							 "Driver " 	 + driver.getName()		+ "\n" +
-    							 "Truck  " 	 + truck.getTruckID() + " (capacity " + truck.getCapacity() + ")\n";
+    							 "Truck  " 	 + truck.getTruckID() + " (capacity " + truck.getCapacity() + ")\n" +
+    							 "Locations " 	 + cityNames.toString().replaceAll("[^a-zA-Z ,]", "");
     			showAlert(
     					AlertType.INFORMATION,
     					"Success!",
@@ -188,7 +201,7 @@ public class RouteCreateController {
     
     private void showAlert(AlertType type, String title, String header, String content) {
     	MyAlert alert = new MyAlert(type,title,header,content);
-        alert.showAndWait();
+        alert.show();
     }
     
 	public void setMainApp(MainApp mainApp) {

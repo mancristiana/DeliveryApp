@@ -19,7 +19,7 @@ public class DriverDAO {
 		try {
 			connection= DBConnector.getConnection();
 			
-            String sql = "SELECT * FROM driver ORDER BY driver_id";
+            String sql = "SELECT * FROM driver WHERE retired = 0 ORDER BY driver_id";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeQuery();
 
@@ -43,7 +43,7 @@ public class DriverDAO {
 		try {
 			connection= DBConnector.getConnection();
 			
-            String sql = "SELECT * FROM driver WHERE driver_id = ?";
+            String sql = "SELECT * FROM driver WHERE driver_id = ? ";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeQuery();
@@ -74,7 +74,22 @@ public class DriverDAO {
 		 	stmt.execute();
 			return "";
 		} catch (SQLException e){
-		   return "Error code: " +e.getErrorCode() + "\nMessage: " + e.getMessage();
+			if(e.getErrorCode() == 1451) { 	// This case is when "Cannot delete or update a parent row: a foreign key constraint fails" 
+				try {						// which means driver is assigned to a route
+					String sql = "UPDATE  `cadd`.`driver` "
+					   		+ "SET  `retired` =  1, `available` = 0 "
+					   		+ "WHERE  `driver`.`driver_id` = ?;";
+					
+					PreparedStatement stmt = connection.prepareStatement(sql);
+					stmt.setInt(1, driver.getDriverId());
+					stmt.execute();
+					return "Driver has been active on routes. \nCan't delete from DB. \nIt is marked as retired instead.";
+				} catch (SQLException e2) {
+					return "Error code: " +e2.getErrorCode() + "\nMessage: " + e2.getMessage();
+				}
+				
+			}
+			return "Error code: " +e.getErrorCode() + "\nMessage: " + e.getMessage();
 		}
 	}
 	

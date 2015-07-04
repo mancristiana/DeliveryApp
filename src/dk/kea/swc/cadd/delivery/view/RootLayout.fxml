@@ -30,7 +30,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#showRouteCreate" text="Generate new..." />
                   <MenuItem mnemonicParsing="false" onAction="#showRouteOverview" text="Current" />
-                  <MenuItem mnemonicParsing="false" text="Finished" />
+                  <MenuItem mnemonicParsing="false" onAction="#showRouteFinished" text="Finished" />
                </items>
           </Menu>
         </menus>

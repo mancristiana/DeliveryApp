@@ -14,13 +14,17 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.MainApp;
+import dk.kea.swc.cadd.delivery.db.DriverDAO;
 import dk.kea.swc.cadd.delivery.db.TruckDAO;
+import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Truck;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 
 public class TruckOverviewController {
 	
@@ -115,9 +119,7 @@ public class TruckOverviewController {
     	  button.setOnAction(new EventHandler<ActionEvent>() {
           @Override public void handle(ActionEvent actionEvent) {
         	  int selectedIndex = getTableRow().getIndex();
-        	  System.out.println(TruckDAO.removeTruck(truckTable.getItems().get(selectedIndex)));
-        	  truckTable.getItems().remove(selectedIndex);
-        	  
+        	  deleteTruck(truckTable.getItems().get(selectedIndex));       	  
           }
         });
     	  wrap.setAlignment(Pos.CENTER);
@@ -169,6 +171,39 @@ public class TruckOverviewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void deleteTruck(Truck truck){
+		String errorMessage = "";
+        errorMessage = TruckDAO.removeTruck(truck);
+  	 
+        // Checks if we got sql errors
+		if(!errorMessage.isEmpty()){
+            // Shows the error message because we got a sql error.
+			MyAlert alert = new MyAlert(
+					AlertType.ERROR,
+					"Error while deleting truck",
+					"The truck was not deleted.",
+					errorMessage
+					);
+			alert.showAndWait();
+			if (errorMessage.startsWith("Truck")){
+				// Updates the application's driver list with the new changes
+				truckTable.getItems().remove(truck);
+				}
+			
+		} else {
+			// Shows the confirmation message because the update was successful
+			MyAlert alert = new MyAlert(
+					AlertType.INFORMATION,
+					"Success",
+					"Changes were submitted successfully",
+					"The truck with ID: "+truck.getTruckID()+" was deleted.");
+			alert.showAndWait();
+			
+			// Updates the application's driver list with the new changes
+			truckTable.getItems().remove(truck);
+		}
     }
 
 }

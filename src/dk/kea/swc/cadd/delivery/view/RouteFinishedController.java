@@ -1,6 +1,7 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -17,10 +18,11 @@ import dk.kea.swc.cadd.delivery.model.Route;
 import dk.kea.swc.cadd.delivery.util.MapOfRoute;
 import dk.kea.swc.cadd.delivery.view.ui.ButtonCell;
 
-public class RouteOverviewController {
+public class RouteFinishedController {
 	
 	@FXML private TableView<Route> routeTable;
 	@FXML private TableColumn<Route, Integer> 	routeIDColumn;
+	@FXML private TableColumn<Route, String>	dateColumn;
 	@FXML private TableColumn<Route, String> 	driverColumn;
 	@FXML private TableColumn<Route, Integer> 	truckIDColumn;
 	@FXML private TableColumn<Route, Boolean> 	detailsColumn;
@@ -35,16 +37,18 @@ public class RouteOverviewController {
 	@FXML
 	private void initialize() {
 		// Give the controller data to fill the table view
-		routeTable.setItems(RouteDAO.getRoutes(false));
+		routeTable.setItems(RouteDAO.getRoutes(true));
 			
 		// Resize the columns (with percentages) when the window is enlarged 
 		routeIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.10));
-		driverColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.70));
-		truckIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.20));
+		dateColumn		.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.20));
+		driverColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.60));
+		truckIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.10));
 
 		
 		// Initialize the table with the four columns
 		routeIDColumn	.setCellValueFactory(cellData -> cellData.getValue().routeIDProperty().asObject());
+		dateColumn		.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 		driverColumn	.setCellValueFactory(cellData -> cellData.getValue().driverProperty());
 		truckIDColumn	.setCellValueFactory(cellData -> cellData.getValue().truckIDProperty().asObject());
 		detailsColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
@@ -55,8 +59,7 @@ public class RouteOverviewController {
 		detailsColumn	.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Route>("edit-button"){
 			@Override
 			public void onButtonClicked() {
-				int selectedIndex = getTableRow().getIndex();
-				showDetailsDialog(routeTable.getItems().get(selectedIndex), selectedIndex);
+				showDetailsDialog(routeTable.getItems().get(getTableRow().getIndex()));
 			}});
 		
 		// Creates a cell value factory with edit buttons for each row in the table
@@ -70,11 +73,12 @@ public class RouteOverviewController {
 			}});
 		
 		// Creates a cell value factory with delete buttons for each row in the table
-		deleteColumn	.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Route>("check-button"){
+		deleteColumn	.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Route>("delete-button"){
 			@Override
 			public void onButtonClicked(){
 	        	int selectedIndex = getTableRow().getIndex();
-	        	RouteDAO.finishRoute(routeTable.getItems().get(selectedIndex));
+	         	 
+	        	RouteDAO.deleteRoute(routeTable.getItems().get(selectedIndex));
 	        	routeTable.getItems().remove(selectedIndex);
 			}});
 	}
@@ -82,7 +86,7 @@ public class RouteOverviewController {
     /**
      * Shows the details dialog.
      */
-    public void showDetailsDialog(Route route, int selectedIndex) {
+    public void showDetailsDialog(Route route) {
         try {
             // Load the fxml file and create a new stage for the dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -102,10 +106,8 @@ public class RouteOverviewController {
             RouteDetailsDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setRoute(route);
-            controller.setRouteTable(routeTable);
-            controller.setSelectedIndex(selectedIndex);
-            controller.setFinished(false);
-            
+            controller.setFinished(true);
+
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
         } catch (IOException e) {

@@ -13,6 +13,8 @@ public class Order {
 	private StringProperty 	storageName;
 	private IntegerProperty routeID;
 	private DoubleProperty quantity;
+	private DoubleProperty price;
+	private DoubleProperty profit;
 	
 	public Order() {
 		this.orderID 	= new SimpleIntegerProperty();
@@ -20,6 +22,8 @@ public class Order {
 		this.storageName = new SimpleStringProperty();
 		this.routeID 	= new SimpleIntegerProperty();
 		this.quantity 	= new SimpleDoubleProperty();
+		this.price 	= new SimpleDoubleProperty();
+		this.profit 	= new SimpleDoubleProperty();
 	}
 	
 	/**
@@ -29,12 +33,14 @@ public class Order {
 	 * @param routeID
 	 * @param quantity
 	 */
-	public Order(Integer orderID, String cityName, String storageName, Integer routeID, Double quantity) {
+	public Order(Integer orderID, String cityName, String storageName, Integer routeID, Double quantity, Double price, Double profit) {
 		this.orderID 	= new SimpleIntegerProperty(orderID);
 		this.cityName 	= new SimpleStringProperty(cityName);
 		this.storageName 	= new SimpleStringProperty(storageName);
 		this.routeID 	= new SimpleIntegerProperty(routeID);
 		this.quantity 	= new SimpleDoubleProperty(quantity);
+		this.price 		= new SimpleDoubleProperty(price);
+		this.profit 	= new SimpleDoubleProperty(profit);
 	}
 
 	//Setters
@@ -58,6 +64,14 @@ public class Order {
 		this.quantity.set(quantity);
 	}
 	
+	public void setPrice(Double price) {
+		this.price.set(price);
+	}
+	
+	public void setProfit(Double profit) {
+		this.profit.set(profit);
+	}
+	
 	//Getters
 	public Integer getOrderID() {
 		return orderID.get();
@@ -79,6 +93,14 @@ public class Order {
 		return quantity.get();
 	}
 	
+	public Double getPrice() {
+		return price.get();
+	}
+	
+	public Double getProfit() {
+		return profit.get();
+	}
+	
 	//Property Getters
 	public IntegerProperty orderIDProperty() {
 		return orderID;
@@ -98,6 +120,14 @@ public class Order {
 
 	public DoubleProperty quantityProperty() {
 		return quantity;
+	}
+	
+	public DoubleProperty priceProperty() {
+		return price;
+	}
+	
+	public DoubleProperty profitProperty() {
+		return profit;
 	}
 
 	@Override

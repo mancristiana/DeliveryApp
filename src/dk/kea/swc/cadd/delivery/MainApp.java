@@ -117,10 +117,17 @@ public class MainApp extends Application {
     }
     
     /**
-     * Shows the order overview inside the root layout.
+     * Shows the route overview inside the root layout.
      */
     public void showRouteOverview() {
     	showPage("RouteOverview");
+    }
+    
+    /**
+     * Shows the finished route inside the root layout.
+     */
+    public void showRouteFinished() {
+    	showPage("RouteFinished");
     }
     
     public void showPage(String name){

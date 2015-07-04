@@ -16,12 +16,19 @@ public class OrderDAO {
 		Connection connection = null;
 		try {
 			connection= DBConnector.getConnection();
-            String sql = "SELECT  `order_id` ,  `order`.`cityname` ,  `location`.`storagename` AS  `storagename` ,  `route_id` ,  `quantity` "
+            String sql = "SELECT  `order_id` "
+            		+ ", `order`.`cityname` "
+            		+ ", `location`.`storagename` AS  `storagename`"
+            		+ ", `route_id` "
+            		+ ", `quantity` "
+            		+ ", `location`.`price` "
+            		+ ", `location`.`price` * `order`.`quantity` AS profit "
             		+ "FROM  `order` ,  `location` "
             		+ "WHERE  `location`.`cityname` =  `order`.`cityname` ";
             if(hasRoute)
-            	sql += "AND route_id > 0";
-            else sql += "AND route_id = 0";
+            	sql += "AND route_id > 0 ";
+            else sql += "AND route_id = 0 ";
+            sql += "ORDER BY `profit` DESC ";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.executeQuery();
 
@@ -32,8 +39,10 @@ public class OrderDAO {
             	String storagename 	= rs.getString("storagename");
             	Integer routeID 	= rs.getInt("route_id");
             	Double quantity 	= rs.getDouble("quantity");
+            	Double price 		= rs.getDouble("price");
+            	Double profit 		= rs.getDouble("profit");
 
-            	list.add(new Order(orderID, cityname, storagename, routeID, quantity));
+            	list.add(new Order(orderID, cityname, storagename, routeID, quantity, price, profit));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,6 +107,8 @@ public class OrderDAO {
 		try {
 			connection= DBConnector.getConnection();
             String sql = "SELECT  `order_id` ,  `order`.`cityname` ,  `location`.`storagename` AS  `storagename` ,  `route_id` ,  `quantity` "
+            		+ ", `location`.`price` "
+            		+ ", `location`.`price` * `order`.`quantity` AS profit "
             		+ "FROM  `order` ,  `location` "
             		+ "WHERE  `location`.`cityname` =  `order`.`cityname` AND route_id = ? ";
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -110,8 +121,10 @@ public class OrderDAO {
             	String cityname 	= rs.getString("cityname");
             	String storagename 	= rs.getString("storagename");
             	Double quantity 	= rs.getDouble("quantity");
+            	Double price 		= rs.getDouble("price");
+            	Double profit 		= rs.getDouble("profit");
 
-            	list.add(new Order(orderID, cityname, storagename, routeID, quantity));
+            	list.add(new Order(orderID, cityname, storagename, routeID, quantity, price, profit));
             }
         } catch (SQLException e) {
             e.printStackTrace();

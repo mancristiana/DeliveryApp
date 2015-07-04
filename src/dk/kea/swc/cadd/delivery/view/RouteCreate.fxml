@@ -12,10 +12,12 @@
    <center>
       <TableView fx:id="orderTable" prefHeight="179.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <columns>
-         	<TableColumn fx:id="selectColumn" maxWidth="200.0" minWidth="28.0" prefWidth="28.0" />
-            <TableColumn fx:id="orderIDColumn" maxWidth="200.0" minWidth="28.0" prefWidth="28.0" text="Nr" />
-            <TableColumn fx:id="cityNameColumn" maxWidth="200.0" minWidth="39.0" prefWidth="118.0" text="Location" />
-            <TableColumn fx:id="quantityColumn" maxWidth="361.0" minWidth="110.0" prefWidth="122.0" text="Requested quantity (tons)" />
+         	<TableColumn fx:id="selectColumn" />
+            <TableColumn fx:id="orderIDColumn" text="Nr" />
+            <TableColumn fx:id="cityNameColumn" text="Location" />
+            <TableColumn fx:id="quantityColumn" text="Req Q (tons)" />
+            <TableColumn fx:id="priceColumn" text="Price" />
+            <TableColumn fx:id="profitColumn" text="Profit" />
          </columns>
          <BorderPane.margin>
             <Insets left="10.0" right="10.0" />
