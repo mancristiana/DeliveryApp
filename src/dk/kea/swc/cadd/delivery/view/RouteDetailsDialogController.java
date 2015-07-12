@@ -13,7 +13,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.db.OrderDAO;
 import dk.kea.swc.cadd.delivery.db.RouteDAO;
-import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Order;
 import dk.kea.swc.cadd.delivery.model.Route;
 import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
