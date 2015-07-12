@@ -1,8 +1,6 @@
 package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
-import java.util.Date;
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

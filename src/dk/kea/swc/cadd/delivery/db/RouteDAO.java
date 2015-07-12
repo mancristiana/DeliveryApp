@@ -5,16 +5,16 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import com.mysql.jdbc.Statement;
 
 import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Route;
 import dk.kea.swc.cadd.delivery.model.Truck;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class RouteDAO {
 	
