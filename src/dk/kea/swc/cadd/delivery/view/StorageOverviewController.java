@@ -54,8 +54,7 @@ public class StorageOverviewController {
 		// Initialize the table with the four columns
 		cityColumn		.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
 		quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().availableQuantityProperty().asObject());
-		editColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-				
+			
 		// Create a cell value factory with buttons for each row in the table 
 		editColumn	.setCellFactory( storageBooleanTableColumn -> new AddEditCell());
 	}

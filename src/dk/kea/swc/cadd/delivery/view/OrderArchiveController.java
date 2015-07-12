@@ -51,8 +51,7 @@ public class OrderArchiveController {
 		routeIDColumn	.setCellValueFactory(cellData -> cellData.getValue().routeIDProperty().asObject());
 		cityNameColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
 		quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
-		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-	         
+		
 		// Create a cell value factory with buttons for each row in the table.
 		deleteColumn.setCellFactory( orderBooleanTableColumn -> new AddDeleteCell());    
 	}
