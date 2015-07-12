@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
 public class Route {
 	private IntegerProperty routeID;
 	private IntegerProperty driverID;
-	private IntegerProperty truckID;
+	private StringProperty truckID;
 	private BooleanProperty finished;
 	private Driver driver;
 	private LocalDate date;
@@ -21,10 +21,10 @@ public class Route {
 	public Route() {
 		this.routeID 	= new SimpleIntegerProperty();
 		this.driverID 	= new SimpleIntegerProperty();
-		this.truckID 	= new SimpleIntegerProperty();
+		this.truckID 	= new SimpleStringProperty();
 		this.finished 	= new SimpleBooleanProperty(false);
 	}
-	public Route(Integer routeID, Integer driverID, Integer truckID, Boolean finished) {
+	public Route(Integer routeID, Integer driverID, String truckID, Boolean finished) {
 		this(routeID, LocalDate.now(), driverID, truckID, finished);
 	}
 	/**
@@ -33,11 +33,11 @@ public class Route {
 	 * @param driverID
 	 * @param truckID
 	 */
-	public Route(Integer routeID, LocalDate date, Integer driverID, Integer truckID, Boolean finished) {
+	public Route(Integer routeID, LocalDate date, Integer driverID, String truckID, Boolean finished) {
 		this.routeID 	= new SimpleIntegerProperty(routeID);
 		this.date		= date;
 		this.driverID 	= new SimpleIntegerProperty(driverID);
-		this.truckID 	= new SimpleIntegerProperty(truckID);
+		this.truckID 	= new SimpleStringProperty(truckID);
 		this.finished 	= new SimpleBooleanProperty(finished);
 		this.driver		= DriverDAO.getDriverByID(driverID);
 	}
@@ -52,7 +52,7 @@ public class Route {
 		this.driver	= DriverDAO.getDriverByID(driverID);
 	}
 	
-	public void setTruckID(Integer truckID) {
+	public void setTruckID(String truckID) {
 		this.truckID.set(truckID);
 	}
 	
@@ -69,7 +69,7 @@ public class Route {
 		return driverID.get();
 	}
 	
-	public Integer getTruckID() {
+	public String getTruckID() {
 		return truckID.get();
 	}
 	
@@ -86,7 +86,7 @@ public class Route {
 		return driverID;
 	}
 	
-	public IntegerProperty truckIDProperty() {
+	public StringProperty truckIDProperty() {
 		return truckID;
 	}
 	

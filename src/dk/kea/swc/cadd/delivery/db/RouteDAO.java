@@ -38,7 +38,7 @@ public class RouteDAO {
             		System.out.println("Date is null and has been set to today's date");
             	}
             	Integer driverID 	= rs.getInt("driver_id");
-            	Integer truckID 	= rs.getInt("truck_id");
+            	String truckID 		= rs.getString("truck_id");
             	Boolean finished 	= rs.getBoolean("finished");
             	list.add(new Route(routeID, date, driverID, truckID, finished));
             }
@@ -63,7 +63,7 @@ public class RouteDAO {
             	String name 		= rs.getString("name");
             	String phone 		= rs.getString("phone");
             	String email 		= rs.getString("email");
-            	Integer truckId 	= rs.getInt("truck_id");
+            	String truckId 	= rs.getString("truck_id");
             	Integer capacity	= rs.getInt("capacity");
             	Double speed		= rs.getDouble("speed");
             	
@@ -87,7 +87,7 @@ public class RouteDAO {
 	 * @param truckId   id of truck	 assigned for new route
 	 * @return created route
 	 */
-   public static Route createRoute(Integer driverId, Integer truckId) {
+   public static Route createRoute(Integer driverId, String truckId) {
 	   Route route = null;
 		Connection connection = null;
 		try {
@@ -98,7 +98,7 @@ public class RouteDAO {
 		   PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		   stmt.setDate(1, Date.valueOf(LocalDate.now()));
 		   stmt.setInt(2, driverId);
-		   stmt.setInt(3, truckId);
+		   stmt.setString(3, truckId);
 		   
 		   stmt.execute();
 		   ResultSet rs = stmt.getGeneratedKeys();
@@ -123,12 +123,12 @@ public class RouteDAO {
            				+ "WHERE  `route`.`route_id` = ?;";
            PreparedStatement stmt = connection.prepareStatement(sql);
            stmt.setInt(1, route.getDriverID());
-           stmt.setInt(2, route.getTruckID());
+           stmt.setString(2, route.getTruckID());
            stmt.setBoolean(3, route.isFinished()); 
            stmt.setDate(4, Date.valueOf(route.getDate())); 
            stmt.setInt(5, route.getRouteID());
            stmt.execute();
-           return null;
+           return "";
        } catch (SQLException e) {
            return e.getErrorCode() + " " + e.getMessage();
        }
@@ -143,10 +143,10 @@ public class RouteDAO {
            		+ "WHERE  `route`.`route_id` = ? AND `truck`.`truck_id` = ? AND `driver`.`driver_id` = ?;";
            PreparedStatement stmt = connection.prepareStatement(sql);
            stmt.setInt(1, route.getRouteID());
-           stmt.setInt(2, route.getTruckID());
+           stmt.setString(2, route.getTruckID());
            stmt.setInt(3, route.getDriverID());
            stmt.execute();
-           return null;
+           return "";
        } catch (SQLException e) {
     	   e.printStackTrace();
            return e.getErrorCode() + " " + e.getMessage();
@@ -162,7 +162,7 @@ public class RouteDAO {
           PreparedStatement stmt = connection.prepareStatement(sql);
           stmt.setInt(1, route.getRouteID());
           stmt.execute();
-          return null;
+          return "";
       } catch (SQLException e) {
    	   e.printStackTrace();
           return e.getErrorCode() + " " + e.getMessage();

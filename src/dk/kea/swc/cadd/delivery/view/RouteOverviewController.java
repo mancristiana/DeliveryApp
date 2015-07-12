@@ -22,7 +22,7 @@ public class RouteOverviewController {
 	@FXML private TableView<Route> routeTable;
 	@FXML private TableColumn<Route, Integer> 	routeIDColumn;
 	@FXML private TableColumn<Route, String> 	driverColumn;
-	@FXML private TableColumn<Route, Integer> 	truckIDColumn;
+	@FXML private TableColumn<Route, String> 	truckIDColumn;
 	@FXML private TableColumn<Route, Boolean> 	detailsColumn;
 	@FXML private TableColumn<Route, Boolean> 	mapColumn;
 	@FXML private TableColumn<Route, Boolean> 	deleteColumn;
@@ -46,7 +46,7 @@ public class RouteOverviewController {
 		// Initialize the table with the four columns
 		routeIDColumn	.setCellValueFactory(cellData -> cellData.getValue().routeIDProperty().asObject());
 		driverColumn	.setCellValueFactory(cellData -> cellData.getValue().driverProperty());
-		truckIDColumn	.setCellValueFactory(cellData -> cellData.getValue().truckIDProperty().asObject());
+		truckIDColumn	.setCellValueFactory(cellData -> cellData.getValue().truckIDProperty());
 		detailsColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		mapColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));

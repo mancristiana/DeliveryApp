@@ -32,7 +32,7 @@ public class DriverDialogController {
     	this.isNew = driver==null;
     	
     	// If the user clicked new, we create a new Driver, otherwise we work with the selected driver
-    	this.driver = isNew ? new Driver() : driver;
+    	this.driver = isNew ? new Driver() : driver; // you've got to love how ternary expressions make programmer's life easier :D
     	
     	if(!isNew){
     		nameField.setText(driver.getName());

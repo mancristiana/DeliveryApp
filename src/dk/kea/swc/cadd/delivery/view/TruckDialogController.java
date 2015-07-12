@@ -1,7 +1,5 @@
 package dk.kea.swc.cadd.delivery.view;
 
-import dk.kea.swc.cadd.delivery.db.TruckDAO;
-import dk.kea.swc.cadd.delivery.model.Truck;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -9,9 +7,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import dk.kea.swc.cadd.delivery.db.TruckDAO;
+import dk.kea.swc.cadd.delivery.model.Truck;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 
 public class TruckDialogController {
 	
+	@FXML private TextField truckIDField;
 	@FXML private TextField capacityField;
 	@FXML private TextField speedField;
 	@FXML private CheckBox 	availableBox;
@@ -57,10 +59,12 @@ public class TruckDialogController {
 		} else {
 			this.truck = truck;
 			isNew = false;
+			truckIDField.setText(truck.getTruckID()); 
 			capacityField.setText(truck.getCapacity().toString());
 			speedField.setText(truck.getSpeed().toString());
 		    availableBox.setSelected(truck.getAvailable());
 		    
+		    truckIDField.setEditable(false);
 		    capacityField.setEditable(false);
 		    speedField.setEditable(false);
 	    
@@ -75,39 +79,76 @@ public class TruckDialogController {
     */
 	
 	 @FXML
-	    private void handleOk() {
-	        if (isInputValid()) {
-	            truck.setCapacity(Integer.parseInt(capacityField.getText()));
-	            truck.setSpeed(Double.parseDouble(speedField.getText()));
-	            truck.setAvailable(availableBox.isSelected());
-	            
-	            if(isNew) {
-	            	System.out.println(TruckDAO.createTruck(truck));
-	            	truckTable.getItems().add(truck);
-	            } else 
-	            	System.out.println(TruckDAO.updateTruck(truck));
-	            
-	            dialogStage.close();
-	        }
-	    }
+	 private void handleOk() {
+		 if (isInputValid()) {
+        	truck.setTruckID(truckIDField.getText());
+            truck.setCapacity(Integer.parseInt(capacityField.getText()));
+            truck.setSpeed(Double.parseDouble(speedField.getText()));
+            truck.setAvailable(availableBox.isSelected());
+            
+            String errorMessage = "";
+            
+            // Checks if the truck was created or edited
+            if(isNew) {
+            	errorMessage = TruckDAO.createTruck(truck);
+            } else {
+            	errorMessage = TruckDAO.updateTruck(truck);
+            }
+            
+            // Checks if we got sql errors
+    		if(!errorMessage.isEmpty()){
+                // Shows the error message because we got a sql error.
+    			MyAlert alert = new MyAlert(
+    					AlertType.ERROR,
+    					"Error while submitting changes",
+    					errorMessage,
+    					"The truck was not created/updated.");
+    			alert.showAndWait();
+    		} else {
+    			// Shows the confirmation message because the update was successful
+    			MyAlert alert = new MyAlert(
+    					AlertType.INFORMATION,
+    					"Success",
+    					"Changes were submitted successfully",
+    					"The truck with ID: "+truck.getTruckID()+" was created/updated.");
+    			alert.showAndWait();
+    			
+    			// Updates the application's driver list with the new data from the database 
+        		truckTable.getItems().add(truck);	
+    			    			
+        		// Closes the add/edit dialog
+        		dialogStage.close();
+    		}
+    	}
+	 }
+	 
 	 /**
-	     * Called when the user clicks cancel.
-	     */
+     * Called when the user clicks cancel.
+     */
 	 @FXML
 	    private void handleCancel() {
 	        dialogStage.close();
 	    }
+	
 	 /**
-	     * Validates the user input in the text fields.
-	     * 
-	     * @return true if the input is valid
-	     */
+     * Validates the user input in the text fields.
+     * @return true if the input is valid
+     */
 	 private boolean isInputValid() {
 	        String errorMessage = "";
-	        if (capacityField.getText() == null || capacityField.getText().length() == 0) {
-	            errorMessage += "Invalid capacity!\n"; 
+	        if (!truckIDField.getText().matches("[A-Z ][A-Z] [0-9][0-9] [A-Z][A-Z][A-Z]")) {
+	            errorMessage += "Invalid truck registration number!\nFormat should be [XX nn XXX] or [ X nn XXX] \nX = Uppercase Letter (A-Z) \nn = digit(0-9) \n\n"; 
 	        }
-	        if (speedField.getText() == null || speedField.getText().length() == 0) {
+	        if (capacityField.getText().isEmpty()) {
+	            errorMessage += "Invalid capacity!\n"; 
+	        } else {
+	            try {
+	                Integer.parseInt(capacityField.getText());
+	            } catch (NumberFormatException e) {
+	                errorMessage += "Invalid capacity (must be an integer)!\n"; 
+	            }
+	        }
+	        if (speedField.getText().isEmpty()) {
 	            errorMessage += "Invalid speed!\n"; 
 	        } else {
 	            try {
@@ -117,17 +158,17 @@ public class TruckDialogController {
 	            }
 	        }
 
-	        if (errorMessage.length() == 0) {
+	        if (errorMessage.isEmpty()) {
 	            return true;
 	        } else {
 	            // Show the error message.
-	            Alert alert = new Alert(AlertType.ERROR);
-	            alert.initOwner(dialogStage);
-	            alert.setTitle("Invalid Fields");
-	            alert.setHeaderText("Please correct invalid fields");
-	            alert.setContentText(errorMessage);
-
-	            alert.showAndWait();
+	        	MyAlert alert = new MyAlert(
+    					AlertType.ERROR,
+    					"Invalid Fields",
+    					"Please correct invalid fields",
+    					errorMessage);
+    			alert.showAndWait();
+	            
 	            return false;
 	        }
 	    }

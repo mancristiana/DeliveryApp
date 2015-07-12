@@ -10,6 +10,7 @@
    <center>
       <TableView fx:id="truckTable">
          <columns>
+         	<TableColumn fx:id="truckIDColumn" text="Truck reg.No." />
             <TableColumn fx:id="capacityColumn" text="Capacity" />
             <TableColumn fx:id="speedColumn" text="Speed" />
             <TableColumn fx:id="availableColumn" text="Available" />

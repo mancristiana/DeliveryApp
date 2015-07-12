@@ -88,7 +88,7 @@ public class LocationDAO {
 			stmt.setString(3, location.getCityName());
 		
 			stmt.execute();
-			return null;
+			return "";
 		} catch (SQLException e){
 			return e.getErrorCode() + " " + e.getMessage();
 		}
