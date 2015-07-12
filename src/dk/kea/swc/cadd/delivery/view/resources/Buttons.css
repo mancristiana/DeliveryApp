@@ -11,7 +11,22 @@
   	-fx-max-height: 40;
   	-fx-max-width: 40;
 }
-
+#available-button {
+	-fx-background-image: url('images/available.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-size: 25px 25px;
+  	-fx-background-position: center;
+  	-fx-min-height: 40;
+  	-fx-min-width: 40;
+}
+#unavailable-button {
+	-fx-background-image: url('images/unavailable.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-size: 25px 25px;
+  	-fx-background-position: center;
+  	-fx-min-height: 40;
+  	-fx-min-width: 40;
+}
 #delete-button {
 	-fx-background-image: url('images/delete.png');
 	-fx-background-repeat: no-repeat;

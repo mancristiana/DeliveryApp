@@ -1,6 +1,5 @@
 package dk.kea.swc.cadd.delivery.view;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

@@ -2,7 +2,6 @@ package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -50,14 +49,14 @@ public class DriverOverviewController {
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
 		
 		// Creates a cell value factory with edit buttons for each row in the table
-		editColumn		.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Driver>("edit-button"){
+		editColumn	.setCellFactory(cellData -> new ButtonCell<Driver>("edit-button"){
 			@Override
 			public void onButtonClicked() {
 	        	showDriverDialog(driverTable.getItems().get(getTableRow().getIndex()));
 			}});
 		
 		// Creates a cell value factory with delete buttons for each row in the table
-		deleteColumn	.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Driver>("delete-button"){
+		deleteColumn.setCellFactory(cellData -> new ButtonCell<Driver>("delete-button"){
 			@Override
 			public void onButtonClicked(){
 				int selectedIndex = getTableRow().getIndex();

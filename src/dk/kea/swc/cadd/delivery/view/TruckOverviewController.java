@@ -2,14 +2,9 @@ package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -22,6 +17,7 @@ import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.TruckDAO;
 import dk.kea.swc.cadd.delivery.model.Truck;
+import dk.kea.swc.cadd.delivery.view.ui.ButtonCell;
 import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 
 public class TruckOverviewController {
@@ -63,8 +59,18 @@ public class TruckOverviewController {
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
 
 		// Create a cell value factory with buttons for each row in the table
-		editColumn	.setCellFactory( truckBooleanTableColumn -> new AddEditCell());
-		deleteColumn.setCellFactory( truckBooleanTableColumn -> new AddDeleteCell());
+		availableColumn.setCellFactory(cellData -> new AvailableCell());
+		editColumn	.setCellFactory(cellData -> new ButtonCell<Truck>("edit-button"){
+			@Override
+			public void onButtonClicked() {
+				showTruckDialog(truckTable.getItems().get(getTableRow().getIndex()));
+			}});
+		deleteColumn.setCellFactory(cellData -> new ButtonCell<Truck>("delete-button"){
+			@Override
+			public void onButtonClicked(){
+	        	int selectedIndex = getTableRow().getIndex();
+	        	deleteTruck(truckTable.getItems().get(selectedIndex));
+			}});
 	}
 	
 	@FXML
@@ -74,23 +80,11 @@ public class TruckOverviewController {
 	}
 	
 	/** 
-	 * A table cell containing a button for editing a truck. 
+	 * A table cell containing a button for editing a truck. //TODO
 	 */
-    private class AddEditCell extends TableCell<Truck, Boolean> {
-    	final Button button = new Button();
-    	HBox wrap = new HBox();
-      
-      AddEditCell() {
-    	  button.setId("edit-button");
-    	  button.setOnAction(new EventHandler<ActionEvent>() {
-          @Override public void handle(ActionEvent actionEvent) {
-        	  showTruckDialog(truckTable.getItems().get(getTableRow().getIndex()));
-          }
-        });
-    	  wrap.setAlignment(Pos.CENTER);
-    	  wrap.getChildren().add(button);
-      }
-      
+    private class AvailableCell extends TableCell<Truck, Boolean> {
+    	HBox container = new HBox();
+
       /** 
        * Places an edit button in the row only if the row is not empty. 
        */
@@ -98,41 +92,11 @@ public class TruckOverviewController {
         super.updateItem(item, empty);
         if (!empty) {
           setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(wrap);
-        } else {
-          setGraphic(null);
-        }
-      }
-      
-    }
-   
-    /** 
-	 * A table cell containing a button for editing a truck. 
-	 */
-    private class AddDeleteCell extends TableCell<Truck, Boolean> {
-    	final Button button = new Button();
-    	HBox wrap = new HBox();
-      
-      AddDeleteCell() {
-    	  button.setId("delete-button");
-    	  button.setOnAction(new EventHandler<ActionEvent>() {
-          @Override public void handle(ActionEvent actionEvent) {
-        	  int selectedIndex = getTableRow().getIndex();
-        	  deleteTruck(truckTable.getItems().get(selectedIndex));       	  
-          }
-        });
-    	  wrap.setAlignment(Pos.CENTER);
-    	  wrap.getChildren().add(button);
-      }
-      
-      /** 
-       * Places an edit button in the row only if the row is not empty. 
-       */
-      @Override protected void updateItem(Boolean item, boolean empty) {
-        super.updateItem(item, empty);
-        if (!empty) {
-          setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(wrap);
+          setGraphic(container);
+          
+          if(item) 	container.setId("available-button");
+          else 		container.setId("unavailable-button");
+          
         } else {
           setGraphic(null);
         }
