@@ -60,7 +60,7 @@ public class OrderDAO {
             stmt.setString(1, order.getCityName());
             stmt.setDouble(2, order.getQuantity());
             stmt.execute();
-            return null;
+            return "";
         } catch (SQLException e) {
             return e.getErrorCode() + " " + e.getMessage();
         }
@@ -74,7 +74,7 @@ public class OrderDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, order.getOrderID());
             stmt.execute();
-            return null;
+            return "";
         } catch (SQLException e) {
             return e.getErrorCode() + " " + e.getMessage();
         }
@@ -95,7 +95,7 @@ public class OrderDAO {
             stmt.setDouble(3, order.getQuantity());
             stmt.setInt(4, order.getOrderID());
             stmt.execute();
-            return null;
+            return "";
         } catch (SQLException e) {
             return e.getErrorCode() + " " + e.getMessage();
         }

@@ -8,23 +8,25 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Truck {
-	private IntegerProperty truckID;
+	private StringProperty truckID;
 	private IntegerProperty capacity;
 	private DoubleProperty speed;
 	private BooleanProperty available;
 	
 	public Truck() {
-		this.truckID = new SimpleIntegerProperty();
+		this.truckID = new SimpleStringProperty();
 		this.capacity = new SimpleIntegerProperty();
 		this.speed = new SimpleDoubleProperty();
 		this.available = new SimpleBooleanProperty();
 	}
 	
-	public Truck(int truckID, int capacity, double speed, boolean available) {
+	public Truck(String truckID, int capacity, double speed, boolean available) {
 		
-		this.truckID = new SimpleIntegerProperty(truckID);
+		this.truckID = new SimpleStringProperty(truckID);
 		this.capacity = new SimpleIntegerProperty(capacity);
 		this.speed = new SimpleDoubleProperty(speed);
 		this.available = new SimpleBooleanProperty(available);
@@ -33,7 +35,7 @@ public class Truck {
 
 	//Setters
 	
-	public void setTruckID(Integer truckID){
+	public void setTruckID(String truckID){
 		this.truckID.set(truckID);
 	}
 	
@@ -51,7 +53,7 @@ public class Truck {
 	
 	//Getters
 	
-	public Integer getTruckID(){
+	public String getTruckID(){
 		return truckID.get();
 	}
 	
@@ -69,7 +71,7 @@ public class Truck {
 	
 	//Property Getters
 	
-	public IntegerProperty truckIDProperty(){
+	public StringProperty truckIDProperty(){
 		return truckID;
 	}
 	

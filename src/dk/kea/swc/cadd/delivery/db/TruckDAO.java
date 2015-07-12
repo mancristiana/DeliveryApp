@@ -6,11 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.mysql.jdbc.Statement;
-
-import dk.kea.swc.cadd.delivery.model.Truck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import dk.kea.swc.cadd.delivery.model.Truck;
 
 public class TruckDAO {
 	   
@@ -26,7 +24,7 @@ public class TruckDAO {
 	    	
 	    	ResultSet rs = stmt.getResultSet();
 	    	while(rs.next()) {
-	    		Integer truckID     = rs.getInt("truck_id");
+	    		String truckID     = rs.getString("truck_id");
 	    		Integer capacity    = rs.getInt("capacity");
 	    		Double speed        = rs.getDouble("speed");
 	    		Boolean available   = rs.getBoolean("available");
@@ -45,16 +43,15 @@ public class TruckDAO {
 			Connection connection = null;
 			try {
 				connection= DBConnector.getConnection();
-			   String sql = "INSERT INTO `cadd`.`truck` (`truck_id`, `capacity`, `speed`, `available`) VALUES (NULL, ?, ?, ?);";
-			   PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			   stmt.setInt(1, truck.getCapacity());
-			   stmt.setDouble(2, truck.getSpeed());
-			   stmt.setBoolean(3, truck.getAvailable());
+			   String sql = "INSERT INTO `cadd`.`truck` (`truck_id`, `capacity`, `speed`, `available`) VALUES (?, ?, ?, ?);";
+			   PreparedStatement stmt = connection.prepareStatement(sql);
+			   stmt.setString(1, truck.getTruckID());
+			   stmt.setInt(2, truck.getCapacity());
+			   stmt.setDouble(3, truck.getSpeed());
+			   stmt.setBoolean(4, truck.getAvailable());
 			   stmt.execute();
-			   ResultSet rs = stmt.getGeneratedKeys();
-			   if(rs.next())
-				   truck.setTruckID(rs.getInt(1));
-			   return null;
+			   
+			   return "";
 		   }catch (SQLException e) {
 			   return e.getErrorCode() + " " + e.getMessage();
 		   }
@@ -66,7 +63,7 @@ public class TruckDAO {
 				connection= DBConnector.getConnection();
 			   String sql = "DELETE FROM `cadd`.`truck` WHERE `truck`.`truck_id` = ?";
 			   PreparedStatement stmt = connection.prepareStatement(sql);
-			   stmt.setInt(1, truck.getTruckID());
+			   stmt.setString(1, truck.getTruckID());
 			   stmt.execute();
 			   return "";
 		   } catch (SQLException e){
@@ -77,7 +74,7 @@ public class TruckDAO {
 						   		+ "WHERE `truck`.`truck_id` = ?";
 						
 						PreparedStatement stmt = connection.prepareStatement(sql);
-						stmt.setInt(1, truck.getTruckID());
+						stmt.setString(1, truck.getTruckID());
 						stmt.execute();
 						return "Truck has been active on routes. \nCan't delete from DB. \nIt is marked as retired instead.";
 					} catch (SQLException e2) {
@@ -97,9 +94,9 @@ public class TruckDAO {
 			   		+ "WHERE  `truck`.`truck_id` = ?;";
 			   PreparedStatement stmt = connection.prepareStatement(sql);
 			   stmt.setBoolean(1, truck.getAvailable());
-			   stmt.setInt(2, truck.getTruckID());
+			   stmt.setString(2, truck.getTruckID());
 			   stmt.execute();
-			   return null;
+			   return "";
 		   } catch (SQLException e){
 			   return e.getErrorCode() + " " + e.getMessage();
 		   }

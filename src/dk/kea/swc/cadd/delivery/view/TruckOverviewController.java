@@ -27,6 +27,7 @@ import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 public class TruckOverviewController {
 	
 	@FXML private TableView<Truck> 	truckTable;
+	@FXML private TableColumn<Truck, String> 	truckIDColumn;
 	@FXML private TableColumn<Truck, Integer> 	capacityColumn;
 	@FXML private TableColumn<Truck, Double> 	speedColumn;
     @FXML private TableColumn<Truck, Boolean> 	availableColumn;
@@ -50,11 +51,13 @@ public class TruckOverviewController {
 		truckTable.setItems(TruckDAO.getTrucks());
 			
 		// Resize the columns (with percentages) when the window is enlarged
-		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.40));
-		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.30));
-		availableColumn .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.30));
+		truckIDColumn   .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.40));
+		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.20));
+		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.20));
+		availableColumn .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.20));
 		
 		// Initialize the table with the three columns
+		truckIDColumn	.setCellValueFactory(cellData -> cellData.getValue().truckIDProperty());
 		capacityColumn	.setCellValueFactory(cellData -> cellData.getValue().capacityProperty().asObject());
 		speedColumn		.setCellValueFactory(cellData -> cellData.getValue().speedProperty().asObject());
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());

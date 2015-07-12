@@ -44,7 +44,7 @@ public class StorageDAO {
 			stmt.setString(1, storage.getCityName());
 			stmt.setInt(2, storage.getAvailableQuantity());
 			stmt.execute();
-			return null;
+			return "";
 		} catch (SQLException e){
 			return e.getErrorCode()+ " " + e.getMessage();
 		} 
@@ -58,7 +58,7 @@ public class StorageDAO {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, storage.getCityName());
 			stmt.execute();
-			return null;
+			return "";
 		}catch (SQLException e){
 			return e.getErrorCode() + " " + e.getMessage();
 		}	
@@ -75,7 +75,7 @@ public class StorageDAO {
 			stmt.setString(2, storage.getCityName());
 		
 			stmt.execute();
-			return null;
+			return "";
 		} catch (SQLException e){
 			return e.getErrorCode() + " " + e.getMessage();
 		}
