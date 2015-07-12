@@ -56,7 +56,6 @@ public class LocationOverviewController {
 		cityNameColumn		.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
 		storageNameColumn	.setCellValueFactory(cellData -> cellData.getValue().storageNameProperty());
 		priceColumn			.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-		editColumn			.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
 
 		// Create a cell value factory with buttons for each row in the table
 		editColumn	.setCellFactory( locationBooleanTableColumn -> new AddEditCell());

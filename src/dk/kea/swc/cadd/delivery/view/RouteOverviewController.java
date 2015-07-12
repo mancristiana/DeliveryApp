@@ -47,10 +47,7 @@ public class RouteOverviewController {
 		routeIDColumn	.setCellValueFactory(cellData -> cellData.getValue().routeIDProperty().asObject());
 		driverColumn	.setCellValueFactory(cellData -> cellData.getValue().driverProperty());
 		truckIDColumn	.setCellValueFactory(cellData -> cellData.getValue().truckIDProperty());
-		detailsColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-		mapColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-		
+
 		// Creates a cell value factory with edit buttons for each row in the table
 		detailsColumn	.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Route>("edit-button"){
 			@Override

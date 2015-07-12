@@ -59,9 +59,7 @@ public class OrderOverviewController {
 		orderIDColumn	.setCellValueFactory(cellData -> cellData.getValue().orderIDProperty().asObject());
 		cityNameColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
 		quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
-		editColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-	         
+     
 		// Create a cell value factory with buttons for each row in the table.
 		editColumn	.setCellFactory( orderBooleanTableColumn -> new AddEditCell());
 		deleteColumn.setCellFactory( orderBooleanTableColumn -> new AddDeleteCell());    

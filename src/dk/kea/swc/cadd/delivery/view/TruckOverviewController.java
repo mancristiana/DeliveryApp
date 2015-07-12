@@ -61,9 +61,7 @@ public class TruckOverviewController {
 		capacityColumn	.setCellValueFactory(cellData -> cellData.getValue().capacityProperty().asObject());
 		speedColumn		.setCellValueFactory(cellData -> cellData.getValue().speedProperty().asObject());
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
-		editColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-		
+
 		// Create a cell value factory with buttons for each row in the table
 		editColumn	.setCellFactory( truckBooleanTableColumn -> new AddEditCell());
 		deleteColumn.setCellFactory( truckBooleanTableColumn -> new AddDeleteCell());

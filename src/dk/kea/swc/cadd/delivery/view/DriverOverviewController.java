@@ -49,10 +49,6 @@ public class DriverOverviewController {
 		emailColumn		.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
 		
-		// The value of the columns with buttons are booleans that check if the row is empty or now
-		editColumn		.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-		deleteColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-		
 		// Creates a cell value factory with edit buttons for each row in the table
 		editColumn		.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Driver>("edit-button"){
 			@Override
