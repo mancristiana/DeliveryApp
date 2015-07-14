@@ -40,8 +40,10 @@
             
             <TableView fx:id="orderTable" prefHeight="258.0" prefWidth="519.0" GridPane.columnSpan="3" GridPane.rowIndex="6">
               <columns>
-                <TableColumn fx:id="locationColumn" prefWidth="140.0" text="Location" />
-                <TableColumn fx:id="quantityColumn" prefWidth="139.0" text="Quantity (tons)" />
+                <TableColumn fx:id="locationColumn" prefWidth="70.0" text="Location" />
+                <TableColumn fx:id="quantityColumn" prefWidth="70.0" text="Quantity (tons)" />
+                <TableColumn fx:id="priceColumn" 	prefWidth="70.0" text="Price (RON)" />
+                <TableColumn fx:id="profitColumn" 	prefWidth="69.0" text="Profit (RON)" />
               </columns>
             </TableView>
          </children>

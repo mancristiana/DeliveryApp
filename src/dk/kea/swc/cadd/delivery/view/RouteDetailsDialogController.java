@@ -30,6 +30,8 @@ public class RouteDetailsDialogController {
     @FXML private TableView<Order> orderTable;
     @FXML private TableColumn<Order, String> locationColumn;
     @FXML private TableColumn<Order, Double> quantityColumn;
+	@FXML private TableColumn<Order, Double> priceColumn;
+	@FXML private TableColumn<Order, Double> profitColumn;
     
     private Route route;
     private Stage dialogStage;
@@ -71,7 +73,10 @@ public class RouteDetailsDialogController {
         
     	locationColumn	.setCellValueFactory(cellData -> cellData.getValue().cityNameProperty());
     	quantityColumn	.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
-		
+    	priceColumn		.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+    	profitColumn	.setCellValueFactory(cellData -> cellData.getValue().profitProperty().asObject());
+    	
+    	
     	if(route.getDate() == null)
     		dateField.setValue(LocalDate.now());
     	else dateField.setValue(route.getDate());
