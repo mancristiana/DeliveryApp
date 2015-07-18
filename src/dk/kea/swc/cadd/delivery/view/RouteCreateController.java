@@ -95,7 +95,7 @@ public class RouteCreateController {
         });
       }
       
-      /** Places an edit button in the row only if the row is not empty. */
+     //TODO what is this/?????
       @Override protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);
         if (!empty) {
@@ -142,7 +142,7 @@ public class RouteCreateController {
 	    		Driver driver 	= (Driver) driverTruck.get(0);
 	    		Truck truck 	= (Truck)  driverTruck.get(1);
 	    
-	    		Route route = RouteDAO.createRoute(driver.getDriverId(), truck.getTruckID());
+	    		Route route = RouteDAO.createRoute(driver, truck);
 	    		
 	    		// Set availability to false so the same driver and truck won't be selected again for the next route
 	    		driver.setAvailable(false);
@@ -178,7 +178,7 @@ public class RouteCreateController {
     				if(selectedItems.get(i).getRouteID() != 0){
     					cityNames.add(selectedItems.get(i).getCityName()); // Put city names in a set (for display)
     					selectedItems.remove(i);
-    					i=-1;
+    					i=-1; //TODO WTF is happening here??
     				}
     			}
     			
@@ -191,7 +191,7 @@ public class RouteCreateController {
     					AlertType.INFORMATION,
     					"Success!",
     					"New route was successfully created",
-    					details);
+    					details); //TODO Alert cleanup
     			
     		}
     		

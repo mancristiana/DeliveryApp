@@ -25,6 +25,7 @@ public class RouteDetailsDialogController {
 	@FXML private TextField contactField;
 	@FXML private TextField truckField;
 	@FXML private TextField storageField;
+	@FXML private TextField totalProfitField;
 	@FXML private CheckBox finishedBox;
 	
     @FXML private TableView<Order> orderTable;
@@ -85,6 +86,7 @@ public class RouteDetailsDialogController {
         truckField.setText(route.getTruckID()+"");
     	if(orderList.size() > 0)
     		storageField.setText(orderList.get(0).getStorageName()+"");
+    	totalProfitField.setText(route.getTotalProfit()+"");
     	finishedBox.setSelected(route.isFinished());
     }
 
@@ -109,6 +111,14 @@ public class RouteDetailsDialogController {
     	
     }
 
+    /**
+     * Called when the user clicks cancel.
+     */
+    @FXML
+    private void handleCancel() {
+    	dialogStage.close();
+    }
+    
 	private boolean isInputValid() {
 		if (finishedBox.isSelected() && dateField.getValue().isAfter(LocalDate.now())) {
 			new MyAlert(AlertType.ERROR,

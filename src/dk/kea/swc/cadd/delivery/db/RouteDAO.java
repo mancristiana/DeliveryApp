@@ -23,7 +23,20 @@ public class RouteDAO {
 		Connection connection = null;
 		try {
 			connection= DBConnector.getConnection();
-            String sql = "SELECT * FROM  `route` WHERE finished = ?";
+            String sql = "SELECT  "
+            		+ "`route`.`route_id` "
+            		+ ",`route`.`date` "
+            		+ ", `driver`.`driver_id`,  `driver`.`name`,  `driver`.`phone`,  `driver`.`email`,  `driver`.`available` "
+            		+ ",`route`.`truck_id` "
+            		+ ",`route`.`finished`"
+            		+ ", SUM(  `location`.`price` * `order`.`quantity` ) AS  `totalProfit` "
+            		
+            		+ "FROM  `route` ,  `order` ,  `location`, `driver` "
+            		+ "WHERE  `location`.`cityname` =  `order`.`cityname` "
+            		+ "AND `route`.`route_id` = `order`.`route_id`  "
+            		+ "AND `route`.`driver_id` = `driver`.`driver_id` "
+            		+ "AND finished = ? "
+            		+ "GROUP BY  `order`.`route_id`";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setBoolean(1, isFinished);
             stmt.executeQuery();
@@ -38,9 +51,17 @@ public class RouteDAO {
             		System.out.println("Date is null and has been set to today's date");
             	}
             	Integer driverID 	= rs.getInt("driver_id");
-            	String truckID 		= rs.getString("truck_id");
+            	String name 		= rs.getString("name");
+            	String phone		= rs.getString("phone");
+            	String email 		= rs.getString("email");
+            	Boolean available 	= rs.getBoolean("available");
+            	Driver driver		= new Driver(driverID,name,phone,email,available);
+            	
+            	String 	truckID 	= rs.getString("truck_id");
             	Boolean finished 	= rs.getBoolean("finished");
-            	list.add(new Route(routeID, date, driverID, truckID, finished));
+            	Double 	totalProfit = rs.getDouble("totalProfit");
+
+            	list.add(new Route(routeID, date, driver, truckID, finished, totalProfit));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,14 +101,14 @@ public class RouteDAO {
     }
 	
 	/**
-	 * Generates a new route in the database connectiontaining given parameters. 
+	 * Generates a new route in the database connection containing given parameters. 
 	 * DB returns an auto-incremented key representing routeId.
-	 * Creates a route object connectiontaining driverId, truckId and DB-returned routeID
-	 * @param driverId	id of driver assigned for new route
-	 * @param truckId   id of truck	 assigned for new route
+	 * Creates a route object connection containing driverId, truckId and DB-returned routeID
+	 * @param driver  driver assigned for new route
+	 * @param truck   truck assigned for new route
 	 * @return created route
 	 */
-   public static Route createRoute(Integer driverId, String truckId) {
+   public static Route createRoute(Driver driver, Truck truck) {
 	   Route route = null;
 		Connection connection = null;
 		try {
@@ -97,13 +118,13 @@ public class RouteDAO {
 		   
 		   PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		   stmt.setDate(1, Date.valueOf(LocalDate.now()));
-		   stmt.setInt(2, driverId);
-		   stmt.setString(3, truckId);
+		   stmt.setInt(2, driver.getDriverId());
+		   stmt.setString(3, truck.getTruckID());
 		   
 		   stmt.execute();
 		   ResultSet rs = stmt.getGeneratedKeys();
 		   if(rs.next()){
-			   route = new Route(rs.getInt(1),driverId,truckId,false);
+			   route = new Route(rs.getInt(1), driver, truck.getTruckID(), false);
 		   }
 	   }catch (SQLException e) {
 		   e.printStackTrace();
@@ -122,7 +143,7 @@ public class RouteDAO {
            				+ "`date` =  ? "
            				+ "WHERE  `route`.`route_id` = ?;";
            PreparedStatement stmt = connection.prepareStatement(sql);
-           stmt.setInt(1, route.getDriverID());
+           stmt.setInt(1, route.getDriver().getDriverId());
            stmt.setString(2, route.getTruckID());
            stmt.setBoolean(3, route.isFinished()); 
            stmt.setDate(4, Date.valueOf(route.getDate())); 
@@ -144,7 +165,7 @@ public class RouteDAO {
            PreparedStatement stmt = connection.prepareStatement(sql);
            stmt.setInt(1, route.getRouteID());
            stmt.setString(2, route.getTruckID());
-           stmt.setInt(3, route.getDriverID());
+           stmt.setInt(3, route.getDriver().getDriverId());
            stmt.execute();
            return "";
        } catch (SQLException e) {
