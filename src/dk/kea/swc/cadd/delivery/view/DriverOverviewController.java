@@ -109,24 +109,22 @@ public class DriverOverviewController {
         // Checks if we got sql errors
 		if(!errorMessage.isEmpty()){
             // Shows the error message because we got a sql error.
-			MyAlert alert = new MyAlert(
+			MyAlert.show(
 					AlertType.ERROR,
 					"Error while deleting driver",
 					"The driver was not deleted.",
 					errorMessage
 					);
-			alert.showAndWait();
 			if (errorMessage.startsWith("Driver"))
 				// Updates the application's driver list with the new changes
 				driverTable.getItems().remove(driver);
 		} else {
 			// Shows the confirmation message because the update was successful
-			MyAlert alert = new MyAlert(
+			MyAlert.show(
 					AlertType.INFORMATION,
 					"Success",
 					"Changes were submitted successfully",
 					"The driver with ID: "+driver.getDriverId()+" was deleted.");
-			alert.showAndWait();
 			
 			// Updates the application's driver list with the new changes
 			driverTable.getItems().remove(driver);

@@ -117,13 +117,12 @@ public class TruckOverviewController {
         // Checks if we got sql errors
 		if(!errorMessage.isEmpty()){
             // Shows the error message because we got a sql error.
-			MyAlert alert = new MyAlert(
+			MyAlert.show(
 					AlertType.ERROR,
 					"Error while deleting truck",
 					"The truck was not deleted.",
 					errorMessage
 					);
-			alert.showAndWait();
 			if (errorMessage.startsWith("Truck")){
 				// Updates the application's driver list with the new changes
 				truckTable.getItems().remove(truck);
@@ -131,12 +130,11 @@ public class TruckOverviewController {
 			
 		} else {
 			// Shows the confirmation message because the update was successful
-			MyAlert alert = new MyAlert(
+			MyAlert.show(
 					AlertType.INFORMATION,
 					"Success",
 					"Changes were submitted successfully",
 					"The truck with ID: "+truck.getTruckID()+" was deleted.");
-			alert.showAndWait();
 			
 			// Updates the application's driver list with the new changes
 			truckTable.getItems().remove(truck);

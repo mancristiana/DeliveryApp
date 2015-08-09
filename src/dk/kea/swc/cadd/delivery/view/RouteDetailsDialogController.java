@@ -121,10 +121,10 @@ public class RouteDetailsDialogController {
     
 	private boolean isInputValid() {
 		if (finishedBox.isSelected() && dateField.getValue().isAfter(LocalDate.now())) {
-			new MyAlert(AlertType.ERROR,
+			MyAlert.show(AlertType.ERROR,
 					"Invalid Fields",
 					"Please correct invalid fields",
-					"Can not finish route with future date. \nUnckeck finished or select past/present date.").showAndWait();
+					"Can not finish route with future date. \nUnckeck finished or select past/present date.");
             return false;
         }
 		return true;

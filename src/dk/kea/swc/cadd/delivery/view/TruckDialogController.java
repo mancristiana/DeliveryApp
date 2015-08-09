@@ -97,20 +97,18 @@ public class TruckDialogController {
             // Checks if we got sql errors
     		if(!errorMessage.isEmpty()){
                 // Shows the error message because we got a sql error.
-    			MyAlert alert = new MyAlert(
+    			MyAlert.show(
     					AlertType.ERROR,
     					"Error while submitting changes",
     					errorMessage,
     					"The truck was not created/updated.");
-    			alert.showAndWait();
     		} else {
     			// Shows the confirmation message because the update was successful
-    			MyAlert alert = new MyAlert(
+    			MyAlert.show(
     					AlertType.INFORMATION,
     					"Success",
     					"Changes were submitted successfully",
     					"The truck with ID: "+truck.getTruckID()+" was created/updated.");
-    			alert.showAndWait();
     			
     			// Updates the application's driver list with the new data from the database 
         		truckTable.getItems().add(truck);	
@@ -161,12 +159,11 @@ public class TruckDialogController {
 	            return true;
 	        } else {
 	            // Show the error message.
-	        	MyAlert alert = new MyAlert(
+	        	MyAlert.show(
     					AlertType.ERROR,
     					"Invalid Fields",
     					"Please correct invalid fields",
     					errorMessage);
-    			alert.showAndWait();
 	            
 	            return false;
 	        }

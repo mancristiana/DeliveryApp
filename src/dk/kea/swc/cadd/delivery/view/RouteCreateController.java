@@ -200,8 +200,7 @@ public class RouteCreateController {
     }
     
     private void showAlert(AlertType type, String title, String header, String content) {
-    	MyAlert alert = new MyAlert(type,title,header,content);
-        alert.show();
+    	MyAlert.show(type,title,header,content);
     }
     
 	public void setMainApp(MainApp mainApp) {
