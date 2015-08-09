@@ -3,8 +3,8 @@ package dk.kea.swc.cadd.delivery.view;
 import dk.kea.swc.cadd.delivery.db.LocationDAO;
 import dk.kea.swc.cadd.delivery.db.StorageDAO;
 import dk.kea.swc.cadd.delivery.model.Location;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
@@ -92,18 +92,19 @@ public class LocationEditDialogController {
         }
 
 
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            // Show the error message.
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
+        if (errorMessage.length() != 0) {
+        	// Shows the error message because the input is not valid.
+            MyAlert alert = new MyAlert(
+            		AlertType.ERROR,
+            		"Invalid input",
+            		errorMessage,
+            		"Please correct invalid fields and try again.");
             alert.showAndWait();
+            //Return false because the input is not valid
             return false;
+        }else {
+        	//Return true because the input was valid
+        	return true;
         }
     }
 }

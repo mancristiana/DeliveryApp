@@ -2,8 +2,8 @@ package dk.kea.swc.cadd.delivery.view;
 
 import dk.kea.swc.cadd.delivery.db.StorageDAO;
 import dk.kea.swc.cadd.delivery.model.Storage;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -90,11 +90,12 @@ public class StorageEditDialogController {
         return true;
     } else {
         // Show the error message.
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.initOwner(dialogStage);
-        alert.setTitle("Invalid Fields");
-        alert.setHeaderText("Please correct invalid fields");
-        alert.setContentText(errorMessage);
+        MyAlert alert = new MyAlert(
+        		AlertType.ERROR,
+        		"Invalid fields",
+        		errorMessage,
+        		"Please correct invalid fields");
+        
 
         alert.showAndWait();
         return false;
