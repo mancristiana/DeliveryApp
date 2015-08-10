@@ -1,7 +1,9 @@
 package dk.kea.swc.cadd.delivery.view;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Map;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -19,10 +21,12 @@ import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.DriverDAO;
 import dk.kea.swc.cadd.delivery.db.OrderDAO;
 import dk.kea.swc.cadd.delivery.db.RouteDAO;
+import dk.kea.swc.cadd.delivery.db.StorageDAO;
 import dk.kea.swc.cadd.delivery.db.TruckDAO;
 import dk.kea.swc.cadd.delivery.model.Driver;
 import dk.kea.swc.cadd.delivery.model.Order;
 import dk.kea.swc.cadd.delivery.model.Route;
+import dk.kea.swc.cadd.delivery.model.Storage;
 import dk.kea.swc.cadd.delivery.model.Truck;
 import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 
@@ -38,6 +42,8 @@ public class RouteCreateController {
 	
 	private MainApp mainApp;
 	private ObservableList<Order> selectedItems;
+	private Map<String, Double> storageMap = new HashMap<>(); 
+	private ObservableList<Storage> storageList = StorageDAO.getStorages(); 
 
 	/**
 	 * The constructor.
@@ -95,7 +101,28 @@ public class RouteCreateController {
         });
       }
       
-     //TODO what is this/?????
+      /*
+       * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Cell.html#updateItem-T-boolean-
+       * The updateItem method should not be called by developers, but it is the best method for developers to override to allow for them to customise the visuals of the cell. 
+       * To clarify, developers should never call this method in their code (they should leave it up to the UI control, such as the ListView control) to call this method. 
+       * However, the purpose of having the updateItem method is so that developers, when specifying custom cell factories (again, like the ListView cell factory), 
+       * the updateItem method can be overridden to allow for complete customisation of the cell.
+       * 
+       * It is very important that subclasses of Cell override the updateItem method properly, 
+       * as failure to do so will lead to issues such as blank cells or cells with unexpected 
+       * content appearing within them. Here is an example of how to properly override the updateItem method:
+       
+        protected void updateItem(T item, boolean empty) {
+        		super.updateItem(item, empty);
+
+    	      if (empty || item == null) {
+    	          setText(null);
+    	          setGraphic(null);
+    	      } else {
+    	         setText(item.toString());
+    	      }
+     	}
+       */
       @Override protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);
         if (!empty) {
@@ -123,6 +150,11 @@ public class RouteCreateController {
     	} 
     	//If there are selected orders/items
     	else {
+    		// Create a map with storage info
+    		for (Storage s : storageList) {
+    			 storageMap.put(s.getCityName(), s.getAvailableQuantity());
+    		}
+    		
     		// Start creating as many routes as possible
     		while(selectedItems.size() != 0){
     			// Get one available driver and truck
@@ -163,7 +195,7 @@ public class RouteCreateController {
     				Order order = selectedItems.get(i);
     				
     				// Check if order fits and if it has the same storage as the route, skip order otherwise
-    				if(totalQuantity + order.getQuantity() <= truck.getCapacity() && (order.getStorageName().equals(storage) || storage == null)){
+    				if(isValidOrder(order, truck, totalQuantity, storage)){
     					totalQuantity += order.getQuantity();
     					if (storage == null) storage = order.getStorageName();
     					order.setRouteID(route.getRouteID());	//add it to the route by setting route id of the order
@@ -199,6 +231,13 @@ public class RouteCreateController {
     	}
     }
     
+    private boolean isValidOrder(Order order, Truck truck, double totalQuantity, String storage) {
+    	boolean result = true;
+    	result &= totalQuantity + order.getQuantity() <= truck.getCapacity() ; // Check if order fits in the truck
+    	result &= (order.getStorageName().equals(storage) || storage == null); // Check that all orders have the same storage (if this is the first order, then storage is still null)
+    	result &=  storageMap.get(order.getStorageName()) >= totalQuantity + order.getQuantity(); // Check if there is enough quantity in storage for the order
+    	return result;
+    }
     private void showAlert(AlertType type, String title, String header, String content) {
     	MyAlert alert = new MyAlert(type,title,header,content);
         alert.show();

@@ -1,23 +1,23 @@
 package dk.kea.swc.cadd.delivery.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Storage {
 	private StringProperty cityName;
-	private IntegerProperty availableQuantity;
+	private DoubleProperty availableQuantity;
 	
 	
 	public Storage() {
 		this.cityName = new SimpleStringProperty();
-		this.availableQuantity = new SimpleIntegerProperty();
+		this.availableQuantity = new SimpleDoubleProperty();
 	}
 	
-	public Storage(String cityName, Integer availableQuantity) {
+	public Storage(String cityName, Double availableQuantity) {
 		this.cityName = new SimpleStringProperty (cityName);
-		this.availableQuantity = new SimpleIntegerProperty (availableQuantity);
+		this.availableQuantity = new SimpleDoubleProperty (availableQuantity);
 		
 	}
 	
@@ -25,7 +25,7 @@ public class Storage {
 	public void setCityName(String cityName) {
 		this.cityName.set(cityName);
 	}
-	public void setAvailableQuantity(Integer availableQuantity) {
+	public void setAvailableQuantity(Double availableQuantity) {
 		this.availableQuantity.set(availableQuantity);
 	}
 	
@@ -33,7 +33,7 @@ public class Storage {
 	public String getCityName() {
 		return cityName.get();
 	}
-	public Integer getAvailableQuantity() {
+	public Double getAvailableQuantity() {
 		return availableQuantity.get();
 	}
 	
@@ -41,7 +41,7 @@ public class Storage {
 	public StringProperty cityNameProperty() {
 		return cityName;
 	}
-	public IntegerProperty availableQuantityProperty() {
+	public DoubleProperty availableQuantityProperty() {
 		return availableQuantity;
 	}
 }

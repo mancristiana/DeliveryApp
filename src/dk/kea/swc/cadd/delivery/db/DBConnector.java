@@ -6,11 +6,17 @@ import java.sql.SQLException;
 
 public class DBConnector {
     
-    private static final String USER = "cadd";
-    private static final String PASS = "teamrocket";
-    private static final String DB = "cadd";
-    private static final String URL = "jdbc:mysql://138.128.216.12";
-    private static final String PORT = "3306";
+//    private static final String USER = "cadd";
+//    private static final String PASS = "teamrocket";
+//    private static final String DB = "cadd";
+//    private static final String URL = "jdbc:mysql://138.128.216.12";
+//    private static final String PORT = "3306";
+    
+	private static final String USER = "root";
+	private static final String PASS = "";
+	private static final String DB = "cadd";
+	private static final String URL = "jdbc:mysql://localhost";
+	private static final String PORT = "3306";
     
     public static Connection getConnection() {
         Connection con = null;
@@ -23,22 +29,4 @@ public class DBConnector {
         }
         return con;
     }
-    
-//    public static Connection getConnection() {
-//    	String USER = "root";
-//    	String PASS = "";
-//    	String DB = "cadd";
-//    	String URL = "jdbc:mysql://localhost";
-//    	String PORT = "3306";
-//        Connection con = null;
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            String urlForConn = URL + ":" + PORT + "/" + DB;
-//            con = DriverManager.getConnection(urlForConn, USER, PASS);
-//        } catch (ClassNotFoundException | SQLException e) {
-//        	e.printStackTrace();
-//        }
-//        return con;
-//    }
-    
 }

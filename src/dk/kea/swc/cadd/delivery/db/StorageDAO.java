@@ -24,7 +24,7 @@ public class StorageDAO {
             ResultSet rs = stmt.getResultSet();
             while(rs.next()){
                 String cityName = rs.getString("cityname");
-            	Integer availableQuantity = rs.getInt("available_quantity");
+            	Double availableQuantity = rs.getDouble("available_quantity");
             	
             	list.add(new Storage(cityName, availableQuantity));
             	}
@@ -42,7 +42,7 @@ public class StorageDAO {
 					   + "VALUES (?, ?);";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, storage.getCityName());
-			stmt.setInt(2, storage.getAvailableQuantity());
+			stmt.setDouble(2, storage.getAvailableQuantity());
 			stmt.execute();
 			return "";
 		} catch (SQLException e){
@@ -71,7 +71,7 @@ public class StorageDAO {
 					   + "SET available_quantity = ? "
 					   + "WHERE cityname = ?;";
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, storage.getAvailableQuantity());
+			stmt.setDouble(1, storage.getAvailableQuantity());
 			stmt.setString(2, storage.getCityName());
 		
 			stmt.execute();

@@ -26,7 +26,7 @@ public class StorageOverviewController {
 	
 	@FXML private TableView<Storage> 				storageTable;
 	@FXML private TableColumn<Storage, String> 		cityColumn;
-	@FXML private TableColumn<Storage, Integer> 	quantityColumn;
+	@FXML private TableColumn<Storage, Double> 	quantityColumn;
 	@FXML private TableColumn<Storage, Boolean> 	editColumn;
 
 	/**

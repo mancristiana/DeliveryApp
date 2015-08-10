@@ -55,7 +55,7 @@ public class StorageEditDialogController {
     private void handleOk() {
         if (isInputValid()) {
             storage.setCityName(cityNameField.getText());
-            storage.setAvailableQuantity(Integer.parseInt(quantityField.getText()));
+            storage.setAvailableQuantity(Double.parseDouble(quantityField.getText()));
             StorageDAO.updateStorage(storage);
             dialogStage.close();
         }
