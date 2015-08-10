@@ -52,14 +52,14 @@ public class RouteFinishedController {
 		// Creates a cell value factory with edit buttons for each row in the table
 		detailsColumn	.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Route>("edit-button"){
 			@Override
-			public void onButtonClicked() {
+			public void onClick() {
 				showDetailsDialog(routeTable.getItems().get(getTableRow().getIndex()));
 			}});
 		
 		// Creates a cell value factory with edit buttons for each row in the table
 		mapColumn		.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Route>("map-button"){
 			@Override
-			public void onButtonClicked() {
+			public void onClick() {
 	        	int selectedIndex = getTableRow().getIndex();
 	        	Route selectedRoute = routeTable.getItems().get(selectedIndex);
 	        	  
@@ -69,7 +69,7 @@ public class RouteFinishedController {
 		// Creates a cell value factory with delete buttons for each row in the table
 		deleteColumn	.setCellFactory(driverBooleanTableColumn -> new ButtonCell<Route>("delete-button"){
 			@Override
-			public void onButtonClicked(){
+			public void onClick(){
 	        	int selectedIndex = getTableRow().getIndex();
 	         	 
 	        	RouteDAO.deleteRoute(routeTable.getItems().get(selectedIndex));

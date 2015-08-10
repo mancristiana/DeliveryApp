@@ -2,24 +2,18 @@ package dk.kea.swc.cadd.delivery.view;
 
 import java.io.IOException;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.LocationDAO;
 import dk.kea.swc.cadd.delivery.model.Location;
+import dk.kea.swc.cadd.delivery.view.ui.ButtonCell;
 
 public class LocationOverviewController {
 	
@@ -57,40 +51,12 @@ public class LocationOverviewController {
 		priceColumn			.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
 
 		// Create a cell value factory with buttons for each row in the table
-		editColumn	.setCellFactory( locationBooleanTableColumn -> new AddEditCell());
+		editColumn		.setCellFactory(cellData -> new ButtonCell<Location>("edit-button"){
+			@Override
+			public void onClick() {
+				showLocationEditDialog(locationTable.getItems().get(getTableRow().getIndex()));
+			}});
 	}
-	
-	/** 
-	 * A table cell containing a button for editing a location. 
-	 */
-    private class AddEditCell extends TableCell<Location, Boolean> {
-    	final Button button = new Button();
-    	HBox wrap = new HBox();
-    	
-	    AddEditCell() {
-	    	button.setId("edit-button");
-	    	button.setOnAction(new EventHandler<ActionEvent>() {
-	    		@Override public void handle(ActionEvent actionEvent) {
-	        		showLocationEditDialog(locationTable.getItems().get(getTableRow().getIndex()));
-	    		}
-	        });
-	    	wrap.setAlignment(Pos.CENTER);
-	    	wrap.getChildren().add(button);
-	      }
-      
-	    /** 
-	     * Places an edit button in the row only if the row is not empty. 
-	     */
-	    @Override protected void updateItem(Boolean item, boolean empty) {
-	        super.updateItem(item, empty);
-	        if (!empty) {
-	          setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-	          setGraphic(wrap);
-	        } else {
-	          setGraphic(null);
-	        }
-	    }
-    }
     
     /**
      * Shows the location edit dialog.

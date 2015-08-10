@@ -59,12 +59,12 @@ public class TruckOverviewController {
 		availableColumn	.setCellFactory(cellData -> new AvailableCell<Truck>());
 		editColumn		.setCellFactory(cellData -> new ButtonCell<Truck>("edit-button"){
 			@Override
-			public void onButtonClicked() {
+			public void onClick() {
 				showTruckDialog(truckTable.getItems().get(getTableRow().getIndex()));
 			}});
 		deleteColumn	.setCellFactory(cellData -> new ButtonCell<Truck>("delete-button"){
 			@Override
-			public void onButtonClicked(){
+			public void onClick(){
 	        	int selectedIndex = getTableRow().getIndex();
 	        	deleteTruck(truckTable.getItems().get(selectedIndex));
 			}});

@@ -52,14 +52,14 @@ public class DriverOverviewController {
 		// Creates a cell value factory with edit buttons for each row in the table
 		editColumn	.setCellFactory(cellData -> new ButtonCell<Driver>("edit-button"){
 			@Override
-			public void onButtonClicked() {
+			public void onClick() {
 	        	showDriverDialog(driverTable.getItems().get(getTableRow().getIndex()));
 			}});
 		
 		// Creates a cell value factory with delete buttons for each row in the table
 		deleteColumn.setCellFactory(cellData -> new ButtonCell<Driver>("delete-button"){
 			@Override
-			public void onButtonClicked(){
+			public void onClick(){
 				int selectedIndex = getTableRow().getIndex();
 				deleteDriver(driverTable.getItems().get(selectedIndex));
 			}});
