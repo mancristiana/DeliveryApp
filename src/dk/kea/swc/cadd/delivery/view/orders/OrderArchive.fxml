@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane id="page-container" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.orders.OrderArchiveController">
+   <center>
+      <TableView fx:id="orderTable">
+         <columns>
+            <TableColumn fx:id="orderIDColumn" text="ID" />
+            <TableColumn fx:id="routeIDColumn" text="RouteID" />
+            <TableColumn fx:id="cityNameColumn" text="Location" />
+            <TableColumn fx:id="quantityColumn" text="Requested quntity (tons)" />
+            <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false"  />
+         </columns>
+      </TableView>
+   </center>
+   <top>
+		<Label id="page-title" text="Order Archive" />
+   </top>
+</BorderPane>

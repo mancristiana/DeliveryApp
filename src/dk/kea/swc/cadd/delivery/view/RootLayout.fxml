@@ -11,7 +11,7 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="View">
+          <Menu mnemonicParsing="false" text="Manage">
             <items>
             	<MenuItem mnemonicParsing="false" onAction="#showLocationOverview" text="Locations" />
             	<MenuItem mnemonicParsing="false" onAction="#showStorageOverview" text="Storages" />

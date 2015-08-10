@@ -49,80 +49,80 @@ public class MainApp extends Application {
      * Shows the location overview in the center of the root layout.
      */
     public void showLocationOverview() {
-		showPage("LocationOverview");
+		showPage("view/manage/LocationOverview");
     }
     
     /**
      * Shows the storage overview in the center of the root layout.
      */
     public void showStorageOverview() {
-    	showPage("StorageOverview");
+    	showPage("view/manage/StorageOverview");
     }
     
     /**
      * Shows the truck overview in the center of the root layout.
      */
     public void showTruckOverview() {
-    	showPage("TruckOverview");
+    	showPage("view/manage/TruckOverview");
     }
     
     /**
      * Shows the driver overview in the center of the root layout.
      */
     public void showDriverOverview() {
-    	showPage("DriverOverview");
+    	showPage("view/manage/DriverOverview");
     }
     
     /**
      * Shows the create order view in the center of the root layout.
      */
     public void showOrderCreate() {
-    	showPage("OrderCreate");
+    	showPage("view/orders/OrderCreate");
     }
     
     /**
      * Shows the order overview in the center of the root layout.
      */
     public void showOrderOverview() {
-    	showPage("OrderOverview");
+    	showPage("view/orders/OrderOverview");
     }
     
     /**
      * Shows the order archive view in the center of the root layout.
      */
     public void showOrderArchive() {
-    	showPage("OrderArchive");
+    	showPage("view/orders/OrderArchive");
     }
     
     /**
      * Shows the create order view in the center of the root layout.
      */
     public void showRouteCreate() {
-    	showPage("RouteCreate");
+    	showPage("view/routes/RouteCreate");
     }
     
     /**
      * Shows the route overview in the center of the root layout.
      */
     public void showRouteOverview() {
-    	showPage("RouteOverview");
+    	showPage("view/routes/RouteOverview");
     }
     
     /**
      * Shows the finished route page in the center of the root layout.
      */
     public void showRouteFinished() {
-    	showPage("RouteFinished");
+    	showPage("view/routes/RouteFinished");
     }
     
     /**
      * Shows the page with the given resource name in the center of the root layout.
      */
-    public static void showPage(String name){
+    public static void showPage(String location){
     	try {
             // Loads the page from the fxml file into a Pane object.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/"+name+".fxml"));
+            loader.setLocation(MainApp.class.getResource(location+".fxml"));
             Pane page = loader.load();
 
             // Sets the page in the center of root layout.

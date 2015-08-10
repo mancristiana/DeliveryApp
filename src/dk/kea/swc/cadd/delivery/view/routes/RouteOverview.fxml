@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane id="page-container" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.routes.RouteOverviewController">
+   <center>
+      <TableView fx:id="routeTable">
+         <columns>
+            <TableColumn fx:id="routeIDColumn" text="ID" />
+            <TableColumn fx:id="driverColumn" text="Driver" />
+            <TableColumn fx:id="truckIDColumn" text="Truck ID" />
+            <TableColumn fx:id="detailsColumn" text="Details" prefWidth="55" sortable="false" />
+            <TableColumn fx:id="mapColumn" text="Map" prefWidth="55" sortable="false" />
+            <TableColumn fx:id="deleteColumn" text="Mark finished" prefWidth="55" sortable="false" />
+         </columns>
+      </TableView>
+   </center>
+   <top>
+      <Label id="page-title" text="Route Overview" />
+   </top>
+</BorderPane>
