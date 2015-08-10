@@ -11,13 +11,13 @@ public class DBConnector {
 //    private static final String DB = "cadd";
 //    private static final String URL = "jdbc:mysql://138.128.216.12";
 //    private static final String PORT = "3306";
-    
+
 	private static final String USER = "root";
 	private static final String PASS = "";
 	private static final String DB = "cadd";
 	private static final String URL = "jdbc:mysql://localhost";
 	private static final String PORT = "3306";
-    
+
     public static Connection getConnection() {
         Connection con = null;
         try {

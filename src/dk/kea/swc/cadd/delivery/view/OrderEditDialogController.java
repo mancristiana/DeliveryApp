@@ -97,7 +97,7 @@ public class OrderEditDialogController {
             return true;
         } else {
             // Show the error message.
-            new MyAlert(AlertType.ERROR,"Invalid Fields",null,"Please correct invalid fields").showAndWait();
+        	MyAlert.show(AlertType.ERROR,"Invalid Fields",null,"Please correct invalid fields");
   
             return false;
         }

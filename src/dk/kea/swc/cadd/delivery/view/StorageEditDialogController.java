@@ -90,14 +90,12 @@ public class StorageEditDialogController {
         return true;
     } else {
         // Show the error message.
-        MyAlert alert = new MyAlert(
+    	MyAlert.show(
         		AlertType.ERROR,
         		"Invalid fields",
         		errorMessage,
         		"Please correct invalid fields");
-        
 
-        alert.showAndWait();
         return false;
     }
 }

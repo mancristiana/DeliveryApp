@@ -14,14 +14,14 @@ import javafx.scene.layout.HBox;
 public abstract class ButtonCell<T> extends TableCell<T, Boolean> {
 	
 	private Button 	button;
-	private HBox 	wrap;
+	private HBox 	container;
 	
 	/** 
 	 * Creates a centered button with the given css id.
 	 */
 	public ButtonCell(String cssId) {
 		this.button = new Button();
-		this.wrap 	= new HBox();
+		this.container 	= new HBox();
 		
 		// Styles the button accordingly
 		button.setId(cssId);
@@ -34,8 +34,8 @@ public abstract class ButtonCell<T> extends TableCell<T, Boolean> {
 		});
 		
 		// Wraps the button in the middle of a HBox
-		wrap.setAlignment(Pos.CENTER);
-		wrap.getChildren().add(button);
+		container.setAlignment(Pos.CENTER);
+		container.getChildren().add(button);
 	}
 	
 	/** 
@@ -46,7 +46,7 @@ public abstract class ButtonCell<T> extends TableCell<T, Boolean> {
 		super.updateItem(item, empty);
 		if (!empty) {
 			setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-			setGraphic(wrap);
+			setGraphic(container);
 		} else {
 			setGraphic(null);
 		}

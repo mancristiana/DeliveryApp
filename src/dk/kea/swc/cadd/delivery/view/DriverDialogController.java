@@ -79,12 +79,11 @@ public class DriverDialogController {
         // Checks if we found any errors
         if (errorMessage.length() != 0) {
             // Shows the error message because the input is not valid.
-   			MyAlert alert = new MyAlert(
+        	MyAlert.show(
 					AlertType.ERROR,
 					"Invalid input",
 					errorMessage,
 					"Please correct invalid fields and try again.");
-            alert.showAndWait();
             
             // Returns false because the input is not valid
             return false;
@@ -117,20 +116,18 @@ public class DriverDialogController {
             // Checks if we got sql errors
     		if(!errorMessage.isEmpty()){
                 // Shows the error message because we got a sql error.
-    			MyAlert alert = new MyAlert(
+    			MyAlert.show(
     					AlertType.ERROR,
     					"Error while submitting changes",
     					errorMessage,
     					"The driver was not created/updated.");
-    			alert.showAndWait();
     		} else {
     			// Shows the confirmation message because the update was successful
-    			MyAlert alert = new MyAlert(
+    			MyAlert.show(
     					AlertType.INFORMATION,
     					"Success",
     					"Changes were submitted successfully",
     					"The driver with ID: "+driver.getDriverId()+" was created/updated.");
-    			alert.showAndWait();
     			
     			// Updates the application's driver list with the new data from the database 
     			driverTable.setItems(DriverDAO.getDrivers());

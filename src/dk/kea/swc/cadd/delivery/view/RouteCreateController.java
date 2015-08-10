@@ -40,7 +40,6 @@ public class RouteCreateController {
 	@FXML private TableColumn<Order, Double> priceColumn;
 	@FXML private TableColumn<Order, Double> profitColumn;
 	
-	private MainApp mainApp;
 	private ObservableList<Order> selectedItems;
 	private Map<String, Double> storageMap = new HashMap<>(); 
 	private ObservableList<Storage> storageList = StorageDAO.getStorages(); 
@@ -226,8 +225,7 @@ public class RouteCreateController {
     					details); //TODO Alert cleanup
     			
     		}
-    		
-    		mainApp.showRouteOverview();   
+    		MainApp.showPage("RouteOverview");   
     	}
     }
     
@@ -239,12 +237,6 @@ public class RouteCreateController {
     	return result;
     }
     private void showAlert(AlertType type, String title, String header, String content) {
-    	MyAlert alert = new MyAlert(type,title,header,content);
-        alert.show();
+    	MyAlert.show(type,title,header,content);
     }
-    
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
-
 }

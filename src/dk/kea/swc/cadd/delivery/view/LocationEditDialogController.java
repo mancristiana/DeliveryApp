@@ -94,12 +94,11 @@ public class LocationEditDialogController {
 
         if (errorMessage.length() != 0) {
         	// Shows the error message because the input is not valid.
-            MyAlert alert = new MyAlert(
+        	MyAlert.show(
             		AlertType.ERROR,
             		"Invalid input",
             		errorMessage,
             		"Please correct invalid fields and try again.");
-            alert.showAndWait();
             //Return false because the input is not valid
             return false;
         }else {

@@ -5,18 +5,16 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.TruckDAO;
 import dk.kea.swc.cadd.delivery.model.Truck;
+import dk.kea.swc.cadd.delivery.view.ui.AvailableCell;
 import dk.kea.swc.cadd.delivery.view.ui.ButtonCell;
 import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 
@@ -47,10 +45,9 @@ public class TruckOverviewController {
 		truckTable.setItems(TruckDAO.getTrucks());
 			
 		// Resize the columns (with percentages) when the window is enlarged
-		truckIDColumn   .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.40));
-		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.20));
-		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.20));
-		availableColumn .prefWidthProperty().bind(truckTable.widthProperty().subtract(130).multiply(0.20));
+		truckIDColumn   .prefWidthProperty().bind(truckTable.widthProperty().subtract(215).multiply(0.40));
+		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(215).multiply(0.25));
+		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().subtract(215).multiply(0.35));
 		
 		// Initialize the table with the three columns
 		truckIDColumn	.setCellValueFactory(cellData -> cellData.getValue().truckIDProperty());
@@ -59,13 +56,13 @@ public class TruckOverviewController {
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
 
 		// Create a cell value factory with buttons for each row in the table
-		availableColumn.setCellFactory(cellData -> new AvailableCell());
-		editColumn	.setCellFactory(cellData -> new ButtonCell<Truck>("edit-button"){
+		availableColumn	.setCellFactory(cellData -> new AvailableCell<Truck>());
+		editColumn		.setCellFactory(cellData -> new ButtonCell<Truck>("edit-button"){
 			@Override
 			public void onButtonClicked() {
 				showTruckDialog(truckTable.getItems().get(getTableRow().getIndex()));
 			}});
-		deleteColumn.setCellFactory(cellData -> new ButtonCell<Truck>("delete-button"){
+		deleteColumn	.setCellFactory(cellData -> new ButtonCell<Truck>("delete-button"){
 			@Override
 			public void onButtonClicked(){
 	        	int selectedIndex = getTableRow().getIndex();
@@ -73,36 +70,13 @@ public class TruckOverviewController {
 			}});
 	}
 	
+	/** 
+	 * The add button's action, which is invoked whenever the add button is clicked.
+	 */
 	@FXML
 	private void handleAdd() {
 		showTruckDialog(null);
-		//truckTable.getItems().add(?);
 	}
-	
-	/** 
-	 * A table cell containing a button for editing a truck. //TODO
-	 */
-    private class AvailableCell extends TableCell<Truck, Boolean> {
-    	HBox container = new HBox();
-
-      /** 
-       * Places an edit button in the row only if the row is not empty. 
-       */
-      @Override protected void updateItem(Boolean item, boolean empty) {
-        super.updateItem(item, empty);
-        if (!empty) {
-          setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-          setGraphic(container);
-          
-          if(item) 	container.setId("available-button");
-          else 		container.setId("unavailable-button");
-          
-        } else {
-          setGraphic(null);
-        }
-      }
-      
-    }
     
     /**
      * Shows the truck dialog.
@@ -143,13 +117,12 @@ public class TruckOverviewController {
         // Checks if we got sql errors
 		if(!errorMessage.isEmpty()){
             // Shows the error message because we got a sql error.
-			MyAlert alert = new MyAlert(
+			MyAlert.show(
 					AlertType.ERROR,
 					"Error while deleting truck",
 					"The truck was not deleted.",
 					errorMessage
 					);
-			alert.showAndWait();
 			if (errorMessage.startsWith("Truck")){
 				// Updates the application's driver list with the new changes
 				truckTable.getItems().remove(truck);
@@ -157,12 +130,11 @@ public class TruckOverviewController {
 			
 		} else {
 			// Shows the confirmation message because the update was successful
-			MyAlert alert = new MyAlert(
+			MyAlert.show(
 					AlertType.INFORMATION,
 					"Success",
 					"Changes were submitted successfully",
 					"The truck with ID: "+truck.getTruckID()+" was deleted.");
-			alert.showAndWait();
 			
 			// Updates the application's driver list with the new changes
 			truckTable.getItems().remove(truck);
