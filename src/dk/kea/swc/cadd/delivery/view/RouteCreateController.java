@@ -36,7 +36,6 @@ public class RouteCreateController {
 	@FXML private TableColumn<Order, Double> priceColumn;
 	@FXML private TableColumn<Order, Double> profitColumn;
 	
-	private MainApp mainApp;
 	private ObservableList<Order> selectedItems;
 
 	/**
@@ -194,17 +193,11 @@ public class RouteCreateController {
     					details); //TODO Alert cleanup
     			
     		}
-    		
-    		mainApp.showRouteOverview();   
+    		MainApp.showPage("RouteOverview");   
     	}
     }
     
     private void showAlert(AlertType type, String title, String header, String content) {
     	MyAlert.show(type,title,header,content);
     }
-    
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
-
 }

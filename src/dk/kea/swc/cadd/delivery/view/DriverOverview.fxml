@@ -13,7 +13,7 @@
             <TableColumn fx:id="nameColumn" text="Name" />
             <TableColumn fx:id="phoneColumn" text="Phone" />
             <TableColumn fx:id="emailColumn" text="Email" />
-            <TableColumn fx:id="availableColumn" text="Available" />
+            <TableColumn fx:id="availableColumn" text="Available" prefWidth="85" />
             <TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false" />
             <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false" />
          </columns>

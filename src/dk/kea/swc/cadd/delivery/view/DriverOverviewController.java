@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import dk.kea.swc.cadd.delivery.MainApp;
 import dk.kea.swc.cadd.delivery.db.DriverDAO;
 import dk.kea.swc.cadd.delivery.model.Driver;
+import dk.kea.swc.cadd.delivery.view.ui.AvailableCell;
 import dk.kea.swc.cadd.delivery.view.ui.ButtonCell;
 import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 
@@ -37,10 +38,9 @@ public class DriverOverviewController {
     	driverTable.setItems(DriverDAO.getDrivers());
     	
 		// Resizes the columns (with percentages) when the window is enlarged
-		nameColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.30));
-		phoneColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.17));
-		emailColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.33));
-		availableColumn .prefWidthProperty().bind(driverTable.widthProperty().subtract(130).multiply(0.20));
+		nameColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(215).multiply(0.40));
+		phoneColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(215).multiply(0.20));
+		emailColumn		.prefWidthProperty().bind(driverTable.widthProperty().subtract(215).multiply(0.40));
 		
 		// Sets the values of the columns
 		nameColumn		.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -48,6 +48,7 @@ public class DriverOverviewController {
 		emailColumn		.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
 		availableColumn	.setCellValueFactory(cellData -> cellData.getValue().availableProperty());
 		
+		availableColumn	.setCellFactory(cellData -> new AvailableCell<Driver>());
 		// Creates a cell value factory with edit buttons for each row in the table
 		editColumn	.setCellFactory(cellData -> new ButtonCell<Driver>("edit-button"){
 			@Override

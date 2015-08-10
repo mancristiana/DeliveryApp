@@ -46,8 +46,8 @@ public class TruckOverviewController {
 			
 		// Resize the columns (with percentages) when the window is enlarged
 		truckIDColumn   .prefWidthProperty().bind(truckTable.widthProperty().subtract(215).multiply(0.40));
-		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(215).multiply(0.30));
-		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().subtract(215).multiply(0.30));
+		capacityColumn  .prefWidthProperty().bind(truckTable.widthProperty().subtract(215).multiply(0.25));
+		speedColumn		.prefWidthProperty().bind(truckTable.widthProperty().subtract(215).multiply(0.35));
 		
 		// Initialize the table with the three columns
 		truckIDColumn	.setCellValueFactory(cellData -> cellData.getValue().truckIDProperty());

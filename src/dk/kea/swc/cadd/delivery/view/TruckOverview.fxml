@@ -10,9 +10,9 @@
    <center>
       <TableView fx:id="truckTable">
          <columns>
-         	<TableColumn fx:id="truckIDColumn" text="Truck reg.No." />
+         	<TableColumn fx:id="truckIDColumn" text="Truck reg.no." />
             <TableColumn fx:id="capacityColumn" text="Capacity" />
-            <TableColumn fx:id="speedColumn" text="Speed" />
+            <TableColumn fx:id="speedColumn" text="Speed (km/h)" />
             <TableColumn fx:id="availableColumn" text="Available" prefWidth="85" />
             <TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false" />
             <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false" />
