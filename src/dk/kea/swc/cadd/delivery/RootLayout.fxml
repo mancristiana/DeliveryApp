@@ -42,9 +42,9 @@
             <Label text="(c) teamrocket" />
          </children>
       </HBox>
-   </bottom>
-   <stylesheets>
-      <URL value="@resources/General.css" />
-      <URL value="@resources/Buttons.css" />
-   </stylesheets>
+	</bottom>
+	<stylesheets>
+		<URL value="@view/resources/General.css" />
+		<URL value="@view/resources/Buttons.css" />
+	</stylesheets>
 </BorderPane>

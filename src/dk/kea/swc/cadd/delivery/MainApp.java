@@ -29,7 +29,7 @@ public class MainApp extends Application {
         try {
             // Loads the root layout from the fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Sets the minimum width and height

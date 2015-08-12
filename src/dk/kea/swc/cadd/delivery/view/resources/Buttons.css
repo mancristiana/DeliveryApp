@@ -2,7 +2,7 @@
 	-fx-base: #FFFFFF;
 }
 #edit-button {
-	-fx-background-image: url('images/edit.png');
+	-fx-background-image: url('edit.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px 25px;
   	-fx-background-position: center;
@@ -12,7 +12,7 @@
   	-fx-max-width: 40;
 }
 #available-button {
-	-fx-background-image: url('images/available.png');
+	-fx-background-image: url('available.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px 25px;
   	-fx-background-position: center;
@@ -20,7 +20,7 @@
   	-fx-min-width: 40;
 }
 #unavailable-button {
-	-fx-background-image: url('images/unavailable.png');
+	-fx-background-image: url('unavailable.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px 25px;
   	-fx-background-position: center;
@@ -28,7 +28,7 @@
   	-fx-min-width: 40;
 }
 #delete-button {
-	-fx-background-image: url('images/delete.png');
+	-fx-background-image: url('delete.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px 25px;
   	-fx-background-position: center;
@@ -41,7 +41,7 @@
 #add-button {
 	-fx-font-weight: bold;
   	-fx-alignment: center_right;
-	-fx-background-image: url('images/add.png');
+	-fx-background-image: url('add.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-size: 25px 25px;
 	-fx-background-position: 7;
@@ -50,7 +50,7 @@
 }
 
 #map-button {
-	-fx-background-image: url('images/map.png');
+	-fx-background-image: url('map.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px 25px;
   	-fx-background-position: center;
@@ -61,7 +61,7 @@
 }
 
 #check-button {
-	-fx-background-image: url('images/check.png');
+	-fx-background-image: url('check.png');
 	-fx-background-repeat: no-repeat;
   	-fx-background-size: 25px 25px;
   	-fx-background-position: center;
