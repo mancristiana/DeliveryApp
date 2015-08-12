@@ -44,7 +44,7 @@
       </HBox>
 	</bottom>
 	<stylesheets>
-		<URL value="@view/resources/General.css" />
-		<URL value="@view/resources/Buttons.css" />
+		<URL value="@view/ui/resources/General.css" />
+		<URL value="@view/ui/resources/Buttons.css" />
 	</stylesheets>
 </BorderPane>

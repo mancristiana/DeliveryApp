@@ -48,6 +48,6 @@
 		</HBox>
 	</bottom>
 	<stylesheets>
-		<URL value="@../resources/General.css" />
+		<URL value="@../ui/resources/General.css" />
 	</stylesheets>
 </BorderPane>
