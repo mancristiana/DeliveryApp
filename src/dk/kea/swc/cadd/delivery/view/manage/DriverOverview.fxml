@@ -7,28 +7,28 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane id="page-container" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.manage.DriverOverviewController">
-   <center>
-      <TableView fx:id="driverTable">
-         <columns>
-            <TableColumn fx:id="nameColumn" text="Name" />
-            <TableColumn fx:id="phoneColumn" text="Phone" />
-            <TableColumn fx:id="emailColumn" text="Email" />
-            <TableColumn fx:id="availableColumn" text="Available" prefWidth="85" />
-            <TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false" />
-            <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false" />
-         </columns>
-      </TableView>
+	<center>
+		<TableView fx:id="driverTable">
+			<columns>
+            	<TableColumn fx:id="nameColumn" text="Name" />
+            	<TableColumn fx:id="phoneColumn" text="Phone" />
+            	<TableColumn fx:id="emailColumn" text="Email" />
+            	<TableColumn fx:id="availableColumn" text="Available" prefWidth="85" />
+            	<TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false" />
+            	<TableColumn fx:id="deleteColumn" text="Delete" prefWidth="55" sortable="false" />
+			</columns>
+		</TableView>
 	</center>
 	<top>
 		<GridPane>
-			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" />
-				<ColumnConstraints hgrow="SOMETIMES" />
-			</columnConstraints>
-			<rowConstraints>
-				<RowConstraints vgrow="SOMETIMES" />
-			</rowConstraints>
-			<children>
+        	<columnConstraints>
+          		<ColumnConstraints hgrow="SOMETIMES" />
+          		<ColumnConstraints hgrow="SOMETIMES" />
+        	</columnConstraints>
+        	<rowConstraints>
+          		<RowConstraints vgrow="SOMETIMES" />
+        	</rowConstraints>
+         	<children>
 				<Label id="page-title" text="Drivers" />
 				<Button id="add-button" onAction="#handleAdd" text="Add" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
 			</children>
