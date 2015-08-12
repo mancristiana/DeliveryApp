@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane id="page-container" minWidth="400" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.manage.TruckDialogController">
+<BorderPane id="page-container" minWidth="400" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.manage.LocationDialogController">
 	<center>
 		<GridPane>
 			<columnConstraints>
@@ -18,22 +18,19 @@
 				<RowConstraints vgrow="SOMETIMES" />
 				<RowConstraints vgrow="SOMETIMES" />
 				<RowConstraints vgrow="SOMETIMES" />
-				<RowConstraints vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
-				<Label text="Reg. No."				GridPane.columnIndex="0" GridPane.rowIndex="0" />
-				<Label text="Capacity"				GridPane.columnIndex="0" GridPane.rowIndex="1" />
-				<Label text="Speed"					GridPane.columnIndex="0" GridPane.rowIndex="2" />
-				<Label text="Availability"			GridPane.columnIndex="0" GridPane.rowIndex="3" />
-				<TextField fx:id="truckIDField"		GridPane.columnIndex="1" GridPane.rowIndex="0" />
-				<TextField fx:id="capacityField"	GridPane.columnIndex="1" GridPane.rowIndex="1" />
-				<TextField fx:id="speedField"		GridPane.columnIndex="1" GridPane.rowIndex="2" />
-				<CheckBox  fx:id="availableBox"		GridPane.columnIndex="1" GridPane.rowIndex="3" />
+				<Label text="City name"				GridPane.columnIndex="0" GridPane.rowIndex="0" />
+				<Label text="Storage name"			GridPane.columnIndex="0" GridPane.rowIndex="1" />
+				<Label text="Price"					GridPane.columnIndex="0" GridPane.rowIndex="2" />
+				<TextField fx:id="cityNameField"	GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false" />
+				<ChoiceBox fx:id="storageNameField"	GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<TextField fx:id="priceField"		GridPane.columnIndex="1" GridPane.rowIndex="2" />
 			</children>
 		</GridPane>
 	</center>
-	<top>
-		<Label id="page-title" text="Truck" />
+	<top>	
+		<Label id="page-title" text="Location" />
 	</top>
 	<bottom>
 		<HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">

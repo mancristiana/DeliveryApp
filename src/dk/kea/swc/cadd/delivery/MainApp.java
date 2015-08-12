@@ -1,10 +1,14 @@
 package dk.kea.swc.cadd.delivery;
 
 import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -19,10 +23,10 @@ public class MainApp extends Application {
     	this.primaryStage.setTitle("DeliveryApp");
 
         initRootLayout();
-        showOrderOverview();
+        showStartingPage();
     }
 
-    /**
+	/**
      * Initializes and shows the root layout.
      */
     public void initRootLayout() {
@@ -44,6 +48,21 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * Shows the starting page with the welcome image
+     */
+    public void showStartingPage() {
+    	HBox container = new HBox();
+    	container.setId("welcome");
+    	container.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				showOrderOverview();
+			}
+		});
+    	rootLayout.setCenter(container);
+	}
     
     /**
      * Shows the location overview in the center of the root layout.

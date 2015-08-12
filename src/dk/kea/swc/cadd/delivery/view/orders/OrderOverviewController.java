@@ -72,23 +72,20 @@ public class OrderOverviewController {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/orders/OrderEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/orders/OrderDialog.fxml"));
             Pane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Order");
             dialogStage.initModality(Modality.APPLICATION_MODAL);
-            
-            // Setting the minimum width and height
-            dialogStage.setMinWidth(page.getMinWidth()+17.25);
-            dialogStage.setMinHeight(page.getMinHeight()+46.25);
+            dialogStage.setResizable(false);
             
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
             
             // Set the location into the controller.
-            OrderEditDialogController controller = loader.getController();
+            OrderDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setOrder(order);
 
@@ -98,5 +95,4 @@ public class OrderOverviewController {
             e.printStackTrace();
         }
     }
-
 }

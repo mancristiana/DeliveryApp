@@ -8,7 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class StorageEditDialogController {
+public class StorageDialogController {
 
 	@FXML private TextField cityNameField;
     @FXML private TextField quantityField;

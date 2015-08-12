@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane id="page-container" minWidth="400" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.manage.DriverDialogController">
+<BorderPane id="page-container" minWidth="400" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.orders.OrderDialogController">
 	<center>
 		<GridPane>
 			<columnConstraints>
@@ -17,23 +17,17 @@
 			<rowConstraints>
 				<RowConstraints vgrow="SOMETIMES" />
 				<RowConstraints vgrow="SOMETIMES" />
-				<RowConstraints vgrow="SOMETIMES" />
-				<RowConstraints vgrow="SOMETIMES" />
 			</rowConstraints>
-			<children>
-				<Label text="Name"					GridPane.columnIndex="0" GridPane.rowIndex="0" />
-				<Label text="Phone"					GridPane.columnIndex="0" GridPane.rowIndex="1" />
-				<Label text="Email"					GridPane.columnIndex="0" GridPane.rowIndex="2" />
-				<Label text="Available"				GridPane.columnIndex="0" GridPane.rowIndex="3" />
-				<TextField fx:id="nameField"		GridPane.columnIndex="1" GridPane.rowIndex="0" />
-				<TextField fx:id="phoneField"		GridPane.columnIndex="1" GridPane.rowIndex="1" />
-				<TextField fx:id="emailField"		GridPane.columnIndex="1" GridPane.rowIndex="2" />
-				<CheckBox  fx:id="availableBox"		GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         	<children>
+				<Label text="City name"				GridPane.columnIndex="0" GridPane.rowIndex="0" />
+				<Label text="Quantity"				GridPane.columnIndex="0" GridPane.rowIndex="1" />
+				<ChoiceBox fx:id="cityNameField"	GridPane.columnIndex="1" GridPane.rowIndex="0" />
+				<TextField fx:id="quantityField"	GridPane.columnIndex="1" GridPane.rowIndex="1" />
 			</children>
 		</GridPane>
 	</center>
 	<top>	
-		<Label id="page-title" text="Driver" />
+		<Label id="page-title" text="Order" />
 	</top>
 	<bottom>
 		<HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">

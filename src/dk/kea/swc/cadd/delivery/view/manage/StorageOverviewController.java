@@ -63,7 +63,7 @@ public class StorageOverviewController {
     	try {
             // Load the fxml file and create a new stage for the dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/manage/StorageEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/manage/StorageDialog.fxml"));
             Pane page = loader.load();
             
             // Create the dialog Stage.
@@ -76,7 +76,7 @@ public class StorageOverviewController {
             dialogStage.setScene(scene);
             
             // Set the storage object into the controller
-            StorageEditDialogController controller = loader.getController();
+            StorageDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setStorage(storage);
             
@@ -87,6 +87,3 @@ public class StorageOverviewController {
         }
     }
 }
- 
-
-	

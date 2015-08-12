@@ -10,7 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class OrderEditDialogController {
+public class OrderDialogController {
 
 	@FXML private ChoiceBox<String> cityNameField;
     @FXML private TextField quantityField;

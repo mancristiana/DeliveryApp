@@ -14,3 +14,11 @@
 #page-container{
 	-fx-padding: 0 10 10 10;
 }
+#welcome {
+	-fx-background-image: url('welcome.png');
+	-fx-background-repeat: no-repeat;
+  	-fx-background-size: 350px 350px;
+  	-fx-background-position: center;
+  	-fx-min-height: 350;
+  	-fx-min-width: 350;
+}

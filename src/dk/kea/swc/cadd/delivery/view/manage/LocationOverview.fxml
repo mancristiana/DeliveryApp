@@ -4,17 +4,17 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane id="page-container" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.manage.LocationOverviewController">
-   <center>
-      <TableView fx:id="locationTable">
-         <columns>
-            <TableColumn fx:id="cityNameColumn" text="City name" />
-            <TableColumn fx:id="storageNameColumn" text="Storage name" />
-            <TableColumn fx:id="priceColumn" text="Price (RON/ton)" />
-            <TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false" />
-         </columns>
-      </TableView>
-   </center>
-   <top>
-      <Label id="page-title" text="Locations" />
-   </top>
+	<center>
+		<TableView fx:id="locationTable">
+			<columns>
+				<TableColumn fx:id="cityNameColumn" text="City name" />
+				<TableColumn fx:id="storageNameColumn" text="Storage name" />
+				<TableColumn fx:id="priceColumn" text="Price (RON/ton)" />
+				<TableColumn fx:id="editColumn" text="Edit" prefWidth="55" sortable="false" />
+			</columns>
+		</TableView>
+	</center>
+	<top>
+		<Label id="page-title" text="Locations" />
+	</top>
 </BorderPane>

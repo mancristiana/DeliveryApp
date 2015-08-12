@@ -65,7 +65,7 @@ public class LocationOverviewController {
         try {
             // Load the fxml file and create a new stage for the dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/manage/LocationEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/manage/LocationDialog.fxml"));
             Pane page = loader.load();
 
             // Create the dialog Stage.
@@ -78,7 +78,7 @@ public class LocationOverviewController {
             dialogStage.setScene(scene);
             
             // Set the location object into the controller
-            LocationEditDialogController controller = loader.getController();
+            LocationDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setLocation(location);
 
@@ -88,5 +88,4 @@ public class LocationOverviewController {
             e.printStackTrace();
         }
     }
-
 }
