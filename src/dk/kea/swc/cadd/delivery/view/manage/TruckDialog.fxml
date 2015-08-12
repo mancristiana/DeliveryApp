@@ -16,16 +16,15 @@
 			</columnConstraints>
 			<rowConstraints>
 				<RowConstraints vgrow="SOMETIMES" />
-            	<RowConstraints vgrow="SOMETIMES" />
-            	<RowConstraints vgrow="SOMETIMES" />
-            	<RowConstraints vgrow="SOMETIMES" />
+				<RowConstraints vgrow="SOMETIMES" />
+				<RowConstraints vgrow="SOMETIMES" />
+				<RowConstraints vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
 				<Label text="Reg. No." 		GridPane.rowIndex="0" />
       			<Label text="Capacity" 		GridPane.rowIndex="1" />
         		<Label text="Speed" 		GridPane.rowIndex="2" />
         		<Label text="Availability" 	GridPane.rowIndex="3" />
-       	
        			<TextField fx:id="truckIDField" 	GridPane.columnIndex="1" GridPane.rowIndex="0" />
        			<TextField fx:id="capacityField" 	GridPane.columnIndex="1" GridPane.rowIndex="1" />
         		<TextField fx:id="speedField" 		GridPane.columnIndex="1" GridPane.rowIndex="2" />
