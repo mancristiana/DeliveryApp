@@ -38,9 +38,9 @@ public class RouteFinishedController {
 			
 		// Resize the columns (with percentages) when the window is enlarged 
 		routeIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.10));
-		dateColumn		.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.20));
-		driverColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.60));
-		truckIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.10));
+		dateColumn		.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.25));
+		driverColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.40));
+		truckIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.25));
 
 		
 		// Initialize the table with the four columns

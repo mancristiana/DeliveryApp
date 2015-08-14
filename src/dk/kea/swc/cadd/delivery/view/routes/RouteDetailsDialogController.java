@@ -58,7 +58,7 @@ public class RouteDetailsDialogController {
     	if(isFinished) {
     		dateField.setEditable(false);
     		dateField.setDisable(true);
-    		finishedBox.setVisible(false);
+    		finishedBox.setDisable(true);
     	}
     }
 

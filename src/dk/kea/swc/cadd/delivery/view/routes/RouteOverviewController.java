@@ -38,8 +38,8 @@ public class RouteOverviewController {
 			
 		// Resize the columns (with percentages) when the window is enlarged 
 		routeIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.10));
-		driverColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.70));
-		truckIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.20));
+		driverColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.65));
+		truckIDColumn	.prefWidthProperty().bind(routeTable.widthProperty().subtract(185).multiply(0.25));
 
 		
 		// Initialize the table with the four columns
