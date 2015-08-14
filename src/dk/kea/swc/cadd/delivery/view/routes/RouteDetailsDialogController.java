@@ -38,6 +38,10 @@ public class RouteDetailsDialogController {
     private Stage dialogStage;
 	private TableView<Route> routeTable;
 	private int selectedIndex;
+	private boolean isFinished;
+	{
+		isFinished=false;
+	}
     
     
     public void setRouteTable(TableView<Route> table) {
@@ -55,10 +59,12 @@ public class RouteDetailsDialogController {
         this.dialogStage = dialogStage;
     }
     public void setFinished(boolean isFinished) {
+    	this.isFinished=isFinished;
     	if(isFinished) {
     		dateField.setEditable(false);
     		dateField.setDisable(true);
     		finishedBox.setDisable(true);
+    		totalProfitField.setEditable(true);
     	}
     }
 
@@ -96,19 +102,22 @@ public class RouteDetailsDialogController {
      */
     @FXML
     private void handleOk() {
-    	if (isInputValid()) {
-    		route.setDate(dateField.getValue());
-       	 	route.setFinished(finishedBox.isSelected());
-       	 	if(finishedBox.isSelected()) {
-       	 		routeTable.getItems().remove(selectedIndex);
-       	 		RouteDAO.finishRoute(route);
-       	 	}
-       	 	RouteDAO.updateRoute(route);
-            
-            
-            dialogStage.close();
-       }
-    	
+    	if(isFinished){
+    		dialogStage.close();
+    	} else {
+        	if (isInputValid()) {
+        		route.setDate(dateField.getValue());
+           	 	route.setFinished(finishedBox.isSelected());
+           	 	if(finishedBox.isSelected()) {
+           	 		routeTable.getItems().remove(selectedIndex);
+           	 		RouteDAO.finishRoute(route);
+           	 	}
+           	 	RouteDAO.updateRoute(route);
+                
+                
+                dialogStage.close();
+           }
+    	}
     }
 
     /**
