@@ -3,18 +3,20 @@ package dk.kea.swc.cadd.delivery.view.orders;
 import dk.kea.swc.cadd.delivery.db.LocationDAO;
 import dk.kea.swc.cadd.delivery.db.OrderDAO;
 import dk.kea.swc.cadd.delivery.model.Order;
+import dk.kea.swc.cadd.delivery.view.ui.MyAlert;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.paint.Color;
 
 public class OrderCreateController {
 
     @FXML private ChoiceBox<String> cityNameField;
     @FXML private TextField quantityField;
-    @FXML private Label cityNameValidationLabel;
-    @FXML private Label quantityValidationLabel;
-    @FXML private Label greatSuccessLabel;
+    @FXML private Label confirmationLabel;
+    private int orderCount;
 
 	private Order	order;
     /**
@@ -23,13 +25,11 @@ public class OrderCreateController {
      */
     @FXML
     private void initialize() {
+    	orderCount = 0;
     	order = new Order();
     	cityNameField.setItems(LocationDAO.getLocationNames());
     	quantityField.setText("");
-    	cityNameValidationLabel.setVisible(false);
-    	quantityValidationLabel.setVisible(false);
-    	greatSuccessLabel.setVisible(false);
-    	
+    	confirmationLabel.setVisible(false);
     }
 
     /**
@@ -37,23 +37,21 @@ public class OrderCreateController {
      */
     @FXML
     private void handleOk() {
-    	 greatSuccessLabel.setVisible(false);
     	if (isInputValid()) {
             order.setCityName(cityNameField.getSelectionModel().getSelectedItem().toString());
             order.setQuantity(Double.parseDouble(quantityField.getText()));
             
             String dbMessage = OrderDAO.createOrder(order);
-            if(dbMessage != null) {
-            	greatSuccessLabel.setStyle("-fx-color: red");
-            	greatSuccessLabel.setText(dbMessage);
-            	
+            if(dbMessage.isEmpty()) {
+            	orderCount++;
+            	confirmationLabel.setTextFill(Color.GREEN);
+            	if(orderCount==1) 	confirmationLabel.setText("1 order was successfully placed");
+            	else 				confirmationLabel.setText(orderCount+" orders were successfully placed");
             } else {
-            	greatSuccessLabel.setStyle("-fx-color: #30ab0a");
-            	greatSuccessLabel.setText("New order was successfully placed");
+            	confirmationLabel.setTextFill(Color.RED);
+            	confirmationLabel.setText(dbMessage);	
             }
-        	cityNameValidationLabel.setVisible(false);
-        	quantityValidationLabel.setVisible(false);
-            greatSuccessLabel.setVisible(true);
+            confirmationLabel.setVisible(true);
         }
     }
 
@@ -64,8 +62,6 @@ public class OrderCreateController {
     private void handleClear() {
     	cityNameField.getSelectionModel().select(null);
     	quantityField.setText("");
-    	cityNameValidationLabel.setVisible(false);
-    	quantityValidationLabel.setVisible(false);
     }
 
     /**
@@ -78,32 +74,43 @@ public class OrderCreateController {
     	boolean isValid = true;
         
     	if (cityNameField.getSelectionModel().getSelectedItem() == null) {
-    		cityNameValidationLabel.setText("Location is not selected!");
-        	cityNameValidationLabel.setVisible(true);
+        	MyAlert.show(
+					AlertType.ERROR,
+					"Invalid Fields",
+					"Please correct invalid fields",
+					"City is not selected");
         	isValid = false;
         }
     	
-    	if (quantityField.getText() == null) {
-    		quantityValidationLabel.setText("Quantity can't be null!");
-    		quantityValidationLabel.setVisible(true);
+    	if (quantityField.getText().isEmpty()) {
+        	MyAlert.show(
+					AlertType.ERROR,
+					"Invalid Fields",
+					"Please correct invalid fields",
+					"Quantity can't be null");
         	isValid = false;
         } else {
         	try {
 	            Double.parseDouble(quantityField.getText());
 	        } catch (NumberFormatException e) {
-	        	quantityValidationLabel.setText("Quantity must be a number!");
-	        	quantityValidationLabel.setVisible(true);
+	        	MyAlert.show(
+						AlertType.ERROR,
+						"Invalid Fields",
+						"Please correct invalid fields",
+						"Quantity must be a number");
 	        	isValid = false;
 	        }
         	
         	if( Double.parseDouble(quantityField.getText()) > 21) {
-        		quantityValidationLabel.setText("Quantity can't be larger than 21 tons!");
-	        	quantityValidationLabel.setVisible(true);
+	        	MyAlert.show(
+						AlertType.ERROR,
+						"Invalid Fields",
+						"Please correct invalid fields",
+						"Quantity can't be greater than 21 tons");
 	        	isValid = false;
         	}
         }
     	
         return isValid;        	
     }
-    
 }

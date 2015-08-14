@@ -44,17 +44,9 @@ public class TruckDialogController {
      * @param truck
      */
 	public void setTruck(Truck truck){
-		
 		if (truck == null) {
 			this.truck = new Truck();
 			isNew = true;
-			//no need for these, as dialog is constructed again everytime
-//			capacityField.setText("");
-//			speedField.setText("");
-//		    availableBox.setSelected(false);
-//		   
-//		    capacityField.setEditable(true);
-//		    speedField.setEditable(true);
 		} else {
 			this.truck = truck;
 			isNew = false;
@@ -66,7 +58,6 @@ public class TruckDialogController {
 		    truckIDField.setEditable(false);
 		    capacityField.setEditable(false);
 		    speedField.setEditable(false);
-	    
 		}
 	}
 	
@@ -169,4 +160,3 @@ public class TruckDialogController {
 	        }
 	    }
 	}
-

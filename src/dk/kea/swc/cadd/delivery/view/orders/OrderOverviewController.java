@@ -57,7 +57,7 @@ public class OrderOverviewController {
 		editColumn		.setCellFactory(cellData -> new ButtonCell<Order>("edit-button"){
 			@Override
 			public void onClick() {
-				 showOrderEditDialog(orderTable.getItems().get(getTableRow().getIndex()));
+				 showOrderDialog(orderTable.getItems().get(getTableRow().getIndex()));
 			}});
 		deleteColumn	.setCellFactory(cellData -> new ButtonCell<Order>("delete-button"){
 			@Override
@@ -68,7 +68,7 @@ public class OrderOverviewController {
 			}});
 	}
 
-    public void showOrderEditDialog(Order order) {
+    public void showOrderDialog(Order order) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -95,4 +95,12 @@ public class OrderOverviewController {
             e.printStackTrace();
         }
     }
+    
+	/** 
+	 * The add button's action, which is invoked whenever the add button is clicked.
+	 */
+	@FXML
+	private void handleAdd() {
+		showOrderDialog(null);
+	}
 }
