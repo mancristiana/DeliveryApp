@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane id="page-container" minWidth="400" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.orders.OrderDialogController">
+<BorderPane id="page-container" prefWidth="400" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.orders.OrderDialogController">
 	<center>
 		<GridPane>
 			<columnConstraints>
@@ -30,7 +30,7 @@
 		<Label id="page-title" text="Order" />
 	</top>
 	<bottom>
-		<HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+		<HBox alignment="CENTER_RIGHT">
 			<children>
 				<Button mnemonicParsing="false" onAction="#handleOk" text="Ok">
 					<HBox.margin>

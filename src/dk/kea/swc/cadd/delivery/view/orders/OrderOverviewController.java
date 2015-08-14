@@ -95,12 +95,4 @@ public class OrderOverviewController {
             e.printStackTrace();
         }
     }
-    
-	/** 
-	 * The add button's action, which is invoked whenever the add button is clicked.
-	 */
-	@FXML
-	private void handleAdd() {
-		showOrderDialog(null);
-	}
 }

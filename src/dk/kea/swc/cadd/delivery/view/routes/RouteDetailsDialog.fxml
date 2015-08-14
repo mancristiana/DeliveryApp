@@ -1,76 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane minHeight="180.0" minWidth="300.0" prefHeight="390.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.routes.RouteDetailsDialogController">
+<BorderPane id="page-container" prefWidth="350" prefHeight="400" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.kea.swc.cadd.delivery.view.routes.RouteDetailsDialogController">
    <center>
-      <GridPane prefHeight="75.0">
+      <GridPane>
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="101.0" prefWidth="154.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="102.0" prefWidth="215.0" />
-            <ColumnConstraints />
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="251.0" minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="269.0" minHeight="28.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="269.0" minHeight="28.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="270.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="277.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="269.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="269.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="269.0" minHeight="10.0" prefHeight="97.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Label text="Date" />
-            <Label text="Driver" GridPane.rowIndex="1" />
-            <Label text="Contact" GridPane.rowIndex="2" />
-            <Label text="Truck" GridPane.rowIndex="3" />
-            <Label text="Storage" GridPane.rowIndex="4" />
-            <Label text="Finished" GridPane.rowIndex="6" />
+            <Label text="Driver" 	GridPane.rowIndex="1" />
+            <Label text="Contact" 	GridPane.rowIndex="2" />
+            <Label text="Truck" 	GridPane.rowIndex="3" />
+            <Label text="Storage" 	GridPane.rowIndex="4" />
+            <Label text="Total Profit" GridPane.rowIndex="5" />
+            <Label text="Finished" 	GridPane.rowIndex="6" />
             
             <DatePicker fx:id="dateField" GridPane.columnIndex="1" />
             <TextField fx:id="driverField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="contactField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="truckField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="storageField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="totalProfitField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <CheckBox fx:id="finishedBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             
-            <TableView fx:id="orderTable" prefHeight="258.0" prefWidth="519.0" GridPane.columnSpan="3" GridPane.rowIndex="7">
+            <TableView fx:id="orderTable" prefHeight="100" GridPane.columnSpan="2" GridPane.rowIndex="7">
               <columns>
-                <TableColumn fx:id="locationColumn" prefWidth="70.0" text="Location" />
-                <TableColumn fx:id="quantityColumn" prefWidth="70.0" text="Quantity (tons)" />
-                <TableColumn fx:id="priceColumn" prefWidth="70.0" text="Price (RON)" />
-                <TableColumn fx:id="profitColumn" prefWidth="69.0" text="Profit (RON)" />
+                <TableColumn fx:id="locationColumn" prefWidth="100" text="Location" />
+                <TableColumn fx:id="quantityColumn" prefWidth="90" text="Quantity" />
+                <TableColumn fx:id="priceColumn" prefWidth="75" text="Price" />
+                <TableColumn fx:id="profitColumn" prefWidth="75" text="Profit" />
               </columns>
             </TableView>
-            <Label text="Total Profit" GridPane.rowIndex="5" />
-            <TextField fx:id="totalProfitField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
          </children>
-         <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </BorderPane.margin>
       </GridPane>
    </center>
-   <top>
-      <HBox BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Route details">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children>
-         <BorderPane.margin>
-            <Insets left="10.0" top="10.0" />
-         </BorderPane.margin>
-      </HBox>
-   </top>
+	<top>
+		<Label id="page-title" text="Route details" />
+	</top>
    <bottom>
-      <HBox alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="282.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT">
          <children>
             <Button mnemonicParsing="false" onAction="#handleOk" text="Ok">
                <HBox.margin>
@@ -79,9 +65,9 @@
             </Button>
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
          </children>
-         <BorderPane.margin>
-            <Insets bottom="10.0" right="10.0" />
-         </BorderPane.margin>
       </HBox>
    </bottom>
+   	<stylesheets>
+		<URL value="@../ui/resources/General.css" />
+	</stylesheets>
 </BorderPane>

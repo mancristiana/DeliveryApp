@@ -60,11 +60,11 @@ public class RouteCreateController {
 		orderTable.setItems(OrderDAO.getOrders(false));
 		
 		//Resize the columns (with percentages) when the window is enlarged
-		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.05));
-		cityNameColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.35));
-		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
-		priceColumn		.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
-		profitColumn	.prefWidthProperty().bind(orderTable.widthProperty().multiply(0.20));
+		orderIDColumn	.prefWidthProperty().bind(orderTable.widthProperty().subtract(50).multiply(0.10));
+		cityNameColumn	.prefWidthProperty().bind(orderTable.widthProperty().subtract(50).multiply(0.25));
+		quantityColumn	.prefWidthProperty().bind(orderTable.widthProperty().subtract(50).multiply(0.25));
+		priceColumn		.prefWidthProperty().bind(orderTable.widthProperty().subtract(50).multiply(0.20));
+		profitColumn	.prefWidthProperty().bind(orderTable.widthProperty().subtract(50).multiply(0.20));
 		
 		// Initialize the table with the four columns.
 		selectColumn	.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
@@ -90,7 +90,7 @@ public class RouteCreateController {
     private void handleCreate() {
     	//If no orders/items selected, show an alert
     	if(selectedItems.size() == 0 ){ 
-    		showAlert(
+    		MyAlert.show(
     				AlertType.ERROR,
     				"Invalid Fields",
     				"Please correct invalid fields",
@@ -110,7 +110,7 @@ public class RouteCreateController {
     			
     			// If there aren't available ones, show error message and return
     			if(driverTruck.size() == 0){
-    				showAlert(
+    				MyAlert.show(
     						AlertType.ERROR, 
     						"Ops",
     						"",
@@ -158,7 +158,7 @@ public class RouteCreateController {
     				if(selectedItems.get(i).getRouteID() != 0){
     					cityNames.add(selectedItems.get(i).getCityName()); // Put city names in a set (for display)
     					selectedItems.remove(i);
-    					i=-1; //TODO WTF is happening here??
+    					i=-1; 
     				}
     			}
     			
@@ -167,11 +167,11 @@ public class RouteCreateController {
     							 "Driver " 	 + driver.getName()		+ "\n" +
     							 "Truck  " 	 + truck.getTruckID() + " (capacity " + truck.getCapacity() + ")\n" +
     							 "Locations " 	 + cityNames.toString().replaceAll("[^a-zA-Z ,]", "");
-    			showAlert(
+    			MyAlert.show(
     					AlertType.INFORMATION,
     					"Success!",
     					"New route was successfully created",
-    					details); //TODO Alert cleanup
+    					details);
     			
     		}
     		MainApp.showPage("RouteOverview");   
@@ -184,8 +184,5 @@ public class RouteCreateController {
     	result &= (order.getStorageName().equals(storage) || storage == null); // Check that all orders have the same storage (if this is the first order, then storage is still null)
     	result &=  storageMap.get(order.getStorageName()) >= totalQuantity + order.getQuantity(); // Check if there is enough quantity in storage for the order
     	return result;
-    }
-    private void showAlert(AlertType type, String title, String header, String content) {
-    	MyAlert.show(type,title,header,content);
     }
 }
